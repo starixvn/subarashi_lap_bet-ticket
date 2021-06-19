@@ -1,0 +1,10 @@
+const BetType = {
+    CASHOUT: 911,
+    MIXPARLAY: 9,
+    SYSTEMPARLAY: 29,
+    MIXPARLAY_BETRADAR: 2799,
+    MIN_FASTMARKET: 221,
+    MAX_FASTMARKET: 227
+}
+
+export default BetType

@@ -1,0 +1,192 @@
+@import "../../abstracts/variables";
+@import "../../components/sortableheader";
+@import "./common";
+
+body {
+    background: $white;
+}
+
+.table {
+    table-layout: fixed;
+    a {
+        color: $colorHyperlink;
+        text-decoration: none;
+
+        &:hover, &:focus, &:active {
+            text-decoration: none;
+        }
+    }
+
+    > thead {
+        > tr {
+            > th {
+                vertical-align: middle;
+                text-align: center;
+                background: $bgHeaderTableLevel1;
+                color: $white;
+                border: 1px solid #ffffff;
+                border-top: 1px solid $colorBorderTable;
+                font-weight: 500;
+                padding: 2px 5px;
+                border-radius: 0;
+
+                &:first-child {
+                    border-left-color: $colorBorderTable !important;
+                }
+
+                &:last-child {
+                    border-right-color: $colorBorderTable !important;
+                }
+            }
+        }
+    }
+
+    > tbody {
+        tr {
+            td {
+                border: 1px solid #d6d6d6;
+                color: #404040;
+                padding: 2px 5px;
+                background: $white;
+                vertical-align: top;
+            }
+
+            &:hover td {
+                background: #fcf4df;
+            }
+
+            &.total td {
+                background: $bgTotal;
+            }
+
+            &.highlight td {
+                background: #f7dbb6;
+                font-weight: bold;
+            }
+        }
+    }
+}
+
+.page-results {
+    margin: 1.5rem 1.5rem 0;
+}
+
+.page-form {
+    .input-field {
+        input[type=radio] + label {
+            left: 0;
+            padding-right: 10px;
+            padding-left: 25px;
+        }
+    }
+
+    input[type="radio"] + label {
+        margin: 0 0 10px 0;
+    }
+
+    .date-range {
+        min-width: 200px;
+    }
+
+    .button-block {
+        .btn {
+            margin-bottom: 10px;
+        }
+    }
+
+    @media only screen and (min-width: 993px) {
+        .button-block {
+            width: 10% !important;
+        }
+    }
+}
+
+.page-results {
+    .result-content {
+        box-shadow: none;
+        border: 0;
+        margin: 0.5rem 0 1rem 0;
+    }
+}
+
+.calendar .icon-calendar {
+    color: #4c6375;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.negative-number, .positive-number {
+    color: $colorPositiveNumber;
+}
+
+.highlight, .table > tbody > tr > td.highlight {
+    background-color: $colorHighlight;
+}
+
+//---------------------- Form input style customize ----------------------//
+
+table {
+    td, th {
+        border-radius: 0;
+    }
+
+    tbody {
+        tr {
+            &.row-group-level1 {
+                td {
+                    background: $bgRowGroupLevel1;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+}
+
+.col-small {
+    width: 5%;
+}
+
+.col-extra-small {
+    width: 2%;
+}
+
+.col-medium {
+    width: 15%;
+
+    &.small {
+        width: 10%;
+    }
+
+    &.large {
+        width: 20%;
+    }
+}
+
+.col-large {
+    width: 40%;
+
+    &.small {
+        width: 35%;
+    }
+}
+
+.col-child {
+    width: 10%;
+
+    &.small {
+        width: 6%;
+    }
+
+    &.medium {
+        width: 7.5%;
+    }
+}
+
+
+.table-content {
+    padding-bottom: 15px;
+
+    .table{
+        margin-top: 5px;
+    }
+}

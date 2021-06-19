@@ -1,0 +1,23 @@
+@import './vendors/materialize/materialize-content';
+@import './base/common';
+
+html {
+  height: 100%;
+}
+
+.wrapper {
+    position: relative;
+    overflow-y: auto;
+  }
+  
+  .collapsible-body {
+    border-bottom: none;
+  }
+  
+  input[type=text]::-ms-clear {
+    display: none;
+  }
+  
+  .text-bold {
+    font-weight: bold;
+  }

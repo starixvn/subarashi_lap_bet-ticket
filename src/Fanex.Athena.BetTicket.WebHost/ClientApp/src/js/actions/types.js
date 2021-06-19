@@ -1,0 +1,2 @@
+export const TOGGLE_LOADER = "TOGGLE_LOADER";
+export const SET_REQUEST_PARAM = "SET_REQUEST_PARAM"

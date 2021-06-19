@@ -1,0 +1,57 @@
+﻿@{
+    Layout = "_Layout";
+    ViewData["Title"] = ViewResources.DetailedBetlist;
+}
+@using System.Text.Json;
+@inject Fanex.Athena.BetTicket.Infrastructure.Services.IContextService contextService
+@model BetListDetailMetaModel
+
+@{
+    var accessToken = await contextService.AccessToken;
+}
+
+@section pagecss {
+    <environment include="Development">
+        <link href="~/css/dev/betlist-detail.css" rel="stylesheet" type="text/css" asp-append-version="true" />
+    </environment>
+    <environment exclude="Development">
+        <link href="~/css/pro/betlist-detail.css" rel="stylesheet" type="text/css" asp-append-version="true" />
+    </environment>
+}
+
+@section pagejs {
+    <environment include="Development">
+        <script src="~/js/dev/betlist-detail.js" asp-append-version="true"></script>
+        <script async src="~/js/dev/event-builder.js" id="event-builder-script" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/js/pro/betlist-detail.js" asp-append-version="true"></script>
+        <script async src="~/js/pro/event-builder.js" id="event-builder-script" asp-append-version="true"></script>
+    </environment>
+}
+
+@section globaljscode {
+    window.initialState = {
+    isLoading: false,
+    requestParam: {
+    baseCurrency: '@Model.BaseCurrency',
+    custId: @Model.CustId,
+    transId: @Model.TransId,
+    transType: @Model.TransType,
+    refCode: @Model.RefCode,
+    date: '@Model.Date.ToString("MM/dd/yyyy", System.Globalization.CultureInfo.InvariantCulture)'
+    }
+    };
+
+    window._AppData = {
+    hiddenColumns: @Html.Raw(JsonSerializer.Serialize(ViewBag.HiddenColumns)),
+    access_token: '@accessToken',
+    isAllowedCustomerComm: @Model.HasPlayerCom.ToString().ToLowerInvariant(),
+    isShowTotal: @ViewBag.IsShowGrandTotal.ToString().ToLowerInvariant(),
+    apiUrl: '@ViewBag.ApiUrl',
+    exportUrl: '@ViewBag.ExportUrl',
+    exportFileName: '@ViewBag.ExportFileName'
+    };
+}
+<div id="app-container">
+</div>

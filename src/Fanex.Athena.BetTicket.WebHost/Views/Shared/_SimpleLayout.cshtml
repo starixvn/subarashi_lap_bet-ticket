@@ -1,0 +1,28 @@
+﻿@{
+    Layout = null;
+    var rootUrl = Url.Content("~");
+    var title = "ViewResources.BetTicket" + " - " + ViewData["Title"];
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>@title</title>
+    <meta name="description" content="Bet Ticket Result" />
+    <base href="@rootUrl" />
+    <environment include="Development">
+        <link href="~/css/dev/simple-main.css" asp-append-version="true" rel="stylesheet" type="text/css" />
+    </environment>
+    <environment exclude="Development">
+        <link href="~/css/pro/simple-main.css" asp-append-version="true" rel="stylesheet" type="text/css" />
+    </environment>
+    @RenderSection("pagecss", required: false)
+</head>
+<body>
+    <div class="wrapper">
+        @RenderBody()
+    </div>
+</body>
+</html>

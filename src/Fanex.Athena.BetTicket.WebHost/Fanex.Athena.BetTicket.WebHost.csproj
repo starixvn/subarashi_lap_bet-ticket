@@ -1,0 +1,79 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\fonts\flags\flags\cn.svg" />
+    <Content Remove="wwwroot\fonts\flags\flags\gb.svg" />
+    <Content Remove="wwwroot\fonts\flags\flags\kr.svg" />
+    <Content Remove="wwwroot\fonts\flags\flags\tw.svg" />
+    <Content Remove="wwwroot\fonts\font-icon\fonts\icomoon.eot" />
+    <Content Remove="wwwroot\fonts\font-icon\fonts\icomoon.svg" />
+    <Content Remove="wwwroot\fonts\font-icon\fonts\icomoon.ttf" />
+    <Content Remove="wwwroot\fonts\font-icon\fonts\icomoon.woff" />
+    <Content Remove="wwwroot\fonts\montserrat\Montserrat-Bold.ttf" />
+    <Content Remove="wwwroot\fonts\montserrat\Montserrat-Hairline.woff" />
+    <Content Remove="wwwroot\fonts\montserrat\Montserrat-Regular.ttf" />
+    <Content Remove="wwwroot\fonts\roboto\Roboto-Regular.ttf" />
+    <Content Remove="wwwroot\fonts\roboto\Roboto-Regular.woff" />
+    <Content Remove="wwwroot\fonts\roboto\Roboto-Regular.woff2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Fanex.Athena.BetTicket.Infrastructure\Fanex.Athena.BetTicket.Infrastructure.csproj" />
+    <ProjectReference Include="..\Modules\Fanex.Athena.BetTicket.Detail\Fanex.Athena.BetTicket.Detail.csproj" />
+    <ProjectReference Include="..\Modules\Fanex.Athena.BetTicket.Result\Fanex.Athena.BetTicket.Result.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Fanex.Data.SqlServer" Version="4.2.2" />
+    <PackageReference Include="Fanex.Logging.RabbitMQ" Version="1.0.1" />
+    <PackageReference Include="Fanex.Logging.Sentry.RavenClient" Version="1.0.1" />
+    <PackageReference Include="IdentityModel.AspNetCore.OAuth2Introspection" Version="5.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.7" Condition="'$(Configuration)' == 'Debug'"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ClientApp\src\css\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\fonts\flags\flags\cn.svg" />
+    <None Include="wwwroot\fonts\flags\flags\gb.svg" />
+    <None Include="wwwroot\fonts\flags\flags\kr.svg" />
+    <None Include="wwwroot\fonts\flags\flags\tw.svg" />
+    <None Include="wwwroot\fonts\font-icon\fonts\icomoon.eot" />
+    <None Include="wwwroot\fonts\font-icon\fonts\icomoon.svg" />
+    <None Include="wwwroot\fonts\font-icon\fonts\icomoon.ttf" />
+    <None Include="wwwroot\fonts\font-icon\fonts\icomoon.woff" />
+    <None Include="wwwroot\fonts\montserrat\Montserrat-Bold.ttf" />
+    <None Include="wwwroot\fonts\montserrat\Montserrat-Hairline.woff" />
+    <None Include="wwwroot\fonts\montserrat\Montserrat-Regular.ttf" />
+    <None Include="wwwroot\fonts\roboto\Roboto-Regular.ttf" />
+    <None Include="wwwroot\fonts\roboto\Roboto-Regular.woff" />
+    <None Include="wwwroot\fonts\roboto\Roboto-Regular.woff2" />
+    <None Include="wwwroot\images\excel-icon.svg" />
+    <None Include="wwwroot\images\logo-text.svg" />
+    <None Include="wwwroot\images\new-system.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\fonts\font-icon\icomoon\selection.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update=".babelrc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="App_Data\SpConfig\FanexSpName.PROD.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="App_Data\SpConfig\FanexSpName.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
