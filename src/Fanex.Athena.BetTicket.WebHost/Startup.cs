@@ -12,17 +12,14 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Proxy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Primitives;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http.Headers;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Fanex.Athena.BetTicket.WebHost
@@ -127,7 +124,7 @@ namespace Fanex.Athena.BetTicket.WebHost
                     message.Headers.Add(proxy.TokenKey, proxy.TokenValue);
 
                     const string Language = "Language";
-                    if(originalRequest.Query.TryGetValue(Language, out StringValues language))
+                    if (originalRequest.Query.TryGetValue(Language, out StringValues language))
                     {
                         message.Headers.Add(Language, language.First());
                     }
@@ -185,6 +182,7 @@ namespace Fanex.Athena.BetTicket.WebHost
             }
             else
             {
+                app.UseDeveloperExceptionPage();
                 app.UseHsts();
                 app.UseHttpsRedirection();
             }

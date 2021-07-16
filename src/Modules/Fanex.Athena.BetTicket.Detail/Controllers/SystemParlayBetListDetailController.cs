@@ -1,9 +1,7 @@
 ﻿using Fanex.Athena.BetTicket.Detail.MetaModels;
-using Fanex.Athena.BetTicket.Detail.ViewModels;
 using Fanex.Athena.BetTicket.Infrastructure.Attributes;
 using Fanex.Athena.BetTicket.Infrastructure.ConsoleClient;
 using Fanex.Athena.BetTicket.Infrastructure.Services;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
