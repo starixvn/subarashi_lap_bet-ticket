@@ -1,24 +1,19 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Fanex.Athena.BetTicket.WebHost.Controllers
 {
-    public class HomeController : ControllerBase
+    public class HomeController : Controller
     {
-        public HomeController()
-        {
-
-        }
-
         [HttpGet]
         [Authorize]
-        public string Index()
+        public string Index() => "BT is running";
+
+        [AllowAnonymous]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error(int code = 500)
         {
-            return "tesst";
+            return View(code);
         }
     }
 }

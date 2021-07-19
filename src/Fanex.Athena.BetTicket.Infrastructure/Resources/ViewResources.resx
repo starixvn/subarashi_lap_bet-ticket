@@ -160,6 +160,18 @@
   <data name="DetailedBetlist" xml:space="preserve">
     <value>Detailed Bet list</value>
   </data>
+  <data name="HttpError_403" xml:space="preserve">
+    <value>Access denied</value>
+  </data>
+  <data name="HttpError_404" xml:space="preserve">
+    <value>Page not found, please check the address</value>
+  </data>
+  <data name="HttpError_Default" xml:space="preserve">
+    <value>Oops... you are here because of a system error, please notify the administrators</value>
+  </data>
+  <data name="InvalidRequestMsg" xml:space="preserve">
+    <value>Request is not valid</value>
+  </data>
   <data name="JackpotWonDetails" xml:space="preserve">
     <value>Jackpot Won Details</value>
   </data>
@@ -328,6 +340,9 @@
   <data name="SystemParlayDetailNote" xml:space="preserve">
     <value>Win Loss is rounded for reference only. Therefore, Sub Total amount may be different from the sum of Win Loss when it sums all the actual Win Loss amounts.</value>
     <comment>78931</comment>
+  </data>
+  <data name="TokenWasExpired" xml:space="preserve">
+    <value>Token was expired</value>
   </data>
   <data name="Total" xml:space="preserve">
     <value>Total</value>

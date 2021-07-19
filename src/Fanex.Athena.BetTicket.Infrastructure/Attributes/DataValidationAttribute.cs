@@ -1,4 +1,5 @@
-﻿using Fanex.Athena.BetTicket.Infrastructure.Models;
+﻿using Fanex.Athena.BetTicket.Infrastructure.Extensions;
+using Fanex.Athena.BetTicket.Infrastructure.Models;
 using Fanex.Athena.BetTicket.Infrastructure.Services;
 using Fanex.Core.Utils;
 using Microsoft.AspNetCore.Mvc;
@@ -45,7 +46,7 @@ namespace Fanex.Athena.BetTicket.Infrastructure.Attributes
             if (!isValid)
             {
                 context.Result = new StatusCodeResult(400);
-                //context.HandleInvalidRequest(ErrorMsg);
+                context.HandleInvalidRequest(ErrorMsg);
             }
             else
             {

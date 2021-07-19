@@ -178,6 +178,42 @@ namespace Fanex.Athena.BetTicket.Infrastructure.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Access denied.
+        /// </summary>
+        public static string HttpError_403 {
+            get {
+                return ResourceManager.GetString("HttpError_403", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Page not found, please check the address.
+        /// </summary>
+        public static string HttpError_404 {
+            get {
+                return ResourceManager.GetString("HttpError_404", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Oops... you are here because of a system error, please notify the administrators.
+        /// </summary>
+        public static string HttpError_Default {
+            get {
+                return ResourceManager.GetString("HttpError_Default", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request is not valid.
+        /// </summary>
+        public static string InvalidRequestMsg {
+            get {
+                return ResourceManager.GetString("InvalidRequestMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Jackpot Won Details.
         /// </summary>
         public static string JackpotWonDetails {
@@ -597,6 +633,15 @@ namespace Fanex.Athena.BetTicket.Infrastructure.Resources {
         public static string SystemParlayDetailNote {
             get {
                 return ResourceManager.GetString("SystemParlayDetailNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Token was expired.
+        /// </summary>
+        public static string TokenWasExpired {
+            get {
+                return ResourceManager.GetString("TokenWasExpired", resourceCulture);
             }
         }
         

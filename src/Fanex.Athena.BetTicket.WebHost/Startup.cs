@@ -1,5 +1,6 @@
 using Fanex.Athena.BetTicket.Infrastructure;
 using Fanex.Athena.BetTicket.Infrastructure.ConsoleClient;
+using Fanex.Athena.BetTicket.Infrastructure.Extensions;
 using Fanex.Data;
 using Fanex.Data.SqlServer;
 using IdentityModel.AspNetCore.OAuth2Introspection;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Proxy;
@@ -136,6 +138,7 @@ namespace Fanex.Athena.BetTicket.WebHost
                     }
                     message.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
                 };
+
                 options.PrepareUri = originalRequest =>
                 {
                     var path = originalRequest.Path.Value;
@@ -168,36 +171,39 @@ namespace Fanex.Athena.BetTicket.WebHost
                     return Task.FromResult(new ProviderCultureResult(lang));
                 }));
             });
+
+            services.AddHealthCheck(Configuration);
+            services.AddUnderMaintenance(Configuration);
+
+            services.Configure<ForwardedHeadersOptions>(options =>
+            {
+                options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto | ForwardedHeaders.XForwardedHost;
+                options.KnownNetworks.Clear();
+                options.KnownProxies.Clear();
+            });
         }
 
         public void Configure(IApplicationBuilder app)
         {
             app.UseForwardedHeaders();
 
-            var isDev = HostingEnvironment.IsDevelopment();
-
-            if (isDev)
+            if (string.Equals(Configuration["UseErrorHandler"], "1"))
             {
-                app.UseDeveloperExceptionPage();
+                app.UseErrorHandler();
             }
             else
             {
                 app.UseDeveloperExceptionPage();
+            }
+
+            if (!HostingEnvironment.IsDevelopment())
+            {
                 app.UseHsts();
                 app.UseHttpsRedirection();
             }
 
-            app.UseStaticFiles(new StaticFileOptions
-            {
-                OnPrepareResponse = ctx =>
-                {
-                    const int OneYear = 60 * 60 * 24 * 365;
-                    ctx.Context.Response.Headers[Microsoft.Net.Http.Headers.HeaderNames.CacheControl] = isDev ?
-                    "no-cache" : "public,max-age=" + OneYear;
-                    ctx.Context.Response.Headers[Microsoft.Net.Http.Headers.HeaderNames.AccessControlAllowOrigin] = "*";
-                }
-            });
-
+            app.UseStaticResource(HostingEnvironment.IsDevelopment());
+            app.UseHealthCheck(Configuration);
             app.UseRouting();
             app.UseCors();
             app.UseAuthentication();
