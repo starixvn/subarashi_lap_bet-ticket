@@ -1,7 +1,7 @@
 ﻿@{
     Layout = null;
     var rootUrl = Url.Content("~");
-    var title = "ViewResources.BetTicket" + " - " + ViewData["Title"];
+    var title = ViewResources.BetTicket + " - " + ViewData["Title"];
 }
 
 <!DOCTYPE html>
@@ -12,12 +12,7 @@
     <title>@title</title>
     <meta name="description" content="Bet Ticket Result" />
     <base href="@rootUrl" />
-    <environment include="Development">
-        <link href="~/css/dev/simple-main.css" asp-append-version="true" rel="stylesheet" type="text/css" />
-    </environment>
-    <environment exclude="Development">
-        <link href="~/css/pro/simple-main.css" asp-append-version="true" rel="stylesheet" type="text/css" />
-    </environment>
+    <link href="~/css/simple-main.css" asp-append-version="true" rel="stylesheet" type="text/css" />
     @RenderSection("pagecss", required: false)
 </head>
 <body>

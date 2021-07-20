@@ -3,12 +3,7 @@
     ViewData["Title"] = ViewResources.Result;
 }
 @section pagecss {
-    <environment include="Development">
-        <link href="~/css/dev/result.css" asp-append-version="true" rel="stylesheet" type="text/css" />
-    </environment>
-    <environment exclude="Development">
-        <link href="~/css/pro/result.css" asp-append-version="true" rel="stylesheet" type="text/css" />
-    </environment>
+    <link href="~/css/result.css" asp-append-version="true" rel="stylesheet" type="text/css" />
 }
 
 <div class="result-container">

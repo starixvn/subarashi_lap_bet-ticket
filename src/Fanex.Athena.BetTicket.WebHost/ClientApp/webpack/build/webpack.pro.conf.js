@@ -3,11 +3,12 @@ var utils = require('./utils');
 var baseWebpackConfigGenerator = require('./webpack.base.conf');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
 var pathConfig = require('../config/path');
-var environment = "pro";
-var baseConfigs = baseWebpackConfigGenerator(environment);
 
-var cssRootPath = `${pathConfig.cssPaths.build}/${environment}`;
-var jsRootPath = `${pathConfig.scriptPaths.build}/${environment}`;
+var baseConfigs = baseWebpackConfigGenerator();
+
+var cssRootPath = pathConfig.cssPaths.build;
+var jsRootPath = pathConfig.scriptPaths.build;
+
 module.exports = merge(baseConfigs,
     utils.setDefinePlugin('process.env.NODE_ENV', 'production'),
     {

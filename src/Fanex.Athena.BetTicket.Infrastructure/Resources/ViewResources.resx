@@ -120,6 +120,9 @@
   <data name="BetList" xml:space="preserve">
     <value>Bet List</value>
   </data>
+  <data name="BetTicket" xml:space="preserve">
+    <value>Bet Ticket</value>
+  </data>
   <data name="BoughtAmount" xml:space="preserve">
     <value>Bought Amount</value>
     <comment>#71727</comment>

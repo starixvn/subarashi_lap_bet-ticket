@@ -70,6 +70,15 @@ namespace Fanex.Athena.BetTicket.Infrastructure.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bet Ticket.
+        /// </summary>
+        public static string BetTicket {
+            get {
+                return ResourceManager.GetString("BetTicket", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bought Amount.
         /// </summary>
         public static string BoughtAmount {
