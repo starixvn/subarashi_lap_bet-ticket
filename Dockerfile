@@ -18,8 +18,8 @@ WORKDIR /src
 
 COPY NuGet.Config .
 
-COPY src/Fanex.Athena.BetTicket.Infrastructure/Fanex.Athena.BetTicket.Infrastructure.csproj ./Fanex.Athena.BetTicket.Infrastructure/
-RUN dotnet restore Fanex.Athena.BetTicket.Infrastructure/Fanex.Athena.BetTicket.Infrastructure.csproj -v n
+COPY src/Fanex.Athena.BetTicket.Core/Fanex.Athena.BetTicket.Core.csproj ./Fanex.Athena.BetTicket.Core/
+RUN dotnet restore Fanex.Athena.BetTicket.Core/Fanex.Athena.BetTicket.Core.csproj -v n
 
 COPY src/Modules/Fanex.Athena.BetTicket.Detail/Fanex.Athena.BetTicket.Detail.csproj ./Modules/Fanex.Athena.BetTicket.Detail/
 RUN dotnet restore Modules/Fanex.Athena.BetTicket.Detail/Fanex.Athena.BetTicket.Detail.csproj -v n

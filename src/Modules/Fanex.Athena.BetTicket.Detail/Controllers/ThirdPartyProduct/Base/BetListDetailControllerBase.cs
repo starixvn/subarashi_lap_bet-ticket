@@ -1,10 +1,10 @@
 ﻿using Fanex.Athena.BetTicket.Detail.Constants;
 using Fanex.Athena.BetTicket.Detail.MetaModels;
 using Fanex.Athena.BetTicket.Detail.ViewModels;
-using Fanex.Athena.BetTicket.Infrastructure.Attributes;
-using Fanex.Athena.BetTicket.Infrastructure.ConsoleClient;
-using Fanex.Athena.BetTicket.Infrastructure.Resources;
-using Fanex.Athena.BetTicket.Infrastructure.Services;
+using Fanex.Athena.BetTicket.Core.Attributes;
+using Fanex.Athena.BetTicket.Core.ConsoleClient;
+using Fanex.Athena.BetTicket.Core.Resources;
+using Fanex.Athena.BetTicket.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Text.Json;

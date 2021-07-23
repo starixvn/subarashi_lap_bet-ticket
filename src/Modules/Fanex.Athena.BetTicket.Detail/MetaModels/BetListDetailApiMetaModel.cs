@@ -1,4 +1,4 @@
-﻿using Fanex.Athena.BetTicket.Infrastructure.Models;
+﻿using Fanex.Athena.BetTicket.Core.Models;
 using Fanex.Core.Utils;
 
 namespace Fanex.Athena.BetTicket.Detail.MetaModels

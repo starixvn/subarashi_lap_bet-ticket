@@ -1,6 +1,6 @@
-using Fanex.Athena.BetTicket.Infrastructure;
-using Fanex.Athena.BetTicket.Infrastructure.ConsoleClient;
-using Fanex.Athena.BetTicket.Infrastructure.Extensions;
+using Fanex.Athena.BetTicket.Core;
+using Fanex.Athena.BetTicket.Core.ConsoleClient;
+using Fanex.Athena.BetTicket.Core.Extensions;
 using Fanex.Data;
 using Fanex.Data.SqlServer;
 using IdentityModel.AspNetCore.OAuth2Introspection;

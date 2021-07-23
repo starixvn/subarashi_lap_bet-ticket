@@ -1,8 +1,8 @@
 ﻿using Fanex.Athena.BetTicket.Detail.Constants;
 using Fanex.Athena.BetTicket.Detail.MetaModels;
-using Fanex.Athena.BetTicket.Infrastructure.ConsoleClient;
-using Fanex.Athena.BetTicket.Infrastructure.Resources;
-using Fanex.Athena.BetTicket.Infrastructure.Services;
+using Fanex.Athena.BetTicket.Core.ConsoleClient;
+using Fanex.Athena.BetTicket.Core.Resources;
+using Fanex.Athena.BetTicket.Core.Services;
 
 namespace Fanex.Athena.BetTicket.Detail.Controllers
 {

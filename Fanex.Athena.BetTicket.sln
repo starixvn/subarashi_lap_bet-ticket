@@ -15,11 +15,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fanex.Athena.BetTicket.Resu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fanex.Athena.BetTicket.Detail", "src\Modules\Fanex.Athena.BetTicket.Detail\Fanex.Athena.BetTicket.Detail.csproj", "{2947A0AC-22A6-465B-9DA9-A30E3FEA0907}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fanex.Athena.BetTicket.Infrastructure", "src\Fanex.Athena.BetTicket.Infrastructure\Fanex.Athena.BetTicket.Infrastructure.csproj", "{65285E8F-4D48-4F4C-8483-ACCA275B68E2}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libs", "libs", "{602F84F5-2720-4A7A-90FB-24602F397161}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.AspNetCore.Proxy", "libs\Microsoft.AspNetCore.Proxy.csproj", "{A68347C8-09B5-4C68-9A29-5BD71C911233}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fanex.Athena.BetTicket.Core", "src\Fanex.Athena.BetTicket.Core\Fanex.Athena.BetTicket.Core.csproj", "{6E9142D7-A0AB-4BD8-B7EA-AE3E22F2F0FE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,14 +39,14 @@ Global
 		{2947A0AC-22A6-465B-9DA9-A30E3FEA0907}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2947A0AC-22A6-465B-9DA9-A30E3FEA0907}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2947A0AC-22A6-465B-9DA9-A30E3FEA0907}.Release|Any CPU.Build.0 = Release|Any CPU
-		{65285E8F-4D48-4F4C-8483-ACCA275B68E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{65285E8F-4D48-4F4C-8483-ACCA275B68E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{65285E8F-4D48-4F4C-8483-ACCA275B68E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{65285E8F-4D48-4F4C-8483-ACCA275B68E2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A68347C8-09B5-4C68-9A29-5BD71C911233}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A68347C8-09B5-4C68-9A29-5BD71C911233}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A68347C8-09B5-4C68-9A29-5BD71C911233}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A68347C8-09B5-4C68-9A29-5BD71C911233}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E9142D7-A0AB-4BD8-B7EA-AE3E22F2F0FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E9142D7-A0AB-4BD8-B7EA-AE3E22F2F0FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E9142D7-A0AB-4BD8-B7EA-AE3E22F2F0FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E9142D7-A0AB-4BD8-B7EA-AE3E22F2F0FE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -56,8 +56,8 @@ Global
 		{8B7ECCCA-CE5E-4B69-AEB1-496D34176B39} = {44A3C0D2-0A9F-4C20-ADBB-CFC33C22A5C7}
 		{CBC026E1-D637-417A-AA8E-431EFD066114} = {8B7ECCCA-CE5E-4B69-AEB1-496D34176B39}
 		{2947A0AC-22A6-465B-9DA9-A30E3FEA0907} = {8B7ECCCA-CE5E-4B69-AEB1-496D34176B39}
-		{65285E8F-4D48-4F4C-8483-ACCA275B68E2} = {44A3C0D2-0A9F-4C20-ADBB-CFC33C22A5C7}
 		{A68347C8-09B5-4C68-9A29-5BD71C911233} = {602F84F5-2720-4A7A-90FB-24602F397161}
+		{6E9142D7-A0AB-4BD8-B7EA-AE3E22F2F0FE} = {44A3C0D2-0A9F-4C20-ADBB-CFC33C22A5C7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A68987D7-10E0-4E19-AA31-69D0EB07FB12}

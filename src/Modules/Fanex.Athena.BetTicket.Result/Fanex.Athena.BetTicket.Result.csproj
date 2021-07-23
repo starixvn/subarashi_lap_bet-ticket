@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Fanex.Athena.BetTicket.Infrastructure\Fanex.Athena.BetTicket.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Fanex.Athena.BetTicket.Core\Fanex.Athena.BetTicket.Core.csproj" />
   </ItemGroup>
 
 </Project>

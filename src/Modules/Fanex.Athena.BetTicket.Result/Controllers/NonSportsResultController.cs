@@ -1,4 +1,4 @@
-﻿using Fanex.Athena.BetTicket.Infrastructure.ConsoleClient;
+﻿using Fanex.Athena.BetTicket.Core.ConsoleClient;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
