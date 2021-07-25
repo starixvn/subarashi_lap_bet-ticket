@@ -36,5 +36,6 @@
     ProductVS: "Virtual Sports",
     ProductVS2: "Virtual Sports 2",
     LicenseeWL: "Licensee WL",
-    WinLoss: "Win Loss"
+    WinLoss: "Win Loss",
+    GrandTotal: "Grand Total"
 };

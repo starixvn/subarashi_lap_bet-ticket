@@ -78,6 +78,10 @@ export default class UrlResultBuilder {
         return rootUrl + 'Proxy/VirtualGamesResultPopup/GetDetailResult';
     }
 
+    static getCGResultUrl(rootUrl) {
+        return rootUrl + 'Proxy/CGResultPopup/Index';
+    }
+
     static getAllBetResultUrl(rootUrl, transdesc, betcheck, bettype, language, accessToken) {
         let url = rootUrl + 'NonSportsResult/AllBet';
         url = QueryString.setParam(url, 'language', language);

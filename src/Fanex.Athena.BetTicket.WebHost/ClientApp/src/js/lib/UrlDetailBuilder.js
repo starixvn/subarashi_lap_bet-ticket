@@ -3,7 +3,7 @@ import BetType from '../constants/BetType';
 
 export default class UrlDetailBuilder {
 
-    static _assignCommonParams(url, baseCurrency, language, accessToken) {
+    static _assignCommonParams(url, { baseCurrency, language, accessToken }) {
         url = QueryString.setParam(url, 'baseCurrency', baseCurrency);
         url = QueryString.setParam(url, 'language', language);
         url = QueryString.setParam(url, 'access_token', accessToken);
@@ -78,19 +78,19 @@ export default class UrlDetailBuilder {
         return url;
     }
 
-    static getParlayDetailUrl(rootUrl, baseCurrency, language, accessToken, transId, refNo, betId, custId, betTeam) {
+    static getParlayDetailUrl(rootUrl, commonParams, transId, refNo, betId, custId, betTeam) {
         if (Number(transId) === 0) { return; }
         let url = rootUrl + 'SystemParlayBetListDetail/Index';
-        url = this._assignCommonParams(url, baseCurrency, language, accessToken);
+        url = this._assignCommonParams(url, commonParams);
         url = QueryString.setParam(url, 'refno', refNo);
         url = QueryString.setParam(url, 'betteam', betTeam);
         return url;
     }
 
-    static getCashOutHistoryPopupSetting(rootUrl, baseCurrency, language, accessToken, transId, refNo, betType, betdaqId) {
+    static getCashOutHistoryPopupSetting(rootUrl, commonParams, transId, refNo, betType, betdaqId) {
         const isCashOut = betdaqId < 1 || betType === BetType.CASHOUT;
         let url = rootUrl + 'CashOutBetListDetail/Index';
-        url = this._assignCommonParams(url, baseCurrency, language, accessToken);
+        url = this._assignCommonParams(url, commonParams);
         url = QueryString.setParam(url, 'transId', transId);
         url = QueryString.setParam(url, 'refNo', refNo);
         url = QueryString.setParam(url, 'betType', betType);
@@ -102,9 +102,9 @@ export default class UrlDetailBuilder {
         };
     }
 
-    static getColossusBetsDetailUrl(rootUrl, baseCurrency, language, accessToken, refNo, winlostDate, custId, betCheck) {
+    static getColossusBetsDetailUrl(rootUrl, commonParams, refNo, winlostDate, custId, betCheck) {
         let url = rootUrl + 'ColossusBetListDetail/Index';
-        url = this._assignCommonParams(url, baseCurrency, language, accessToken);
+        url = this._assignCommonParams(url, commonParams);
         url = QueryString.setParam(url, 'refNo', refNo);
         url = QueryString.setParam(url, 'date', winlostDate);
         url = QueryString.setParam(url, 'custid', custId);
@@ -113,18 +113,18 @@ export default class UrlDetailBuilder {
         return url;
     }
 
-    static getBonusDetailUrl(rootUrl, baseCurrency, language, accessToken, refCode, transId) {
+    static getBonusDetailUrl(rootUrl, commonParams, refCode, transId) {
         let url = rootUrl + 'BonusBetListDetail/Index';
-        url = this._assignCommonParams(url, baseCurrency, language, accessToken);
+        url = this._assignCommonParams(url, commonParams);
         url = QueryString.setParam(url, 'RefCode', refCode);
         url = QueryString.setParam(url, 'TransId', transId);
 
         return url;
     }
 
-    static getAGCasinoDetailUrl(rootUrl, baseCurrency, language, accessToken, transId, winlostDate, custId, transType) {
+    static getAGCasinoDetailUrl(rootUrl, transId, winlostDate, custId, transType) {
         let url = rootUrl + 'AGCasinoBetListDetail/Index';
-        url = this._assignCommonParams(url, baseCurrency, language, accessToken);
+        url = this._assignCommonParams(url, commonParams);
         url = QueryString.setParam(url, 'transid', transId);
         url = QueryString.setParam(url, 'date', winlostDate);
         url = QueryString.setParam(url, 'custid', custId);
@@ -133,9 +133,9 @@ export default class UrlDetailBuilder {
         return url;
     }
 
-    static getRnGCasinoDetailUrl(rootUrl, baseCurrency, language, accessToken, transId, winlostDate, custId, transType) {
+    static getRnGCasinoDetailUrl(rootUrl, commonParams, transId, winlostDate, custId, transType) {
         let url = rootUrl + 'RnGCasinoBetListDetail/Index';
-        url = this._assignCommonParams(url, baseCurrency, language, accessToken);
+        url = this._assignCommonParams(url, commonParams);
         url = QueryString.setParam(url, 'transId', transId);
         url = QueryString.setParam(url, 'date', winlostDate);
         url = QueryString.setParam(url, 'custId', custId);
@@ -144,9 +144,9 @@ export default class UrlDetailBuilder {
         return url;
     }
 
-    static getVoidBridgeDetailUrl(rootUrl, baseCurrency, language, accessToken, transId, winlostDate, custId, transType) {
+    static getVoidBridgeDetailUrl(rootUrl, commonParams, transId, winlostDate, custId, transType) {
         let url = rootUrl + 'VoidbridgeBetListDetail/Index';
-        url = this._assignCommonParams(url, baseCurrency, language, accessToken);
+        url = this._assignCommonParams(url, commonParams);
         url = QueryString.setParam(url, 'transId', transId);
         url = QueryString.setParam(url, 'date', winlostDate);
         url = QueryString.setParam(url, 'custId', custId);
@@ -155,9 +155,9 @@ export default class UrlDetailBuilder {
         return url;
     }
 
-    static getAllBetDetailUrl(rootUrl, baseCurrency, language, accessToken, transId, winlostDate, custId, transType) {
+    static getAllBetDetailUrl(rootUrl, commonParams, transId, winlostDate, custId, transType) {
         let url = rootUrl + 'AllBetBetListDetail/Index';
-        url = this._assignCommonParams(url, baseCurrency, language, accessToken);
+        url = this._assignCommonParams(url, commonParams);
         url = QueryString.setParam(url, 'transid', transId);
         url = QueryString.setParam(url, 'custid', custId);
         url = QueryString.setParam(url, 'transType', transType);
@@ -166,9 +166,9 @@ export default class UrlDetailBuilder {
         return url;
     }
 
-    static getGlobalGamingDetailUrl(rootUrl, baseCurrency, language, accessToken, transId, winlostDate, custId, transType) {
+    static getGlobalGamingDetailUrl(rootUrl, commonParams, transId, winlostDate, custId, transType) {
         let url = rootUrl + 'GlobalGamingBetListDetail/Index';
-        url = this._assignCommonParams(url, baseCurrency, language, accessToken);
+        url = this._assignCommonParams(url, commonParams);
         url = QueryString.setParam(url, 'transId', transId);
         url = QueryString.setParam(url, 'date', winlostDate);
         url = QueryString.setParam(url, 'custId', custId);
@@ -177,9 +177,9 @@ export default class UrlDetailBuilder {
         return url;
     }
 
-    static getPPDetailUrl(rootUrl, baseCurrency, language, accessToken, transId, winlostDate, custId, transType) {
+    static getPPDetailUrl(rootUrl, commonParams, transId, winlostDate, custId, transType) {
         let url = rootUrl + 'PragmaticPlayBetListDetail/Index';
-        url = this._assignCommonParams(url, baseCurrency, language, accessToken);
+        url = this._assignCommonParams(url, commonParams);
         url = QueryString.setParam(url, 'transId', transId);
         url = QueryString.setParam(url, 'date', winlostDate);
         url = QueryString.setParam(url, 'custId', custId);
@@ -188,9 +188,9 @@ export default class UrlDetailBuilder {
         return url;
     }
 
-    static getPPJackpotWonDetailUrl(rootUrl, baseCurrency, language, accessToken, transId, custId, betTypeId) {
+    static getPPJackpotWonDetailUrl(rootUrl, commonParams, transId, custId, betTypeId) {
         let url = rootUrl + 'JackpotWonBetListDetail/Index';
-        url = this._assignCommonParams(url, baseCurrency, language, accessToken);
+        url = this._assignCommonParams(url, commonParams);
         url = QueryString.setParam(url, 'transId', transId);
         url = QueryString.setParam(url, 'custId', custId);
         url = QueryString.setParam(url, 'bettype', betTypeId);
@@ -198,9 +198,9 @@ export default class UrlDetailBuilder {
         return url;
     }
 
-    static getSabaClubJackpotWonDetailUrl(rootUrl, baseCurrency, language, accessToken, transId, custId, betTypeId) {
+    static getSabaClubJackpotWonDetailUrl(rootUrl, commonParams, transId, custId, betTypeId) {
         let url = rootUrl + 'SabaClubJackpotWonBetListDetail/Index';
-        url = this._assignCommonParams(url, baseCurrency, language, accessToken);
+        url = this._assignCommonParams(url, commonParams);
         url = QueryString.setParam(url, 'transId', transId);
         url = QueryString.setParam(url, 'custId', custId);
         url = QueryString.setParam(url, 'bettype', betTypeId);
@@ -208,9 +208,9 @@ export default class UrlDetailBuilder {
         return url;
     }
 
-    static getVideoPokerGameDetailUrl(rootUrl, baseCurrency, language, accessToken, transId, winlostDate, custId, transType) {
+    static getVideoPokerGameDetailUrl(rootUrl, commonParams, transId, winlostDate, custId, transType) {
         let url = rootUrl + 'CardClubBetListDetail/Index';
-        url = this._assignCommonParams(url, baseCurrency, language, accessToken);
+        url = this._assignCommonParams(url, commonParams);
         url = QueryString.setParam(url, 'transId', transId);
         url = QueryString.setParam(url, 'date', winlostDate);
         url = QueryString.setParam(url, 'custId', custId);
@@ -219,9 +219,9 @@ export default class UrlDetailBuilder {
         return url;
     }
 
-    static getSGDetailUrl(rootUrl, baseCurrency, language, accessToken, transId, winlostDate, custId, transType) {
+    static getSGDetailUrl(rootUrl, commonParams, transId, winlostDate, custId, transType) {
         let url = rootUrl + 'SGBetListDetail/Index';
-        url = this._assignCommonParams(url, baseCurrency, language, accessToken);
+        url = this._assignCommonParams(url, commonParams);
         url = QueryString.setParam(url, 'transId', transId);
         url = QueryString.setParam(url, 'date', winlostDate);
         url = QueryString.setParam(url, 'custId', custId);
@@ -230,9 +230,9 @@ export default class UrlDetailBuilder {
         return url;
     }
 
-    static getJokerDetailUrl(rootUrl, baseCurrency, language, accessToken, transId, winlostDate, custId, transType) {
+    static getJokerDetailUrl(rootUrl, commonParams, transId, winlostDate, custId, transType) {
         let url = rootUrl + 'JokerBetListDetail/Index';
-        url = this._assignCommonParams(url, baseCurrency, language, accessToken);
+        url = this._assignCommonParams(url, commonParams);
         url = QueryString.setParam(url, 'transId', transId);
         url = QueryString.setParam(url, 'date', winlostDate);
         url = QueryString.setParam(url, 'custId', custId);
@@ -241,9 +241,9 @@ export default class UrlDetailBuilder {
         return url;
     }
 
-    static getSexyGamingDetailUrl(rootUrl, baseCurrency, language, accessToken, transId, winlostDate, custId, transType) {
+    static getSexyGamingDetailUrl(rootUrl, commonParams, transId, winlostDate, custId, transType) {
         let url = rootUrl + 'SexyGamingBetListDetail/Index';
-        url = this._assignCommonParams(url, baseCurrency, language, accessToken);
+        url = this._assignCommonParams(url, commonParams);
         url = QueryString.setParam(url, 'transId', transId);
         url = QueryString.setParam(url, 'date', winlostDate);
         url = QueryString.setParam(url, 'custId', custId);
@@ -252,9 +252,9 @@ export default class UrlDetailBuilder {
         return url;
     }
 
-    static getSAGamingDetailUrl(rootUrl, baseCurrency, language, accessToken, transId, winlostDate, custId, transType) {
+    static getSAGamingDetailUrl(rootUrl, commonParams, transId, winlostDate, custId, transType) {
         let url = rootUrl + 'SAGamingBetListDetail/Index';
-        url = this._assignCommonParams(url, baseCurrency, language, accessToken);
+        url = this._assignCommonParams(url, commonParams);
         url = QueryString.setParam(url, 'transId', transId);
         url = QueryString.setParam(url, 'date', winlostDate);
         url = QueryString.setParam(url, 'custId', custId);
@@ -263,9 +263,9 @@ export default class UrlDetailBuilder {
         return url;
     }
 
-    static getSBCDetailUrl(rootUrl, baseCurrency, language, accessToken, transId, winlostDate, custId, transType) {
+    static getSBCDetailUrl(rootUrl, commonParams, transId, winlostDate, custId, transType) {
         let url = rootUrl + 'SabaClubBetListDetail/Index';
-        url = this._assignCommonParams(url, baseCurrency, language, accessToken);
+        url = this._assignCommonParams(url, commonParams);
         url = QueryString.setParam(url, 'transId', transId);
         url = QueryString.setParam(url, 'date', winlostDate);
         url = QueryString.setParam(url, 'custId', custId);
@@ -274,9 +274,9 @@ export default class UrlDetailBuilder {
         return url;
     }
 
-    static getBGGDetailUrl(rootUrl, baseCurrency, language, accessToken, transId, winlostDate, custId, transType) {
+    static getBGGDetailUrl(rootUrl, commonParams, transId, winlostDate, custId, transType) {
         let url = rootUrl + 'BGGBetListDetail/Index';
-        url = this._assignCommonParams(url, baseCurrency, language, accessToken);
+        url = this._assignCommonParams(url, commonParams);
         url = QueryString.setParam(url, 'transId', transId);
         url = QueryString.setParam(url, 'date', winlostDate);
         url = QueryString.setParam(url, 'custId', custId);
@@ -285,9 +285,9 @@ export default class UrlDetailBuilder {
         return url;
     }
 
-    static getPGSDetailUrl(rootUrl, baseCurrency, language, accessToken, transId, winlostDate, custId, transType) {
+    static getPGSDetailUrl(rootUrl, commonParams, transId, winlostDate, custId, transType) {
         let url = rootUrl + 'PGSoftBetListDetail/Index';
-        url = this._assignCommonParams(url, baseCurrency, language, accessToken);
+        url = this._assignCommonParams(url, commonParams);
         url = QueryString.setParam(url, 'transId', transId);
         url = QueryString.setParam(url, 'date', winlostDate);
         url = QueryString.setParam(url, 'custId', custId);
@@ -296,9 +296,9 @@ export default class UrlDetailBuilder {
         return url;
     }
 
-    static getGDGDetailUrl(rootUrl, baseCurrency, language, accessToken, transId, winlostDate, custId, transType) {
+    static getGDGDetailUrl(rootUrl, commonParams, transId, winlostDate, custId, transType) {
         let url = rootUrl + 'GDGBetListDetail/Index';
-        url = this._assignCommonParams(url, baseCurrency, language, accessToken);
+        url = this._assignCommonParams(url, commonParams);
         url = QueryString.setParam(url, 'transId', transId);
         url = QueryString.setParam(url, 'date', winlostDate);
         url = QueryString.setParam(url, 'custId', custId);
@@ -307,9 +307,9 @@ export default class UrlDetailBuilder {
         return url;
     }
 
-    static getHabaneroDetailUrl(rootUrl, baseCurrency, language, accessToken, transId, winlostDate, custId, transType) {
+    static getHabaneroDetailUrl(rootUrl, commonParams, transId, winlostDate, custId, transType) {
         let url = rootUrl + 'HabaneroBetListDetail/Index';
-        url = this._assignCommonParams(url, baseCurrency, language, accessToken);
+        url = this._assignCommonParams(url, commonParams);
         url = QueryString.setParam(url, 'transId', transId);
         url = QueryString.setParam(url, 'date', winlostDate);
         url = QueryString.setParam(url, 'custId', custId);
@@ -318,9 +318,9 @@ export default class UrlDetailBuilder {
         return url;
     }
 
-    static getWMDetailUrl(rootUrl, baseCurrency, language, accessToken, transId, winlostDate, custId, transType) {
+    static getWMDetailUrl(rootUrl, commonParams, transId, winlostDate, custId, transType) {
         let url = rootUrl + 'WMBetListDetail/Index';
-        url = this._assignCommonParams(url, baseCurrency, language, accessToken);
+        url = this._assignCommonParams(url, commonParams);
         url = QueryString.setParam(url, 'transId', transId);
         url = QueryString.setParam(url, 'date', winlostDate);
         url = QueryString.setParam(url, 'custId', custId);
@@ -329,9 +329,9 @@ export default class UrlDetailBuilder {
         return url;
     }
 
-    static getVGamingDetailUrl(rootUrl, baseCurrency, language, accessToken, transId, winlostDate, custId, transType) {
+    static getVGamingDetailUrl(rootUrl, commonParams, transId, winlostDate, custId, transType) {
         let url = rootUrl + 'VGamingBetListDetail/Index';
-        url = this._assignCommonParams(url, baseCurrency, language, accessToken);
+        url = this._assignCommonParams(url, commonParams);
         url = QueryString.setParam(url, 'transId', transId);
         url = QueryString.setParam(url, 'date', winlostDate);
         url = QueryString.setParam(url, 'custId', custId);
@@ -340,12 +340,23 @@ export default class UrlDetailBuilder {
         return url;
     }
 
-    static getVGamingJackpotWonDetailUrl(rootUrl, baseCurrency, language, accessToken, transId, custId, betTypeId) {
+    static getVGamingJackpotWonDetailUrl(rootUrl, commonParams, transId, custId, betTypeId) {
         let url = rootUrl + 'VGamingJackpotWonBetListDetail/Index';
-        url = this._assignCommonParams(url, baseCurrency, language, accessToken);
+        url = this._assignCommonParams(url, commonParams);
         url = QueryString.setParam(url, 'transId', transId);
         url = QueryString.setParam(url, 'custId', custId);
         url = QueryString.setParam(url, 'bettype', betTypeId);
+
+        return url;
+    }
+
+    static getCGDetailUrl(rootUrl, commonParams, transId, winlostDate, custId, transType) {
+        let url = rootUrl + 'CreativeGamingBetListDetail/Index';
+        url = this._assignCommonParams(url, commonParams);
+        url = QueryString.setParam(url, 'transId', transId);
+        url = QueryString.setParam(url, 'date', winlostDate);
+        url = QueryString.setParam(url, 'custId', custId);
+        url = QueryString.setParam(url, 'transType', transType);
 
         return url;
     }

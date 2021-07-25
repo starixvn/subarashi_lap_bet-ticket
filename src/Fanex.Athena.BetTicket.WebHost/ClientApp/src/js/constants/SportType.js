@@ -22,7 +22,8 @@ const SportType = {
     WM: 233,
     BGG: 239,
     VGA: 171,
-    VGA_FreeBets: 173
+    VGA_FreeBets: 173,
+    CG: 167
 }
 
 export default SportType

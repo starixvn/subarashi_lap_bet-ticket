@@ -5,12 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="jshint.json" />
-    <Content Remove="package-lock.json" />
-    <Content Remove="package.json" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="jshint.json" />
     <None Include="package-lock.json" />
     <None Include="package.json" />
@@ -36,10 +30,4 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  
-  <ItemGroup>
-    <Folder Include="wwwroot\css\" />
-    <Folder Include="wwwroot\js\" />
-  </ItemGroup>
-
 </Project>

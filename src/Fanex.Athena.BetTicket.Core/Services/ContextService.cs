@@ -23,22 +23,30 @@ namespace Fanex.Athena.BetTicket.Core.Services
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public int LicenseeId => int.Parse(GetClaimValue("LicenseeId"));
+        public int LicenseeId => GetClaimValue<int>("LicenseeId");
 
-        public bool IsAllowedCustomerComm => bool.Parse(GetClaimValue("IsAllowedCustomerComm"));
+        public bool IsAllowedCustomerComm => GetClaimValue<bool>("IsAllowedCustomerComm");
 
-        public bool IsEnableBA => bool.Parse(GetClaimValue("IsEnableBA"));
+        public bool IsEnableBA => GetClaimValue<bool>("IsEnableBA");
 
-        public int UserLevel => int.Parse(GetClaimValue("UserLevel"));
+        public int UserLevel => GetClaimValue<int>("UserLevel");
 
         public string SiteName => GetClaimValue("SiteName");
 
-        public int UserId => int.Parse(GetClaimValue("UserSEQ"));
+        public int UserId => GetClaimValue<int>("UserSEQ");
 
         public string Username => GetClaimValue("Username");
 
+        public string ClientIP => Context.Connection.RemoteIpAddress.ToString();
+
+        public bool IsShowIP => GetClaimValue<bool>("IsShowIP");
+
+        public bool IsShowIpVN => IsInRoles("super_admin", "bl_view_ipvn");
+
         public string Language => Context.Request.Query.TryGetValue("language", out StringValues language) ?
             language.First() : "en-US";
+
+        public Task<string> AccessToken => Context.GetTokenAsync("access_token");
 
         public bool IsInRoles(params string[] roles) => roles?.Any(_ => User.IsInRole(_)) ?? false;
 
@@ -74,15 +82,11 @@ namespace Fanex.Athena.BetTicket.Core.Services
             }
         }
 
-        public string ClientIP => Context.Connection.RemoteIpAddress.ToString();
+        private T GetClaimValue<T>(string claimType)
+            => (T)Convert.ChangeType(GetClaimValue(claimType), typeof(T));
 
-        public bool IsShowIP => true;//bool.Parse(GetClaimValue("IsShowIP"));
-
-        public bool IsShowIpVN => true;
-
-        public Task<string> AccessToken => Context.GetTokenAsync("access_token");
-
-        private string GetClaimValue(string claimType) => User.FindFirst(claimType)?.Value ?? throw new InvalidOperationException($"{claimType} is not found");
+        private string GetClaimValue(string claimType)
+            => User.FindFirst(claimType)?.Value ?? throw new InvalidOperationException($"The {claimType} claim was not found");
 
         private IEnumerable<CurrencyAgentInfo> GetCurrencyAgentList()
         {

@@ -10,7 +10,7 @@ export default function buildViewResultEvent() {
         const languageCode = this._getLanguage();
         const accessToken = this._getAccessToken();
         const defaultPlatform = 'd';
-        
+
         if (sporttype === SportType.RNG_GAME || sporttype === SportType.RNG_MINIGAME || sporttype === SportType.RNG_MOBILE) {
             const url = UrlResultBuilder.getRngCasinoResultUrl(this.rootUrl, languageCode);
             _showRngCasinoResult.call(this, refno, url, title, sporttype);
@@ -96,6 +96,10 @@ export default function buildViewResultEvent() {
         else if (sporttype === SportType.VGA || sporttype === SportType.VGA_FreeBets) {
             const url = UrlResultBuilder.getVGamingResultUrl(this.rootUrl);
             _showThirdPartyResult.call(this, url, { languageCode, custid, gameId: bettype, siteId: extension2, gameRoundId: transdecs, sporttype }, title, sporttype);
+        }
+        else if (sporttype === SportType.CG) {
+            const url = UrlResultBuilder.getCGResultUrl(this.rootUrl);
+            _showThirdPartyResult.call(this, url, { languageCode, custid, transId3rd: transdecs, gameId3rd: extension2, siteId: extension1 }, title, sporttype);
         }
         else {
             const url = UrlResultBuilder.getResultUrl(this.rootUrl, languageCode, accessToken, matchid, raceNo, bettype,

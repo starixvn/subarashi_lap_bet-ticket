@@ -24,5 +24,6 @@
     ProductVS: "虚拟运动",
     ProductVS2: "虚拟运动2",
     LicenseeWL: "承租公司輸贏",
-    WinLoss: "输赢"
+    WinLoss: "输赢",
+    GrandTotal: "累计"
 };

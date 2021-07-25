@@ -2,20 +2,21 @@ import UrlDetailBuilder from '../../lib/UrlDetailBuilder';
 import DataService from '../../lib/DataService';
 
 export default function ViewDetailEventBuilder() {
-    
+
 
     window.showMP = (transId) => {
         let divEvent = document.querySelector('#divEvent_' + transId);
         divEvent.classList.add('mx-parlay'); //to make line-through for void-parlay-ticket
-        const url = UrlDetailBuilder.getMixParlayDetailUrl(this.rootUrl,  this._getLanguage());
+        const url = UrlDetailBuilder.getMixParlayDetailUrl(this.rootUrl, this._getLanguage());
         _showMixParlayDetail.call(this, url, transId, divEvent);
     };
 
     window.showCombMP = (transId, index) => {
         let divEvent = document.querySelector('#divEvent_' + transId + '' + index);
         divEvent.classList.add('mx-parlay'); //to make line-through for void-parlay-ticket
-        const url = UrlDetailBuilder.getMixParlayDetailUrl(this.rootUrl,  this._getLanguage());
-        _showMixParlayDetail.call(this, url, transId, divEvent);    };
+        const url = UrlDetailBuilder.getMixParlayDetailUrl(this.rootUrl, this._getLanguage());
+        _showMixParlayDetail.call(this, url, transId, divEvent);
+    };
 
     // expand choice content
     window.showNewCombMP = (...args) => {
@@ -29,36 +30,31 @@ export default function ViewDetailEventBuilder() {
 
     // show detail popup (in choice column)
     window.showCombMPDetail = (transId, refNo, betId, custId, betTeam) => {
-        const { baseCurrency, language, accessToken } = _getCommonParams.call(this);
-        const url = UrlDetailBuilder.getParlayDetailUrl(this.rootUrl, baseCurrency, language, accessToken, transId, refNo, betId, custId, betTeam);
+        const url = UrlDetailBuilder.getParlayDetailUrl(this.rootUrl, _getCommonParams.call(this), transId, refNo, betId, custId, betTeam);
         this._openPopup(url, betTeam);
     };
 
     window.ViewCashOutHistory = (transId, refNo, betType, betdaqId) => {
-        const { baseCurrency, language, accessToken } = _getCommonParams.call(this);
-        const { url, isCashOut } = UrlDetailBuilder.getCashOutHistoryPopupSetting(this.rootUrl, baseCurrency, language, accessToken, transId, refNo, betType, betdaqId);
+        const { url, isCashOut } = UrlDetailBuilder.getCashOutHistoryPopupSetting(this.rootUrl, _getCommonParams.call(this), transId, refNo, betType, betdaqId);
         const title = this._getResource(isCashOut ? 'CashOutDetails' : 'BoughtDetails');
         this._openPopup(url, title);
     }
 
     window.ShowBonusDetails = (refCode, transId) => {
-        const { baseCurrency, language, accessToken } = _getCommonParams.call(this);
-        const url = UrlDetailBuilder.getBonusDetailUrl(this.rootUrl, baseCurrency, language, accessToken, refCode, transId);
+        const url = UrlDetailBuilder.getBonusDetailUrl(this.rootUrl, _getCommonParams.call(this), refCode, transId);
         const title = this._getResource('TransactionDetail');
         this._openPopup(url, title);
     }
 
     window.showAGCasinoDetails = (transId, winlostDate, custId, transType) => {
-        const { baseCurrency, language, accessToken } = _getCommonParams.call(this);
-        const url = UrlDetailBuilder.getAGCasinoDetailUrl(this.rootUrl, baseCurrency, language, accessToken, transId, winlostDate, custId, transType);
+        const url = UrlDetailBuilder.getAGCasinoDetailUrl(this.rootUrl, _getCommonParams.call(this), transId, winlostDate, custId, transType);
         const title = this._getResource('AGCasino') + ' - ' +
             this._getResource('DetailedBetlist') + ' - ' + this._formatDateString(winlostDate);
         this._openPopup(url, title);
     }
 
     window.showRnGCasinoDetails = (transId, winlostDate, custId, transType) => {
-        const { baseCurrency, language, accessToken } = _getCommonParams.call(this);
-        const url = UrlDetailBuilder.getRnGCasinoDetailUrl(this.rootUrl, baseCurrency, language, accessToken, transId, winlostDate, custId, transType);
+        const url = UrlDetailBuilder.getRnGCasinoDetailUrl(this.rootUrl, _getCommonParams.call(this), transId, winlostDate, custId, transType);
         const title = this._getResource('ProductCS') + ' - ' +
             this._getResource('DetailedBetlist') + ' - ' + this._formatDateString(winlostDate);
 
@@ -66,8 +62,7 @@ export default function ViewDetailEventBuilder() {
     }
 
     window.showVoidBridgeDetails = (transId, winlostDate, custId, transType) => {
-        const { baseCurrency, language, accessToken } = _getCommonParams.call(this);
-        const url = UrlDetailBuilder.getVoidBridgeDetailUrl(this.rootUrl, baseCurrency, language, accessToken, transId, winlostDate, custId, transType);
+        const url = UrlDetailBuilder.getVoidBridgeDetailUrl(this.rootUrl, _getCommonParams.call(this), transId, winlostDate, custId, transType);
         const title = this._getResource('ProductVB') + ' - ' +
             this._getResource('DetailedBetlist') + ' - ' + this._formatDateString(winlostDate);
 
@@ -75,8 +70,7 @@ export default function ViewDetailEventBuilder() {
     }
 
     window.showTodayRunningBetsDetails = (transId, winlostDate, custId, transType) => {
-        const { baseCurrency, language, accessToken } = _getCommonParams.call(this);
-        const url = UrlDetailBuilder.getAllBetDetailUrl(this.rootUrl, baseCurrency, language, accessToken, transId, winlostDate, custId, transType);
+        const url = UrlDetailBuilder.getAllBetDetailUrl(this.rootUrl, _getCommonParams.call(this), transId, winlostDate, custId, transType);
         const title = this._getResource('ProductAB') + ' - ' +
             this._getResource('DetailedBetlist') + ' - ' + this._formatDateString(winlostDate);
 
@@ -84,16 +78,14 @@ export default function ViewDetailEventBuilder() {
     }
 
     window.showColossusBetsDetails = (refNo, winlostDate, transId, custId, betCheck) => {
-        const { baseCurrency, language, accessToken } = _getCommonParams.call(this);
-        const url = UrlDetailBuilder.getColossusBetsDetailUrl(this.rootUrl, baseCurrency, language, accessToken, refNo, winlostDate, custId, betCheck);
+        const url = UrlDetailBuilder.getColossusBetsDetailUrl(this.rootUrl, _getCommonParams.call(this), refNo, winlostDate, custId, betCheck);
         const title = this._getResource('TicketDetailOf').replace('{0}', refNo);
 
         this._openPopup(url, title);
     }
 
     window.showGlobalGaming = (transId, winlostDate, custId, transType) => {
-        const { baseCurrency, language, accessToken } = _getCommonParams.call(this);
-        const url = UrlDetailBuilder.getGlobalGamingDetailUrl(this.rootUrl, baseCurrency, language, accessToken, transId, winlostDate, custId, transType);
+        const url = UrlDetailBuilder.getGlobalGamingDetailUrl(this.rootUrl, _getCommonParams.call(this), transId, winlostDate, custId, transType);
         const title = this._getResource('ProductFW') + ' - ' +
             this._getResource('DetailedBetlist') + ' - ' + this._formatDateString(winlostDate);
 
@@ -101,8 +93,7 @@ export default function ViewDetailEventBuilder() {
     }
 
     window.showPPDetails = (transId, winlostDate, custId, transType) => {
-        const { baseCurrency, language, accessToken } = _getCommonParams.call(this);
-        const url = UrlDetailBuilder.getPPDetailUrl(this.rootUrl, baseCurrency, language, accessToken, transId, winlostDate, custId, transType);
+        const url = UrlDetailBuilder.getPPDetailUrl(this.rootUrl, _getCommonParams.call(this), transId, winlostDate, custId, transType);
         const title = this._getResource('ProductPP') + ' - ' +
             this._getResource('DetailedBetlist') + ' - ' + this._formatDateString(winlostDate);
 
@@ -110,8 +101,7 @@ export default function ViewDetailEventBuilder() {
     }
 
     window.showPPJackpotWonDetails = (transId, custId, betTypeId) => {
-        const { baseCurrency, language, accessToken } = _getCommonParams.call(this);
-        const url = UrlDetailBuilder.getPPJackpotWonDetailUrl(this.rootUrl, baseCurrency, language, accessToken, transId, custId, betTypeId);
+        const url = UrlDetailBuilder.getPPJackpotWonDetailUrl(this.rootUrl, _getCommonParams.call(this), transId, custId, betTypeId);
         const title = this._getResource('ProductPP') + ' - ' +
             this._getResource('JackpotWonDetails');
 
@@ -119,8 +109,7 @@ export default function ViewDetailEventBuilder() {
     }
 
     window.showSabaClubJackpotWonDetails = (transId, custId, betTypeId) => {
-        const { baseCurrency, language, accessToken } = _getCommonParams.call(this);
-        const url = UrlDetailBuilder.getSabaClubJackpotWonDetailUrl(this.rootUrl, baseCurrency, language, accessToken, transId, custId, betTypeId);
+        const url = UrlDetailBuilder.getSabaClubJackpotWonDetailUrl(this.rootUrl, _getCommonParams.call(this), transId, custId, betTypeId);
         const title = this._getResource('ProductSBC') + ' - ' +
             this._getResource('JackpotWonDetails');
 
@@ -128,8 +117,7 @@ export default function ViewDetailEventBuilder() {
     }
 
     window.showVGamingJackpotWonDetails = (transId, custId, betTypeId) => {
-        const { baseCurrency, language, accessToken } = _getCommonParams.call(this);
-        const url = UrlDetailBuilder.getVGamingJackpotWonDetailUrl(this.rootUrl, baseCurrency, language, accessToken, transId, custId, betTypeId);
+        const url = UrlDetailBuilder.getVGamingJackpotWonDetailUrl(this.rootUrl, _getCommonParams.call(this), transId, custId, betTypeId);
         const title = this._getResource('ProductVGA') + ' - ' +
             this._getResource('JackpotWonDetails');
 
@@ -137,8 +125,7 @@ export default function ViewDetailEventBuilder() {
     }
 
     window.showVideoPokerGameDetails = (transId, winlostDate, custId, transType) => {
-        const { baseCurrency, language, accessToken } = _getCommonParams.call(this);
-        const url = UrlDetailBuilder.getVideoPokerGameDetailUrl(this.rootUrl, baseCurrency, language, accessToken, transId, winlostDate, custId, transType);
+        const url = UrlDetailBuilder.getVideoPokerGameDetailUrl(this.rootUrl, _getCommonParams.call(this), transId, winlostDate, custId, transType);
         const title = this._getResource('ProductCC') + ' - ' +
             this._getResource('DetailedBetlist') + ' - ' + this._formatDateString(winlostDate);
 
@@ -146,8 +133,7 @@ export default function ViewDetailEventBuilder() {
     }
 
     window.showSGDetails = (transId, winlostDate, custId, transType) => {
-        const { baseCurrency, language, accessToken } = _getCommonParams.call(this);
-        const url = UrlDetailBuilder.getSGDetailUrl(this.rootUrl, baseCurrency, language, accessToken, transId, winlostDate, custId, transType);
+        const url = UrlDetailBuilder.getSGDetailUrl(this.rootUrl, _getCommonParams.call(this), transId, winlostDate, custId, transType);
         const title = this._getResource('ProductSG') + ' - ' +
             this._getResource('DetailedBetlist') + ' - ' + this._formatDateString(winlostDate);
 
@@ -155,8 +141,7 @@ export default function ViewDetailEventBuilder() {
     }
 
     window.showJokerBetDetails = (transId, winlostDate, custId, transType) => {
-        const { baseCurrency, language, accessToken } = _getCommonParams.call(this);
-        const url = UrlDetailBuilder.getJokerDetailUrl(this.rootUrl, baseCurrency, language, accessToken, transId, winlostDate, custId, transType);
+        const url = UrlDetailBuilder.getJokerDetailUrl(this.rootUrl, _getCommonParams.call(this), transId, winlostDate, custId, transType);
         const title = this._getResource('ProductJK') + ' - ' +
             this._getResource('DetailedBetlist') + ' - ' + this._formatDateString(winlostDate);
 
@@ -164,8 +149,7 @@ export default function ViewDetailEventBuilder() {
     }
 
     window.showSexyGamingBetDetails = (transId, winlostDate, custId, transType) => {
-        const { baseCurrency, language, accessToken } = _getCommonParams.call(this);
-        const url = UrlDetailBuilder.getSexyGamingDetailUrl(this.rootUrl, baseCurrency, language, accessToken, transId, winlostDate, custId, transType);
+        const url = UrlDetailBuilder.getSexyGamingDetailUrl(this.rootUrl, _getCommonParams.call(this), transId, winlostDate, custId, transType);
         const title = this._getResource('ProductSXG') + ' - ' +
             this._getResource('DetailedBetlist') + ' - ' + this._formatDateString(winlostDate);
 
@@ -173,8 +157,7 @@ export default function ViewDetailEventBuilder() {
     }
 
     window.showSAGamingDetails = (transId, winlostDate, custId, transType) => {
-        const { baseCurrency, language, accessToken } = _getCommonParams.call(this);
-        const url = UrlDetailBuilder.getSAGamingDetailUrl(this.rootUrl, baseCurrency, language, accessToken, transId, winlostDate, custId, transType);
+        const url = UrlDetailBuilder.getSAGamingDetailUrl(this.rootUrl, _getCommonParams.call(this), transId, winlostDate, custId, transType);
         const title = this._getResource('ProductSAG') + ' - ' +
             this._getResource('DetailedBetlist') + ' - ' + this._formatDateString(winlostDate);
 
@@ -182,8 +165,7 @@ export default function ViewDetailEventBuilder() {
     }
 
     window.showSabaClubDetails = (transId, winlostDate, custId, transType) => {
-        const { baseCurrency, language, accessToken } = _getCommonParams.call(this);
-        const url = UrlDetailBuilder.getSBCDetailUrl(this.rootUrl, baseCurrency, language, accessToken, transId, winlostDate, custId, transType);
+        const url = UrlDetailBuilder.getSBCDetailUrl(this.rootUrl, _getCommonParams.call(this), transId, winlostDate, custId, transType);
         const title = this._getResource('ProductSBC') + ' - ' +
             this._getResource('DetailedBetlist') + ' - ' + this._formatDateString(winlostDate);
 
@@ -191,8 +173,7 @@ export default function ViewDetailEventBuilder() {
     }
 
     window.showPGSoftDetails = (transId, winlostDate, custId, transType) => {
-        const { baseCurrency, language, accessToken } = _getCommonParams.call(this);
-        const url = UrlDetailBuilder.getPGSDetailUrl(this.rootUrl, baseCurrency, language, accessToken, transId, winlostDate, custId, transType);
+        const url = UrlDetailBuilder.getPGSDetailUrl(this.rootUrl, _getCommonParams.call(this), transId, winlostDate, custId, transType);
         const title = this._getResource('ProductPGS') + ' - ' +
             this._getResource('DetailedBetlist') + ' - ' + this._formatDateString(winlostDate);
 
@@ -200,8 +181,7 @@ export default function ViewDetailEventBuilder() {
     }
 
     window.showGDGBetDetails = (transId, winlostDate, custId, transType) => {
-        const { baseCurrency, language, accessToken } = _getCommonParams.call(this);
-        const url = UrlDetailBuilder.getGDGDetailUrl(this.rootUrl, baseCurrency, language, accessToken, transId, winlostDate, custId, transType);
+        const url = UrlDetailBuilder.getGDGDetailUrl(this.rootUrl, _getCommonParams.call(this), transId, winlostDate, custId, transType);
         const title = this._getResource('ProductGDG') + ' - ' +
             this._getResource('DetailedBetlist') + ' - ' + this._formatDateString(winlostDate);
 
@@ -209,8 +189,7 @@ export default function ViewDetailEventBuilder() {
     }
 
     window.showHabaneroBetDetails = (transId, winlostDate, custId, transType) => {
-        const { baseCurrency, language, accessToken } = _getCommonParams.call(this);
-        const url = UrlDetailBuilder.getHabaneroDetailUrl(this.rootUrl, baseCurrency, language, accessToken, transId, winlostDate, custId, transType);
+        const url = UrlDetailBuilder.getHabaneroDetailUrl(this.rootUrl, _getCommonParams.call(this), transId, winlostDate, custId, transType);
         const title = this._getResource('ProductHB') + ' - ' +
             this._getResource('DetailedBetlist') + ' - ' + this._formatDateString(winlostDate);
 
@@ -218,27 +197,32 @@ export default function ViewDetailEventBuilder() {
     }
 
     window.showWMBetDetails = (transId, winlostDate, custId, transType) => {
-        const { baseCurrency, language, accessToken } = _getCommonParams.call(this);
-        const url = UrlDetailBuilder.getWMDetailUrl(this.rootUrl, baseCurrency, language, accessToken, transId, winlostDate, custId, transType);
+        const url = UrlDetailBuilder.getWMDetailUrl(this.rootUrl, _getCommonParams.call(this), transId, winlostDate, custId, transType);
         const title = this._getResource('ProductWM') + ' - ' +
             this._getResource('DetailedBetlist') + ' - ' + this._formatDateString(winlostDate);
 
         this._openPopup(url, title);
     }
-    
+
     window.showBGBetDetails = (transId, winlostDate, custId, transType) => {
-        const { baseCurrency, language, accessToken } = _getCommonParams.call(this);
-        const url = UrlDetailBuilder.getBGGDetailUrl(this.rootUrl, baseCurrency, language, accessToken, transId, winlostDate, custId, transType);
+        const url = UrlDetailBuilder.getBGGDetailUrl(this.rootUrl, _getCommonParams.call(this), transId, winlostDate, custId, transType);
         const title = this._getResource('ProductBGG') + ' - ' +
             this._getResource('DetailedBetlist') + ' - ' + this._formatDateString(winlostDate);
 
         this._openPopup(url, title);
     }
-    
+
     window.showVGamingDetails = (transId, winlostDate, custId, transType) => {
-        const { baseCurrency, language, accessToken } = _getCommonParams.call(this);
-        const url = UrlDetailBuilder.getVGamingDetailUrl(this.rootUrl, baseCurrency, language, accessToken, transId, winlostDate, custId, transType);
+        const url = UrlDetailBuilder.getVGamingDetailUrl(this.rootUrl, _getCommonParams.call(this), transId, winlostDate, custId, transType);
         const title = this._getResource('ProductVGA') + ' - ' +
+            this._getResource('DetailedBetlist') + ' - ' + this._formatDateString(winlostDate);
+
+        this._openPopup(url, title);
+    }
+
+    window.showCGBetDetails = (transId, winlostDate, custId, transType) => {
+        const url = UrlDetailBuilder.getCGDetailUrl(this.rootUrl, _getCommonParams.call(this), transId, winlostDate, custId, transType);
+        const title = this._getResource('ProductCG') + ' - ' +
             this._getResource('DetailedBetlist') + ' - ' + this._formatDateString(winlostDate);
 
         this._openPopup(url, title);
@@ -249,7 +233,7 @@ function _showMixParlayDetail(url, transId, divEvent) {
     if (divEvent.style.display === 'none') {
         this._beforeShow();
         DataService.postData(url, { transId }, this._getAccessToken())
-        .then((result) => {
+            .then((result) => {
                 const choice = UrlDetailBuilder.buildChoiceMixParlayDetail(result.data, divEvent);
                 divEvent.innerHTML = choice;
                 divEvent.style.display = 'block';

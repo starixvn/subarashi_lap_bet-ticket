@@ -88,8 +88,8 @@ namespace Fanex.Athena.BetTicket.WebHost
                 client.DefaultRequestHeaders.Add("BETLIST_TOKEN_KEY", Configuration["ConsoleClient:BetList:AuthKey"]);
             }).SetHandlerLifetime(TimeSpan.FromDays(1));
 
-            var proxy = new ProxyApiSetting();
-            Configuration.GetSection("Proxy:BetList").Bind(proxy);
+            var proxySetting = Configuration.GetSection("Proxy:BetList").Get<ProxyApiSetting>();
+            ConfigProxy(services, proxySetting);
 
             services.AddCors(options =>
             {
@@ -101,55 +101,6 @@ namespace Fanex.Athena.BetTicket.WebHost
                         .AllowAnyHeader()
                         .AllowAnyMethod();
                     });
-            });
-
-            services.AddProxy(options =>
-            {
-                options.Timeout = TimeSpan.FromSeconds(int.Parse(Configuration["Proxy:Timeout"]));
-
-                options.ValidateRequest = context =>
-                {
-                    return context.User.Identity.IsAuthenticated;
-                };
-
-                options.ShouldProxyRequest = originalRequest => originalRequest.Path.StartsWithSegments("/proxy");
-
-                options.OnFailedValidation = context =>
-                {
-                    context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-                    return Task.CompletedTask;
-                };
-
-                options.PrepareRequest = async (originalRequest, message) =>
-                {
-                    var context = originalRequest.HttpContext;
-                    message.Headers.Add(proxy.TokenKey, proxy.TokenValue);
-
-                    const string Language = "Language";
-                    if (originalRequest.Query.TryGetValue(Language, out StringValues language))
-                    {
-                        message.Headers.Add(Language, language.First());
-                    }
-
-                    string accessToken = await context.GetTokenAsync("access_token") ?? context.Items["access_token"] as string;
-                    if (string.IsNullOrEmpty(accessToken))
-                    {
-                        return;
-                    }
-                    message.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-                };
-
-                options.PrepareUri = originalRequest =>
-                {
-                    var path = originalRequest.Path.Value;
-                    var realPath = path.Substring($"/proxy".Length);
-                    var uri = new UriBuilder(new Uri($"{proxy.Url.TrimEnd('/')}{realPath}"))
-                    {
-                        Query = originalRequest.QueryString.Value
-                    }.Uri;
-
-                    return uri;
-                };
             });
 
             services.Configure<RequestLocalizationOptions>(options =>
@@ -229,6 +180,58 @@ namespace Fanex.Athena.BetTicket.WebHost
                 .WithSqlServer(resourcePath: "~/App_Data/SpConfig/FanexSpName.xml")
                 .Use(connectionStrings)
                 .Run();
+        }
+
+        private void ConfigProxy(IServiceCollection services, ProxyApiSetting proxySetting)
+        {
+            services.AddProxy(options =>
+            {
+                options.Timeout = TimeSpan.FromSeconds(int.Parse(Configuration["Proxy:Timeout"]));
+
+                options.ValidateRequest = context =>
+                {
+                    return context.User.Identity.IsAuthenticated;
+                };
+
+                options.ShouldProxyRequest = originalRequest => originalRequest.Path.StartsWithSegments("/proxy");
+
+                options.OnFailedValidation = context =>
+                {
+                    context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                    return Task.CompletedTask;
+                };
+
+                options.PrepareRequest = async (originalRequest, message) =>
+                {
+                    var context = originalRequest.HttpContext;
+                    message.Headers.Add(proxySetting.TokenKey, proxySetting.TokenValue);
+
+                    const string Language = "Language";
+                    if (originalRequest.Query.TryGetValue(Language, out StringValues language))
+                    {
+                        message.Headers.Add(Language, language.First());
+                    }
+
+                    string accessToken = await context.GetTokenAsync("access_token") ?? context.Items["access_token"] as string;
+                    if (string.IsNullOrEmpty(accessToken))
+                    {
+                        return;
+                    }
+                    message.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+                };
+
+                options.PrepareUri = originalRequest =>
+                {
+                    var path = originalRequest.Path.Value;
+                    var realPath = path.Substring($"/proxy".Length);
+                    var uri = new UriBuilder(new Uri($"{proxySetting.Url.TrimEnd('/')}{realPath}"))
+                    {
+                        Query = originalRequest.QueryString.Value
+                    }.Uri;
+
+                    return uri;
+                };
+            });
         }
     }
 }
