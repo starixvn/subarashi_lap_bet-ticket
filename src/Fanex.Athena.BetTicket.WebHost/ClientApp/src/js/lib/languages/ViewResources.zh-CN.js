@@ -1,4 +1,5 @@
 ﻿export default {
+    NoInfo: "没资料显示",
     Result: "赛果",
     DetailedBetlist: "投注历史明细",
     ProductAB: "欧博",

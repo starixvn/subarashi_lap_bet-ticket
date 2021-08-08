@@ -64,6 +64,7 @@ namespace Fanex.Athena.BetTicket.WebHost
 
             services.AddInfrastructure();
 
+            var instrospecCacheDuration = int.TryParse(Configuration["IdentityServer:CacheDuration"], out int cache) ? cache : 0;
             services.AddAuthentication(IntrospectionSchema)
                .AddOAuth2Introspection(IntrospectionSchema, options =>
                {
@@ -72,9 +73,9 @@ namespace Fanex.Athena.BetTicket.WebHost
                    options.ClientSecret = Configuration["IdentityServer:CredentialIntrospection:ClientSecret"];
                    options.SaveToken = true;
                    options.SkipTokensWithDots = true;
-                   options.EnableCaching = false;
+                   options.EnableCaching = instrospecCacheDuration > 0;
                    options.CacheKeyPrefix = "OAuth2Introspection:";
-                   options.CacheDuration = TimeSpan.FromMinutes(5);
+                   options.CacheDuration = TimeSpan.FromMinutes(instrospecCacheDuration);
                    options.DiscoveryPolicy.RequireHttps = false;
 
                    var fromQuery = TokenRetrieval.FromQueryString();

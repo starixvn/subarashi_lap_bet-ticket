@@ -4,7 +4,7 @@ import DataService from '../../lib/DataService';
 
 export default function buildViewResultEvent() {
     window.ViewResult = (matchid, raceNo, bettype, sporttype, refno,
-        username, winlostdate, refnoMixParlay, league, isOutright, extension1, extension2, custid, transdecs) => {
+        currency, winlostdate, refnoMixParlay, league, isOutright, extension1, extension2, custid, transdecs) => {
 
         const title = this._getResource('Result');
         const languageCode = this._getLanguage();
@@ -95,7 +95,9 @@ export default function buildViewResultEvent() {
         }
         else if (sporttype === SportType.VGA || sporttype === SportType.VGA_FreeBets) {
             const url = UrlResultBuilder.getVGamingResultUrl(this.rootUrl);
-            _showThirdPartyResult.call(this, url, { languageCode, custid, gameId: bettype, siteId: extension2, gameRoundId: transdecs, sporttype }, title, sporttype);
+            _showThirdPartyResult.call(this, url,
+                { languageCode, custid, gameId: bettype, siteId: extension2, gameRoundId: transdecs, sporttype, currencyName: currency },
+                title, sporttype);
         }
         else if (sporttype === SportType.CG) {
             const url = UrlResultBuilder.getCGResultUrl(this.rootUrl);

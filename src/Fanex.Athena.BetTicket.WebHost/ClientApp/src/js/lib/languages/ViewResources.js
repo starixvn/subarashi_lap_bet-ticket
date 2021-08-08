@@ -1,4 +1,5 @@
 ﻿export default {
+    NoInfo: "No information is available",
     Result:"Result",
     DetailedBetlist: "Detailed Bet list",
     ProductAB: "AllBet",
