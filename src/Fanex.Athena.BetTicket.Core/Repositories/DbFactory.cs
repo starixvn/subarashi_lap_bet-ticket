@@ -2,14 +2,9 @@
 
 namespace Fanex.Athena.BetTicket.Core.Repositories
 {
-    public interface IDbFactory
-    {
-        IObjectDb GetObjectDb(string spName, int timeout = 120);
-    }
-
     public class DbFactory : IDbFactory
     {
-        public IObjectDb GetObjectDb(string spName, int timeout = 120) 
+        public IObjectDb GetObjectDb(string spName, int timeout = 120)
             => ObjectDbFactory.CreateInstance(spName, timeout);
     }
 }

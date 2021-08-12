@@ -189,10 +189,7 @@ namespace Fanex.Athena.BetTicket.WebHost
             {
                 options.Timeout = TimeSpan.FromSeconds(int.Parse(Configuration["Proxy:Timeout"]));
 
-                options.ValidateRequest = context =>
-                {
-                    return context.User.Identity.IsAuthenticated;
-                };
+                options.ValidateRequest = context => context.User.Identity.IsAuthenticated;
 
                 options.ShouldProxyRequest = originalRequest => originalRequest.Path.StartsWithSegments("/proxy");
 
@@ -213,7 +210,7 @@ namespace Fanex.Athena.BetTicket.WebHost
                         message.Headers.Add(Language, language.First());
                     }
 
-                    string accessToken = await context.GetTokenAsync("access_token") ?? context.Items["access_token"] as string;
+                    var accessToken = await context.GetTokenAsync("access_token") ?? context.Items["access_token"] as string;
                     if (string.IsNullOrEmpty(accessToken))
                     {
                         return;

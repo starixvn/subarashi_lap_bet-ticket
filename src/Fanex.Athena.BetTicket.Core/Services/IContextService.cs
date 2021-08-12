@@ -18,7 +18,7 @@ namespace Fanex.Athena.BetTicket.Core.Services
         string Language { get; }
 
         bool IsShowIP { get; }
-        bool IsShowIpVN { get; }
+        bool IsShowVNIP { get; }
 
         Task<string> AccessToken { get; }
 

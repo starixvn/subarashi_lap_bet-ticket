@@ -75,7 +75,7 @@ namespace Fanex.Athena.BetTicket.Core.Attributes
             if (_bindBetFromIP && MetaModelHelper.IsMetaModel(context.ActionArguments, out IShowBetFromIPMetaModel showBetFromIPMetaModel))
             {
                 showBetFromIPMetaModel.IsShowIp = _contextService.IsShowIP;
-                showBetFromIPMetaModel.IsShowIpVN = _contextService.IsShowIpVN;
+                showBetFromIPMetaModel.IsShowIpVN = _contextService.IsShowVNIP;
             }
 
             if (_bindLanguage && MetaModelHelper.IsMetaModel(context.ActionArguments, out ILanguageMetaModel languageMetaModel))

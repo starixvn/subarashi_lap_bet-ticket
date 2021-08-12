@@ -41,7 +41,7 @@ namespace Fanex.Athena.BetTicket.Core.Services
 
         public bool IsShowIP => GetClaimValue<bool>("IsShowIP");
 
-        public bool IsShowIpVN => IsInRoles("super_admin", "bl_view_ipvn");
+        public bool IsShowVNIP => IsShowIP && IsInRoles("super_admin", "bl_view_ipvn");
 
         public string Language => Context.Request.Query.TryGetValue("language", out StringValues language) ?
             language.First() : "en-US";

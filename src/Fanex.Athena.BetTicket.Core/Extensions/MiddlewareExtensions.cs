@@ -1,10 +1,8 @@
 ﻿using Fanex.Athena.BetTicket.Core.HealthCheck;
 using Fanex.Athena.BetTicket.Core.Middlewares;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
@@ -16,7 +14,6 @@ using ONEbook.UM.Helpers;
 using ONEbook.UM.Services;
 using ONEbook.UM.Transport;
 using System;
-using System.Globalization;
 using System.Linq;
 using System.Net.Mime;
 using System.Threading.Tasks;
