@@ -6,6 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="jshint.json" />
+    <Content Remove="package-lock.json" />
+    <Content Remove="package.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <AdditionalFiles Include="..\..\.sonarlint\lap_betticket\CSharp\SonarLint.xml" Link="SonarLint.xml" />
   </ItemGroup>
 
@@ -24,13 +30,10 @@
     <PackageReference Include="Fanex.Data.SqlServer" Version="4.2.2" />
     <PackageReference Include="IdentityModel.AspNetCore.OAuth2Introspection" Version="5.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.7" Condition="'$(Configuration)' == 'Debug'" />
-    <PackageReference Include="Sentry.AspNetCore" Version="3.8.1" />
+    <PackageReference Include="Sentry.Extensions.Logging" Version="2.1.6" />
   </ItemGroup>
   
   <ItemGroup>
-    <None Update="App_Data\SpConfig\FanexSpName.PROD.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Update="App_Data\SpConfig\FanexSpName.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

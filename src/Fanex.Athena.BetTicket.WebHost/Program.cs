@@ -26,8 +26,9 @@ namespace Fanex.Athena.BetTicket.WebHost
                 {
                     webBuilder.UseStartup<Startup>();
                 })
-                .ConfigureLogging(logging =>
+                .ConfigureLogging((config, logging) =>
                 {
+                    logging.AddConfiguration(config.Configuration);
                     logging.ClearProviders();
                     logging.AddConsole();
                     logging.AddSentry();
