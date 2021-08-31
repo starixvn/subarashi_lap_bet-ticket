@@ -88,6 +88,15 @@ namespace Fanex.Athena.BetTicket.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bought Details.
+        /// </summary>
+        public static string BoughtDetails {
+            get {
+                return ResourceManager.GetString("BoughtDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bought Stake.
         /// </summary>
         public static string BoughtStake {
@@ -111,6 +120,15 @@ namespace Fanex.Athena.BetTicket.Core.Resources {
         public static string CashOutAmount {
             get {
                 return ResourceManager.GetString("CashOutAmount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cash Out Details.
+        /// </summary>
+        public static string CashOutDetails {
+            get {
+                return ResourceManager.GetString("CashOutDetails", resourceCulture);
             }
         }
         
@@ -187,6 +205,33 @@ namespace Fanex.Athena.BetTicket.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sorry, an error occurred while processing your request..
+        /// </summary>
+        public static string ErrorProcessingMsg {
+            get {
+                return ResourceManager.GetString("ErrorProcessingMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export To Excel.
+        /// </summary>
+        public static string ExportToExcel {
+            get {
+                return ResourceManager.GetString("ExportToExcel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Grand Total.
+        /// </summary>
+        public static string GrandTotal {
+            get {
+                return ResourceManager.GetString("GrandTotal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Access denied.
         /// </summary>
         public static string HttpError_403 {
@@ -228,6 +273,24 @@ namespace Fanex.Athena.BetTicket.Core.Resources {
         public static string JackpotWonDetails {
             get {
                 return ResourceManager.GetString("JackpotWonDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Licensee WL.
+        /// </summary>
+        public static string LicenseeWL {
+            get {
+                return ResourceManager.GetString("LicenseeWL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No information is available.
+        /// </summary>
+        public static string NoInfo {
+            get {
+                return ResourceManager.GetString("NoInfo", resourceCulture);
             }
         }
         
@@ -651,6 +714,15 @@ namespace Fanex.Athena.BetTicket.Core.Resources {
         public static string SystemParlayDetailNote {
             get {
                 return ResourceManager.GetString("SystemParlayDetailNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ticket detail of {0}.
+        /// </summary>
+        public static string TicketDetailOf {
+            get {
+                return ResourceManager.GetString("TicketDetailOf", resourceCulture);
             }
         }
         

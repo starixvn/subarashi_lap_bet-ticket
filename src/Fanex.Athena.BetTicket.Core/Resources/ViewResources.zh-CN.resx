@@ -122,25 +122,35 @@
   </data>
   <data name="BoughtAmount" xml:space="preserve">
     <value>买入金额</value>
+    <comment>ignorejs</comment>
+  </data>
+  <data name="BoughtDetails" xml:space="preserve">
+    <value>买入详情</value>
     <comment>93729</comment>
   </data>
   <data name="BoughtStake" xml:space="preserve">
     <value>买入本金</value>
-    <comment>93729</comment>
+    <comment>ignorejs</comment>
   </data>
   <data name="BoughtTicketsList" xml:space="preserve">
     <value>买入注单</value>
-    <comment>93729</comment>
+    <comment>ignorejs</comment>
   </data>
   <data name="CashOutAmount" xml:space="preserve">
     <value>预先兑现金额</value>
+    <comment>ignorejs</comment>
+  </data>
+  <data name="CashOutDetails" xml:space="preserve">
+    <value>即时兑现详情</value>
+    <comment>93729</comment>
   </data>
   <data name="CashOutStake" xml:space="preserve">
     <value>即时兑现本金</value>
-    <comment>93729</comment>
+    <comment>ignorejs</comment>
   </data>
   <data name="CashOutTicketsList" xml:space="preserve">
     <value>即时兑现注单</value>
+    <comment>ignorejs</comment>
   </data>
   <data name="Choice" xml:space="preserve">
     <value>选择</value>
@@ -157,8 +167,39 @@
   <data name="DetailedBetlist" xml:space="preserve">
     <value>投注历史明细</value>
   </data>
+  <data name="ErrorProcessingMsg" xml:space="preserve">
+    <value>对不起, 处理您的请求时有错误发生。</value>
+  </data>
+  <data name="ExportToExcel" xml:space="preserve">
+    <value>导出至Excel</value>
+  </data>
+  <data name="GrandTotal" xml:space="preserve">
+    <value>累计</value>
+  </data>
+  <data name="HttpError_403" xml:space="preserve">
+    <value>访问被拒绝</value>
+    <comment>ignorejs</comment>
+  </data>
+  <data name="HttpError_404" xml:space="preserve">
+    <value>页面不存在, 请检查地址</value>
+    <comment>ignorejs</comment>
+  </data>
+  <data name="HttpError_Default" xml:space="preserve">
+    <value>Oops… 您在此处基于系统错误, 请通知管理员</value>
+    <comment>ignorejs</comment>
+  </data>
+  <data name="InvalidRequestMsg" xml:space="preserve">
+    <value>请求无效</value>
+    <comment>ignorejs</comment>
+  </data>
   <data name="JackpotWonDetails" xml:space="preserve">
     <value>积宝头奖详情</value>
+  </data>
+  <data name="LicenseeWL" xml:space="preserve">
+    <value>承租公司輸贏</value>
+  </data>
+  <data name="NoInfo" xml:space="preserve">
+    <value>没资料显示</value>
   </data>
   <data name="Note" xml:space="preserve">
     <value>记录</value>
@@ -168,7 +209,7 @@
   </data>
   <data name="OriginalBetTicket" xml:space="preserve">
     <value>原始注单</value>
-    <comment>93729</comment>
+    <comment>ignorejs</comment>
   </data>
   <data name="ProductAB" xml:space="preserve">
     <value>欧博</value>
@@ -274,14 +315,17 @@
   </data>
   <data name="SystemParlayDetailNote" xml:space="preserve">
     <value>输赢的进位值仅供参考。因此，所有输赢相加的总计有可能和小计有差数。</value>
-    <comment>78931</comment>
+    <comment>ignorejs</comment>
+  </data>
+  <data name="TicketDetailOf" xml:space="preserve">
+    <value>Ticket detail of {0}</value>
+    <comment>#63785</comment>
   </data>
   <data name="Total" xml:space="preserve">
     <value>总和</value>
   </data>
   <data name="TransactionDetail" xml:space="preserve">
     <value>账目明细</value>
-    <comment>112658</comment>
   </data>
   <data name="TransTime" xml:space="preserve">
     <value>交易时间</value>

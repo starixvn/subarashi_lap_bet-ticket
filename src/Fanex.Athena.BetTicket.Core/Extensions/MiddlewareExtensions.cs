@@ -33,6 +33,15 @@ namespace Fanex.Athena.BetTicket.Core.Extensions
 
         public static void UseHealthCheck(this IApplicationBuilder app, IConfiguration configuration)
         {
+            app.Use(async (context, next) =>
+            {
+                if (context.Request.Path.StartsWithSegments("/ping"))
+                {
+                    return;
+                }
+                await next();
+            });
+
             Func<HttpContext, HealthReport, Task> customResponseWriter = async (context, report) =>
             {
                 var result = JsonConvert.SerializeObject(

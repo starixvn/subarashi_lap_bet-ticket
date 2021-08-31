@@ -1,6 +1,7 @@
 import ViewResultEventBuilder from './ViewResultEventBuilder' 
 import ViewDetailEventBuilder from './ViewDetailEventBuilder' 
 import LangHelper from '../../lib/langHelper';
+import { formatDateString } from '../../lib/dateUtils';
 
 class EventBuilder {
 
@@ -27,7 +28,7 @@ class EventBuilder {
     }
 
     _formatDateString(dateString) {
-        return window.formatDateString ? window.formatDateString(dateString) : dateString;
+        return window.formatDateString ? window.formatDateString(dateString) : formatDateString(dateString);
     }
 
     _beforeShow() {

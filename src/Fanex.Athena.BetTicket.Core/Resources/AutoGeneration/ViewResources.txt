@@ -1,0 +1,7 @@
+﻿
+
+// Generated helper templates
+// Generated items
+// Fanex.Athena.BetTicket.WebHost\ClientApp\src\js\lib\languages\ViewResources.zh-CN.js
+// Fanex.Athena.BetTicket.WebHost\ClientApp\src\js\lib\languages\ViewResources.js
+

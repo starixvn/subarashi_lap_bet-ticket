@@ -1,7 +1,10 @@
-﻿@{
+﻿@using Microsoft.Extensions.Configuration;
+@inject IConfiguration configuration
+@{
     Layout = null;
     var rootUrl = Url.Content("~");
     var title = ViewResources.BetTicket + " - " + ViewData["Title"];
+    _ = bool.TryParse(configuration["IsProduction"], out bool isProduction);
 }
 
 <!DOCTYPE html>
@@ -19,5 +22,18 @@
     <div class="wrapper">
         @RenderBody()
     </div>
+    @if (isProduction)
+    {
+        <!-- Google Analytics -->
+        <script>
+            window.ga = window.ga || function () { (ga.q = ga.q || []).push(arguments) }; ga.l = +new Date;
+            ga('create', 'UA-93927620-1', {
+                cookieFlags: 'secure;samesite=none'
+            });
+            ga('send', 'pageview');
+        </script>
+        <script async src='https://www.google-analytics.com/analytics.js'></script>
+        <!-- End Google Analytics -->
+    }
 </body>
 </html>

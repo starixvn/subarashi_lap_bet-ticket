@@ -1,8 +1,11 @@
-﻿@{
+﻿@using Microsoft.Extensions.Configuration;
+@inject IConfiguration configuration
+@{
     Layout = null;
     var langCode = System.Globalization.CultureInfo.CurrentCulture.Name;
     var rootUrl = Url.Content("~");
     var title = ViewResources.DetailedBetlist + " - " + ViewData["Title"];
+    _ = bool.TryParse(configuration["IsProduction"], out bool isProduction);
 }
 
 <!DOCTYPE html>
@@ -27,5 +30,18 @@
     </script>
     <script src="~/js/lib/vendor.chunk.js" asp-append-version="true"></script>
     @await RenderSectionAsync("pagejs", required: false)
+    @if (isProduction)
+    {
+        <!-- Google Analytics -->
+        <script>
+            window.ga = window.ga || function () { (ga.q = ga.q || []).push(arguments) }; ga.l = +new Date;
+            ga('create', 'UA-93927620-1', {
+                cookieFlags: 'secure;samesite=none'
+            });
+            ga('send', 'pageview');
+        </script>
+        <script async src='https://www.google-analytics.com/analytics.js'></script>
+        <!-- End Google Analytics -->
+    }
 </body>
 </html>

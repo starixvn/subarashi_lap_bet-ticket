@@ -125,31 +125,41 @@
   </data>
   <data name="BoughtAmount" xml:space="preserve">
     <value>Bought Amount</value>
+    <comment>ignorejs</comment>
+  </data>
+  <data name="BoughtDetails" xml:space="preserve">
+    <value>Bought Details</value>
     <comment>#71727</comment>
   </data>
   <data name="BoughtStake" xml:space="preserve">
     <value>Bought Stake</value>
-    <comment>#71727</comment>
+    <comment>ignorejs</comment>
   </data>
   <data name="BoughtTicketsList" xml:space="preserve">
     <value>Bought Ticket[s]</value>
-    <comment>#71727</comment>
+    <comment>ignorejs</comment>
   </data>
   <data name="CashOutAmount" xml:space="preserve">
     <value>Cash Out Amount</value>
+    <comment>ignorejs</comment>
+  </data>
+  <data name="CashOutDetails" xml:space="preserve">
+    <value>Cash Out Details</value>
   </data>
   <data name="CashOutStake" xml:space="preserve">
     <value>Cash Out Stake</value>
+    <comment>ignorejs</comment>
   </data>
   <data name="CashOutTicketsList" xml:space="preserve">
     <value>Cash Out Ticket[s]</value>
+    <comment>ignorejs</comment>
   </data>
   <data name="Choice" xml:space="preserve">
     <value>Choice</value>
   </data>
   <data name="ColossusBetBetListDetailMsg" xml:space="preserve">
     <value>Member owned {0}% of this ticket&lt;br/&gt;Member sold {1}% of this ticket for {2}</value>
-    <comment>#63785</comment>
+    <comment>ignorejs</comment>
   </data>
   <data name="Comm" xml:space="preserve">
     <value>Comm</value>
@@ -163,20 +173,39 @@
   <data name="DetailedBetlist" xml:space="preserve">
     <value>Detailed Bet list</value>
   </data>
+  <data name="ErrorProcessingMsg" xml:space="preserve">
+    <value>Sorry, an error occurred while processing your request.</value>
+  </data>
+  <data name="ExportToExcel" xml:space="preserve">
+    <value>Export To Excel</value>
+  </data>
+  <data name="GrandTotal" xml:space="preserve">
+    <value>Grand Total</value>
+  </data>
   <data name="HttpError_403" xml:space="preserve">
     <value>Access denied</value>
+    <comment>ignorejs</comment>
   </data>
   <data name="HttpError_404" xml:space="preserve">
     <value>Page not found, please check the address</value>
+    <comment>ignorejs</comment>
   </data>
   <data name="HttpError_Default" xml:space="preserve">
     <value>Oops... you are here because of a system error, please notify the administrators</value>
+    <comment>ignorejs</comment>
   </data>
   <data name="InvalidRequestMsg" xml:space="preserve">
     <value>Request is not valid</value>
+    <comment>ignorejs</comment>
   </data>
   <data name="JackpotWonDetails" xml:space="preserve">
     <value>Jackpot Won Details</value>
+  </data>
+  <data name="LicenseeWL" xml:space="preserve">
+    <value>Licensee WL</value>
+  </data>
+  <data name="NoInfo" xml:space="preserve">
+    <value>No information is available</value>
   </data>
   <data name="Note" xml:space="preserve">
     <value>Note</value>
@@ -187,7 +216,7 @@
   </data>
   <data name="OriginalBetTicket" xml:space="preserve">
     <value>Original Bet Ticket</value>
-    <comment>#71727</comment>
+    <comment>ignorejs</comment>
   </data>
   <data name="ProductAB" xml:space="preserve">
     <value>AllBet</value>
@@ -345,10 +374,15 @@
   </data>
   <data name="SystemParlayDetailNote" xml:space="preserve">
     <value>Win Loss is rounded for reference only. Therefore, Sub Total amount may be different from the sum of Win Loss when it sums all the actual Win Loss amounts.</value>
-    <comment>78931</comment>
+    <comment>ignorejs</comment>
+  </data>
+  <data name="TicketDetailOf" xml:space="preserve">
+    <value>Ticket detail of {0}</value>
+    <comment>#63785</comment>
   </data>
   <data name="TokenWasExpired" xml:space="preserve">
     <value>Token was expired</value>
+    <comment>ignorejs</comment>
   </data>
   <data name="Total" xml:space="preserve">
     <value>Total</value>
@@ -358,6 +392,7 @@
   </data>
   <data name="TransactionType" xml:space="preserve">
     <value>Transaction Type</value>
+    <comment>ignorejs</comment>
   </data>
   <data name="TransTime" xml:space="preserve">
     <value>Trans.Time</value>
