@@ -2,7 +2,7 @@
 @inject IConfiguration configuration
 @{
     Layout = null;
-    var langCode = System.Globalization.CultureInfo.CurrentCulture.Name;
+    var langCode = System.Globalization.CultureInfo.CurrentUICulture.Name;
     var rootUrl = Url.Content("~");
     var title = ViewResources.DetailedBetlist + " - " + ViewData["Title"];
     _ = bool.TryParse(configuration["IsProduction"], out bool isProduction);

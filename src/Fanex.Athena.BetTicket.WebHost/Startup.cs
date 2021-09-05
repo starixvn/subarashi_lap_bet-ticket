@@ -106,22 +106,24 @@ namespace Fanex.Athena.BetTicket.WebHost
 
             services.Configure<RequestLocalizationOptions>(options =>
             {
-                var supportedCultures = new List<CultureInfo>
+                const string DefaultCultureName = "en-US";
+                var enCulture = new CultureInfo("en-US");
+                var csCulture = new CultureInfo("zh-CN");
+
+                options.DefaultRequestCulture = new RequestCulture(DefaultCultureName);
+                options.SupportedCultures = new List<CultureInfo>
                 {
-                    new CultureInfo("en-US"),
-                    new CultureInfo("zh-CN")
+                    enCulture
                 };
-
-                options.DefaultRequestCulture = new RequestCulture("en-US");
-                options.SupportedCultures = supportedCultures;
-                options.SupportedUICultures = supportedCultures;
-
-                options.AddInitialRequestCultureProvider(new CustomRequestCultureProvider(context =>
+                options.SupportedUICultures = new List<CultureInfo>
                 {
-                    var lang = context.Request.Query.TryGetValue("language", out StringValues language) ?
-                        language.First() : "en-US";
-                    return Task.FromResult(new ProviderCultureResult(lang));
-                }));
+                    enCulture,
+                    csCulture
+                };
+                options.RequestCultureProviders = new List<IRequestCultureProvider>
+                {
+                    new QueryStringRequestCultureProvider { UIQueryStringKey = "language" }
+                };
             });
 
             services.AddHealthCheck(Configuration);
@@ -158,10 +160,10 @@ namespace Fanex.Athena.BetTicket.WebHost
             app.UseStaticResource(HostingEnvironment.IsDevelopment());
             app.UseRouting();
             app.UseCors();
+            app.UseRequestLocalization();
             app.UseAuthentication();
             app.UseProxy();
             app.UseAuthorization();
-            app.UseRequestLocalization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapDefaultControllerRoute();
@@ -205,10 +207,7 @@ namespace Fanex.Athena.BetTicket.WebHost
                     message.Headers.Add(proxySetting.TokenKey, proxySetting.TokenValue);
 
                     const string Language = "Language";
-                    if (originalRequest.Query.TryGetValue(Language, out StringValues language))
-                    {
-                        message.Headers.Add(Language, language.First());
-                    }
+                    message.Headers.Add(Language, CultureInfo.CurrentUICulture.Name);
 
                     var accessToken = await context.GetTokenAsync("access_token") ?? context.Items["access_token"] as string;
                     if (string.IsNullOrEmpty(accessToken))

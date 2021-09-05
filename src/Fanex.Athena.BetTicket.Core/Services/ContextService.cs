@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -43,8 +44,7 @@ namespace Fanex.Athena.BetTicket.Core.Services
 
         public bool IsShowVNIP => IsShowIP && IsInRoles("super_admin", "bl_view_ipvn");
 
-        public string Language => Context.Request.Query.TryGetValue("language", out StringValues language) ?
-            language.First() : "en-US";
+        public string Language => CultureInfo.CurrentUICulture.Name;
 
         public Task<string> AccessToken => Context.GetTokenAsync("access_token");
 
