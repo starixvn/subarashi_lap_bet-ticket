@@ -158,6 +158,7 @@ namespace Fanex.Athena.BetTicket.WebHost
 
             app.UseHealthCheck(Configuration);
             app.UseStaticResource(HostingEnvironment.IsDevelopment());
+            app.UseUnderMaintenance();
             app.UseRouting();
             app.UseCors();
             app.UseRequestLocalization();
