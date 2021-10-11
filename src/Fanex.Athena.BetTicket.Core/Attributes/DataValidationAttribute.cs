@@ -2,6 +2,7 @@
 using Fanex.Athena.BetTicket.Core.Models;
 using Fanex.Athena.BetTicket.Core.Services;
 using Fanex.Core.Utils;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System;
@@ -45,7 +46,7 @@ namespace Fanex.Athena.BetTicket.Core.Attributes
             var isValid = await IsValid(context.ActionArguments);
             if (!isValid)
             {
-                context.Result = new StatusCodeResult(400);
+                context.Result = new StatusCodeResult(StatusCodes.Status400BadRequest);
                 context.HandleInvalidRequest(ErrorMsg);
             }
             else

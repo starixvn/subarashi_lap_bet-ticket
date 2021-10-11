@@ -13,6 +13,8 @@ namespace Microsoft.AspNetCore.Proxy
     /// </summary>
     public class SharedProxyOptions
     {
+        const int TimeoutInSeconds = 100;
+
         private int? _webSocketBufferSize;
 
         /// <summary>
@@ -39,7 +41,7 @@ namespace Microsoft.AspNetCore.Proxy
         /// </summary>
         public TimeSpan? WebSocketKeepAliveInterval { get; set; }
 
-        public TimeSpan Timeout { get; set; } = TimeSpan.FromSeconds(100);
+        public TimeSpan Timeout { get; set; } = TimeSpan.FromSeconds(TimeoutInSeconds);
 
         /// <summary>
         /// Internal send and receive buffers size for proxied Web Socket connections.

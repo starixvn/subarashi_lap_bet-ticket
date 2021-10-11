@@ -42,7 +42,7 @@ namespace Fanex.Athena.BetTicket.WebHost
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var mvcBuilder = services.AddControllersWithViews(options =>
+            services.AddControllersWithViews(options =>
             {
                 var policy = new AuthorizationPolicyBuilder()
                               .RequireAuthenticatedUser()
@@ -50,15 +50,6 @@ namespace Fanex.Athena.BetTicket.WebHost
 
                 options.Filters.Add(new AuthorizeFilter(policy));
             });
-
-            //if(HostingEnvironment.IsDevelopment())
-            //{
-            //    mvcBuilder.AddRazorRuntimeCompilation(options =>
-            //    {
-            //        var libraryPath = Path.GetFullPath(Path.Combine(HostingEnvironment.ContentRootPath, "..", "Modules", "Fanex.Athena.BetTicket.Detail"));
-            //        options.FileProviders.Add(new PhysicalFileProvider(libraryPath));
-            //    });
-            //}
 
             ConfigFanexData();
 

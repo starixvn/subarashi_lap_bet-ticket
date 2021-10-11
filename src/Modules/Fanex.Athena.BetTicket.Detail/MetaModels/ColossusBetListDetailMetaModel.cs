@@ -16,9 +16,8 @@ namespace Fanex.Athena.BetTicket.Detail.MetaModels
         public long BetCheck { get; set; }
 
         public string AgentListXml { get; set; }
-        public long TransId { get; set; } = 0;
+        public long TransId { get; set; }
 
         public bool IsValid => CustId > 0;
-
     }
 }

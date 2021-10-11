@@ -36,7 +36,7 @@ class EventBuilder {
     }
 
     _afterShow() {
-        window.afterShow &&  window.afterShow();
+        window.afterShow && window.afterShow();
     }
 
     _openPopup(url, title, sporttype) {

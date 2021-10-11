@@ -21,6 +21,6 @@ namespace Fanex.Athena.BetTicket.Detail.Controllers
             CustomerCommVisible = _contextService.IsAllowedCustomerComm
         };
 
-        protected override string BuildTitle(string _) => ViewResources.TransactionDetail;
+        protected override string BuildTitle(string betDate) => ViewResources.TransactionDetail;
     }
 }

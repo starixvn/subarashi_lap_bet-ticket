@@ -125,7 +125,10 @@ namespace Fanex.Athena.BetTicket.Core.ConsoleClient
         }
     }
 
+#pragma warning disable S3925 // "ISerializable" should be implemented correctly
+
     public sealed class ServiceException : Exception, ISerializable
+#pragma warning restore S3925 // "ISerializable" should be implemented correctly
     {
         private readonly string _serviceName;
 

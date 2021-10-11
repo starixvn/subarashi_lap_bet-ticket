@@ -2,7 +2,7 @@ import UrlResultBuilder from '../../lib/UrlResultBuilder';
 import SportType from '../../constants/SportType';
 import DataService from '../../lib/DataService';
 
-export default function buildViewResultEvent() {
+export default function ViewResultEventBuilder() {
     window.ViewResult = (matchid, raceNo, bettype, sporttype, refno,
         currency, winlostdate, refnoMixParlay, league, isOutright, extension1, extension2, custid, transdecs) => {
 

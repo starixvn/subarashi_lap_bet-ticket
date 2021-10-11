@@ -3,6 +3,7 @@
 
 using System;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.WebSockets;
 using System.Threading;
@@ -14,7 +15,10 @@ namespace Microsoft.AspNetCore.Proxy
 {
     internal static class ProxyAdvancedExtensions
     {
-        private static readonly string[] NotForwardedWebSocketHeaders = new[] { "Connection", "Host", "Upgrade", "Sec-WebSocket-Accept", "Sec-WebSocket-Protocol", "Sec-WebSocket-Key", "Sec-WebSocket-Version", "Sec-WebSocket-Extensions" };
+        private static readonly string[] NotForwardedWebSocketHeaders = new[] 
+        { 
+            "Connection", "Host", "Upgrade", "Sec-WebSocket-Accept", "Sec-WebSocket-Protocol", "Sec-WebSocket-Key", "Sec-WebSocket-Version", "Sec-WebSocket-Extensions" 
+        };
         private const int DefaultWebSocketBufferSize = 4096;
         private const int StreamCopyBufferSize = 81920;
 
@@ -33,6 +37,10 @@ namespace Microsoft.AspNetCore.Proxy
             else if (string.Equals(uriBuilder.Scheme, "http", StringComparison.OrdinalIgnoreCase))
             {
                 uriBuilder.Scheme = "ws";
+            }
+            else
+            {
+                //
             }
 
             return uriBuilder.Uri;
@@ -112,7 +120,7 @@ namespace Microsoft.AspNetCore.Proxy
                 }
                 catch (WebSocketException)
                 {
-                    context.Response.StatusCode = 400;
+                    context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
                     return false;
                 }
 

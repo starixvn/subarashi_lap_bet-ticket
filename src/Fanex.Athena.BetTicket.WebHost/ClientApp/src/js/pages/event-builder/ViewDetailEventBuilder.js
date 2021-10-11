@@ -3,7 +3,6 @@ import DataService from '../../lib/DataService';
 
 export default function ViewDetailEventBuilder() {
 
-
     window.showMP = (transId) => {
         let divEvent = document.querySelector('#divEvent_' + transId);
         divEvent.classList.add('mx-parlay'); //to make line-through for void-parlay-ticket
