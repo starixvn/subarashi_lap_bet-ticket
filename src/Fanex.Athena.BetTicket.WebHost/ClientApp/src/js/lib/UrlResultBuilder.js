@@ -68,7 +68,7 @@ export default class UrlResultBuilder {
 
     static getSabaClubResultUrl(rootUrl) {
         return rootUrl + 'Proxy/SabaClubResultPopup/Index';
-     }
+    }
 
     static getSGResultUrl(rootUrl) {
         return rootUrl + 'Proxy/SGResultPopup/Index';
@@ -80,6 +80,14 @@ export default class UrlResultBuilder {
 
     static getCGResultUrl(rootUrl) {
         return rootUrl + 'Proxy/CGResultPopup/Index';
+    }
+
+    static getAdvantPlayResultUrl(rootUrl) {
+        return rootUrl + 'Proxy/AdvantPlayResultPopup/Index';
+    }
+
+    static getAdvantPlayMiniResultUrl(rootUrl) {
+        return rootUrl + 'Proxy/AdvantPlayMiniResultPopup/Index';
     }
 
     static getAllBetResultUrl(rootUrl, transdesc, betcheck, bettype, language, accessToken) {
@@ -155,7 +163,7 @@ export default class UrlResultBuilder {
         url = QueryString.setParam(url, 'gameId3rd', gameId3rd);
         url = QueryString.setParam(url, 'bettype', bettype);
         url = QueryString.setParam(url, 'transdesc', encodeURIComponent(transDesc));
-        
+
         return url;
     }
 
