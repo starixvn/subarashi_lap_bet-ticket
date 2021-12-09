@@ -2,7 +2,6 @@ import QueryString from '@jsroot/lib/QueryString'
 import BetType from '../constants/BetType';
 
 export default class UrlDetailBuilder {
-
     static _assignCommonParams(url, { baseCurrency, language, accessToken }) {
         url = QueryString.setParam(url, 'baseCurrency', baseCurrency);
         url = QueryString.setParam(url, 'language', language);
@@ -352,6 +351,28 @@ export default class UrlDetailBuilder {
 
     static getCGDetailUrl(rootUrl, commonParams, transId, winlostDate, custId, transType) {
         let url = rootUrl + 'CreativeGamingBetListDetail/Index';
+        url = this._assignCommonParams(url, commonParams);
+        url = QueryString.setParam(url, 'transId', transId);
+        url = QueryString.setParam(url, 'date', winlostDate);
+        url = QueryString.setParam(url, 'custId', custId);
+        url = QueryString.setParam(url, 'transType', transType);
+
+        return url;
+    }
+
+    static getAPDetailUrl(rootUrl, commonParams, transId, winlostDate, custId, transType) {
+        let url = rootUrl + 'AdvantPlayBetListDetail/Index';
+        url = this._assignCommonParams(url, commonParams);
+        url = QueryString.setParam(url, 'transId', transId);
+        url = QueryString.setParam(url, 'date', winlostDate);
+        url = QueryString.setParam(url, 'custId', custId);
+        url = QueryString.setParam(url, 'transType', transType);
+
+        return url;
+    }
+
+    static getAPMDetailUrl(rootUrl, commonParams, transId, winlostDate, custId, transType) {
+        let url = rootUrl + 'AdvantPlayMiniBetListDetail/Index';
         url = this._assignCommonParams(url, commonParams);
         url = QueryString.setParam(url, 'transId', transId);
         url = QueryString.setParam(url, 'date', winlostDate);

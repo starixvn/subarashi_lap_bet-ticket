@@ -340,6 +340,24 @@ namespace Fanex.Athena.BetTicket.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to AdvantPlay.
+        /// </summary>
+        public static string ProductAP {
+            get {
+                return ResourceManager.GetString("ProductAP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AdvantPlay Mini.
+        /// </summary>
+        public static string ProductAPM {
+            get {
+                return ResourceManager.GetString("ProductAPM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to BA.
         /// </summary>
         public static string ProductBA {
