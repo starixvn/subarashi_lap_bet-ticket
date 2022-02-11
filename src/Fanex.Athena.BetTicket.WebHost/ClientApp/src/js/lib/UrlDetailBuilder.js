@@ -207,6 +207,16 @@ export default class UrlDetailBuilder {
         return url;
     }
 
+    static getSGJackpotWonDetailUrl(rootUrl, commonParams, transId, custId, betTypeId) {
+        let url = rootUrl + 'JackpotWonBetListDetail/Index';
+        url = this._assignCommonParams(url, commonParams);
+        url = QueryString.setParam(url, 'transId', transId);
+        url = QueryString.setParam(url, 'custId', custId);
+        url = QueryString.setParam(url, 'bettype', betTypeId);
+
+        return url;
+    }
+
     static getVideoPokerGameDetailUrl(rootUrl, commonParams, transId, winlostDate, custId, transType) {
         let url = rootUrl + 'CardClubBetListDetail/Index';
         url = this._assignCommonParams(url, commonParams);
