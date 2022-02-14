@@ -4,7 +4,7 @@ import DataService from '../../lib/DataService';
 
 export default function ViewResultEventBuilder() {
     window.ViewResult = (matchid, raceNo, bettype, sporttype, refno,
-        currency, winlostdate, refnoMixParlay, league, isOutright, extension1, extension2, custid, transdecs) => {
+        currency, winlostdate, refnoMixParlay, league, isOutright, extension1, extension2, custid, transdecs, siteId) => {
         const title = this._getResource('Result');
         const languageCode = this._getLanguage();
         const accessToken = this._getAccessToken();
@@ -12,19 +12,19 @@ export default function ViewResultEventBuilder() {
 
         if (sporttype === SportType.RNG_GAME || sporttype === SportType.RNG_MINIGAME || sporttype === SportType.RNG_MOBILE) {
             const url = UrlResultBuilder.getRngCasinoResultUrl(this.rootUrl, languageCode);
-            _showRngCasinoResult.call(this, refno, url, title, sporttype);
+            _showThirdPartyResult.call(this, url, { languageCode, custid, transId3rd: transdecs, gameId3rd: extension2, currencyId: extension1, siteId, betTypeId: bettype }, title, sporttype);
         }
         else if (sporttype === SportType.VOIDBRIDGE) {
             const url = UrlResultBuilder.getVoidbridgeResultUrl(this.rootUrl, languageCode);
-            _showThirdPartyResult.call(this, url, { languageCode, custid, gamePlayId: extension2 }, title, sporttype);
+            _showThirdPartyResult.call(this, url, { languageCode, custid, transId3rd: transdecs, gameId3rd: extension2, currencyId: extension1, siteId, betTypeId: bettype }, title, sporttype);
         }
         else if (sporttype === SportType.PP) {
             const url = UrlResultBuilder.getPPResultUrl(this.rootUrl);
-            _showThirdPartyResult.call(this, url, { languageCode, custid, gamePlayId: extension2 }, title, sporttype);
+            _showThirdPartyResult.call(this, url, { languageCode, custid, transId3rd: transdecs, gameId3rd: extension2, currencyId: extension1, siteId, betTypeId: bettype }, title, sporttype);
         }
         else if (sporttype === SportType.CARDCLUB) {
             const url = UrlResultBuilder.getCardClubResultUrl(this.rootUrl);
-            _showThirdPartyResult.call(this, url, { languageCode, custid, gameTypeId: bettype, transId3rd: extension2 }, title, sporttype);
+            _showThirdPartyResult.call(this, url, { languageCode, custid, transId3rd: transdecs, gameId3rd: extension2, currencyId: extension1, siteId, betTypeId: bettype }, title, sporttype);
         }
         else if (sporttype === SportType.SBC || sporttype === SportType.SBC_FreeBets) {
             const url = UrlResultBuilder.getSabaClubResultUrl(this.rootUrl, custid, bettype, extension2, transdecs, sporttype);
@@ -39,7 +39,7 @@ export default function ViewResultEventBuilder() {
         }
         else if (sporttype === SportType.SG) {
             const url = UrlResultBuilder.getSGResultUrl(this.rootUrl);
-            _showThirdPartyResult.call(this, url, { languageCode, custid, gamePlayId: extension2 }, title, sporttype);
+            _showThirdPartyResult.call(this, url, { languageCode, custid, transId3rd: transdecs, gameId3rd: extension2, currencyId: extension1, siteId, betTypeId: bettype }, title, sporttype);
         }
         else if (sporttype === SportType.VRG) {
             const url = UrlResultBuilder.getVRGResultUrl(this.rootUrl);
@@ -59,7 +59,7 @@ export default function ViewResultEventBuilder() {
         }
         else if (sporttype === SportType.JK) {
             const url = UrlResultBuilder.getJokerResultUrl(this.rootUrl);
-            _showThirdPartyResult.call(this, url, { languageCode, custid, gamePlayId: transdecs, gameCode: extension2 }, title, sporttype);
+            _showThirdPartyResult.call(this, url, { languageCode, custid, transId3rd: transdecs, gameId3rd: extension2, currencyId: extension1, siteId, betTypeId: bettype }, title, sporttype);
         }
         else if (sporttype === SportType.SXG) {
             const url = UrlResultBuilder.getSexyGamingResultUrl(this.rootUrl, transdecs, extension2, bettype, languageCode, accessToken);
@@ -67,26 +67,26 @@ export default function ViewResultEventBuilder() {
         }
         else if (sporttype === SportType.PGS) {
             const url = UrlResultBuilder.getPGSoftResultUrl(this.rootUrl);
-            _showThirdPartyResult.call(this, url, { languageCode, custid, gamePlayId: transdecs, gameId3rd: extension2 }, title, sporttype);
+            _showThirdPartyResult.call(this, url, { languageCode, custid, transId3rd: transdecs, gameId3rd: extension2, currencyId: extension1, siteId, betTypeId: bettype }, title, sporttype);
         }
         else if (sporttype === SportType.Happy5LinkedGames) {
             const url = UrlResultBuilder.getHappy5LinkedGamesResultUrl(this.rootUrl);
-            _showThirdPartyResult.call(this, url, { languageCode, custid: extension1, transId3rd: refno, platform: defaultPlatform }, title, sporttype);
+            _showThirdPartyResult.call(this, url, { languageCode, custid, transId3rd: refno, gameId3rd: extension2, currencyId: extension1, siteId, betTypeId: bettype }, title, sporttype);
         }
         else if (sporttype === SportType.GDG) {
             const url = UrlResultBuilder.getGDGResultUrl(this.rootUrl);
-            _showThirdPartyResult.call(this, url, { languageCode, custid, transId3rd: transdecs, gameId3rd: extension2, siteId: league }, title, sporttype);
+            _showThirdPartyResult.call(this, url, { languageCode, custid, transId3rd: transdecs, gameId3rd: extension2, currencyId: extension1, siteId, betTypeId: bettype }, title, sporttype);
         } else if (sporttype === SportType.BGG) {
             const url = UrlResultBuilder.getBGGResultUrl(this.rootUrl);
-            _showThirdPartyResult.call(this, url, { languageCode, custid, transId3rd: transdecs, currencyId: league, siteId: extension2 }, title, sporttype);
+            _showThirdPartyResult.call(this, url, { languageCode, custid, transId3rd: transdecs, gameId3rd: extension2, currencyId: extension1, siteId, betTypeId: bettype }, title, sporttype);
         }
         else if (sporttype === SportType.SLT) {
             const url = UrlResultBuilder.getSportsLotteryResultUrl(this.rootUrl);
-            _showThirdPartyResult.call(this, url, { languageCode, custid, transId3rd: transdecs, platform: defaultPlatform }, title, sporttype);
+            _showThirdPartyResult.call(this, url, { languageCode, custid, transId3rd: transdecs, gameId3rd: extension2, currencyId: extension1, siteId, betTypeId: bettype }, title, sporttype);
         }
         else if (sporttype === SportType.HB) {
             const url = UrlResultBuilder.getHabaneroResultUrl(this.rootUrl);
-            _showThirdPartyResult.call(this, url, { languageCode, custid, transId3rd: transdecs, gameId3rd: extension2, siteId: extension1 }, title, sporttype);
+            _showThirdPartyResult.call(this, url, { languageCode, custid, transId3rd: transdecs, gameId3rd: extension2, currencyId: extension1, siteId, betTypeId: bettype }, title, sporttype);
         }
         else if (sporttype === SportType.WM) {
             const url = UrlResultBuilder.getWMResultUrl(this.rootUrl, transdecs, extension2, bettype, languageCode, accessToken);
@@ -100,15 +100,15 @@ export default function ViewResultEventBuilder() {
         }
         else if (sporttype === SportType.CG) {
             const url = UrlResultBuilder.getCGResultUrl(this.rootUrl);
-            _showThirdPartyResult.call(this, url, { languageCode, custid, transId3rd: transdecs, gameId3rd: extension2, siteId: extension1 }, title, sporttype);
+            _showThirdPartyResult.call(this, url, { languageCode, custid, transId3rd: transdecs, gameId3rd: extension2, currencyId: extension1, siteId, betTypeId: bettype }, title, sporttype);
         }
         else if (sporttype === SportType.AP) {
             const url = UrlResultBuilder.getAdvantPlayResultUrl(this.rootUrl);
-            _showThirdPartyResult.call(this, url, { languageCode, custid, transId3rd: transdecs, gameId3rd: extension2, siteId: extension1 }, title, sporttype);
+            _showThirdPartyResult.call(this, url, { languageCode, custid, transId3rd: transdecs, gameId3rd: extension2, currencyId: extension1, siteId, betTypeId: bettype }, title, sporttype);
         }
         else if (sporttype === SportType.APM) {
             const url = UrlResultBuilder.getAdvantPlayMiniResultUrl(this.rootUrl);
-            _showThirdPartyResult.call(this, url, { languageCode, custid, transId3rd: transdecs, gameId3rd: extension2, siteId: extension1 }, title, sporttype);
+            _showThirdPartyResult.call(this, url, { languageCode, custid, transId3rd: transdecs, gameId3rd: extension2, currencyId: extension1, siteId, betTypeId: bettype }, title, sporttype);
         }
         else {
             const url = UrlResultBuilder.getResultUrl(this.rootUrl, languageCode, accessToken, matchid, raceNo, bettype,
