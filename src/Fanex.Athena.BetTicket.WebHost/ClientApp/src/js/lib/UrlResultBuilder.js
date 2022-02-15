@@ -49,9 +49,7 @@ export default class UrlResultBuilder {
     }
 
     static getRngCasinoResultUrl(rootUrl, language) {
-        let url = rootUrl + 'Proxy/ResultReport/ShowRngCasinoSingleWalletResult';
-        url = QueryString.setParam(url, 'language', language);
-        return url;
+        return rootUrl + 'Proxy/RNGCasinoResultPopup/Index';
     }
 
     static getVoidbridgeResultUrl(rootUrl) {
