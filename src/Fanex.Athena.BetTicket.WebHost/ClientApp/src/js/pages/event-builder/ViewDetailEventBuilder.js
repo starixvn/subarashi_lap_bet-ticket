@@ -2,7 +2,6 @@ import UrlDetailBuilder from '../../lib/UrlDetailBuilder';
 import DataService from '../../lib/DataService';
 
 export default function ViewDetailEventBuilder() {
-
     window.showMP = (transId) => {
         let divEvent = document.querySelector('#divEvent_' + transId);
         divEvent.classList.add('mx-parlay'); //to make line-through for void-parlay-ticket
@@ -110,6 +109,14 @@ export default function ViewDetailEventBuilder() {
     window.showSabaClubJackpotWonDetails = (transId, custId, betTypeId) => {
         const url = UrlDetailBuilder.getSabaClubJackpotWonDetailUrl(this.rootUrl, _getCommonParams.call(this), transId, custId, betTypeId);
         const title = this._getResource('ProductSBC') + ' - ' +
+            this._getResource('JackpotWonDetails');
+
+        this._openPopup(url, title);
+    }
+
+    window.showSGJackpotWonDetails = (transId, custId, betTypeId) => {
+        const url = UrlDetailBuilder.getSGJackpotWonDetailUrl(this.rootUrl, _getCommonParams.call(this), transId, custId, betTypeId);
+        const title = this._getResource('ProductSG') + ' - ' +
             this._getResource('JackpotWonDetails');
 
         this._openPopup(url, title);
