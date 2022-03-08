@@ -88,6 +88,17 @@ export default class UrlResultBuilder {
         return rootUrl + 'Proxy/AdvantPlayMiniResultPopup/Index';
     }
 
+    static getVS3ResultUrl(rootUrl, language, accessToken, transdecs, sporttype) {
+        const param = 'transDesc=' + transdecs +
+            '&sporttype=' + sporttype +
+            '&lang=' + language +
+            '&access_token=' + accessToken;
+
+        let url = rootUrl + 'SportsResult/Index?' + param;
+
+        return url;
+    }
+
     static getAllBetResultUrl(rootUrl, transdesc, betcheck, bettype, language, accessToken) {
         let url = rootUrl + 'NonSportsResult/AllBet';
         url = QueryString.setParam(url, 'language', language);
@@ -112,6 +123,18 @@ export default class UrlResultBuilder {
 
     static getJokerResultUrl(rootUrl) {
         return rootUrl + 'Proxy/JokerResultPopup/Index';
+    }
+
+    static getSexyGamingResultUrl(rootUrl, transdesc, matchCode, bettype, language, accessToken) {
+        let url = rootUrl + 'NonSportsResult/SexyGaming';
+
+        url = QueryString.setParam(url, 'language', language);
+        url = QueryString.setParam(url, 'access_token', accessToken);
+        url = QueryString.setParam(url, 'matchCode', matchCode);
+        url = QueryString.setParam(url, 'bettype', bettype);
+        url = QueryString.setParam(url, 'transdesc', encodeURIComponent(transdesc));
+
+        return url;
     }
 
     static getSexyGamingResultUrl(rootUrl, transdesc, matchCode, bettype, language, accessToken) {

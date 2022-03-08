@@ -249,6 +249,16 @@ export default function ViewDetailEventBuilder() {
 
         this._openPopup(url, title);
     }
+
+    window.showDetail = (id) => {
+        var e = document.getElementById(id);
+        if (e.style.display == 'block') {
+            e.style.display = 'none';
+        }
+        else {
+            e.style.display = 'block';
+        }
+    }
 }
 
 function _showMixParlayDetail(url, transId, divEvent) {

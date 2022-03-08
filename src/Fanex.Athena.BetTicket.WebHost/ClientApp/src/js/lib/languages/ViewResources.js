@@ -70,5 +70,6 @@ TicketDetailOf:"Ticket detail of {0}",
 Total:"Total",
 TransactionDetail:"Transaction Detail",
 TransTime:"Trans.Time",
-WinLoss:"Win Loss"
+WinLoss:"Win Loss",
+ProductVS3: "Virtual Sports 3"
 };	

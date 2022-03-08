@@ -31,6 +31,8 @@ namespace Fanex.Athena.BetTicket.Result.MetaModels
 
         public string Language { get; set; }
 
+        public string TransDesc { get; set; }
+
         public bool IsValid => true;
     }
 }
