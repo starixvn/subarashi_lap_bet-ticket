@@ -29,6 +29,7 @@ export default class UrlResultBuilder {
             url = QueryString.setParam(url, 'handicap2', extension2);
         } else {
             url = QueryString.setParam(url, 'betid', extension1);
+            url = QueryString.setParam(url, 'transdesc', extension2);
         }
 
         return url;
