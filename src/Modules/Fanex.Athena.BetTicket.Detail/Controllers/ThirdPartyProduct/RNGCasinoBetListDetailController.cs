@@ -16,7 +16,7 @@ namespace Fanex.Athena.BetTicket.Detail.Controllers
         public override string StoreProcedure => "Lrf_BetList_RNG_Detail";
         protected override int[] HiddenColumns => new[] { BetListColumn.LicenseeWLColumn };
         protected override string ProductName => ViewResources.ProductCS;
-        protected override string ExcelFileName => "RngCasinoDetail";
+        protected override string ExcelFileName => "SabaCasinoDetail";
         protected override ShowingOption ShowingOption => new ShowingOption
         {
             CustomerCommVisible = _contextService.IsAllowedCustomerComm
