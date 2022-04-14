@@ -38,6 +38,12 @@ export default function ViewDetailEventBuilder() {
         this._openPopup(url, title);
     }
 
+    window.ViewNewCashOutHistory = (transId, custId, winlostDate, currency) => {
+        const url = UrlDetailBuilder.getNewCashOutHistoryPopupSetting(this.rootUrl, _getCommonParams.call(this), transId, custId, winlostDate, currency);
+        const title = this._getResource('CashOutHistory');
+        this._openPopup(url, title);
+    };
+
     window.ShowBonusDetails = (refCode, transId) => {
         const url = UrlDetailBuilder.getBonusDetailUrl(this.rootUrl, _getCommonParams.call(this), refCode, transId);
         const title = this._getResource('TransactionDetail');
