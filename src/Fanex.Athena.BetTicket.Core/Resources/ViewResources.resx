@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Activity" xml:space="preserve">
+    <value>Activity </value>
+  </data>
   <data name="BetList" xml:space="preserve">
     <value>Bet List</value>
   </data>
@@ -143,8 +146,17 @@
     <value>Cash Out Amount</value>
     <comment>ignorejs</comment>
   </data>
+  <data name="CashOutCancelled" xml:space="preserve">
+    <value>Cash Out Cancelled </value>
+  </data>
   <data name="CashOutDetails" xml:space="preserve">
     <value>Cash Out Details</value>
+  </data>
+  <data name="CashOutHistory" xml:space="preserve">
+    <value>Cash Out History</value>
+  </data>
+  <data name="CashOutRecovered" xml:space="preserve">
+    <value>Cash Out Recovered </value>
   </data>
   <data name="CashOutStake" xml:space="preserve">
     <value>Cash Out Stake</value>
@@ -169,6 +181,9 @@
   </data>
   <data name="Date" xml:space="preserve">
     <value>Date</value>
+  </data>
+  <data name="DateTime" xml:space="preserve">
+    <value>Date/Time </value>
   </data>
   <data name="DetailedBetlist" xml:space="preserve">
     <value>Detailed Bet list</value>
@@ -203,6 +218,9 @@
   </data>
   <data name="LicenseeWL" xml:space="preserve">
     <value>Licensee WL</value>
+  </data>
+  <data name="NetworkLatency" xml:space="preserve">
+    <value>Information is not available due to network latency. Please wait a few minutes and try again. </value>
   </data>
   <data name="NoInfo" xml:space="preserve">
     <value>No information is available</value>
@@ -372,6 +390,9 @@
   <data name="ProductWM" xml:space="preserve">
     <value>WM</value>
   </data>
+  <data name="RefNo" xml:space="preserve">
+    <value>Ref No</value>
+  </data>
   <data name="Result" xml:space="preserve">
     <value>Result</value>
   </data>
@@ -405,6 +426,9 @@
   </data>
   <data name="TransTime" xml:space="preserve">
     <value>Trans.Time</value>
+  </data>
+  <data name="ViewIn" xml:space="preserve">
+    <value>View in {0}</value>
   </data>
   <data name="WinLoss" xml:space="preserve">
     <value>Win Loss</value>

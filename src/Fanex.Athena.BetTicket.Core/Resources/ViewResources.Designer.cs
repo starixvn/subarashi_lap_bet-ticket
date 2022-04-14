@@ -61,6 +61,15 @@ namespace Fanex.Athena.BetTicket.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Activity .
+        /// </summary>
+        public static string Activity {
+            get {
+                return ResourceManager.GetString("Activity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bet List.
         /// </summary>
         public static string BetList {
@@ -124,11 +133,38 @@ namespace Fanex.Athena.BetTicket.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cash Out Cancelled .
+        /// </summary>
+        public static string CashOutCancelled {
+            get {
+                return ResourceManager.GetString("CashOutCancelled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cash Out Details.
         /// </summary>
         public static string CashOutDetails {
             get {
                 return ResourceManager.GetString("CashOutDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cash Out History.
+        /// </summary>
+        public static string CashOutHistory {
+            get {
+                return ResourceManager.GetString("CashOutHistory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cash Out Recovered .
+        /// </summary>
+        public static string CashOutRecovered {
+            get {
+                return ResourceManager.GetString("CashOutRecovered", resourceCulture);
             }
         }
         
@@ -192,6 +228,15 @@ namespace Fanex.Athena.BetTicket.Core.Resources {
         public static string Date {
             get {
                 return ResourceManager.GetString("Date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date/Time .
+        /// </summary>
+        public static string DateTime {
+            get {
+                return ResourceManager.GetString("DateTime", resourceCulture);
             }
         }
         
@@ -282,6 +327,15 @@ namespace Fanex.Athena.BetTicket.Core.Resources {
         public static string LicenseeWL {
             get {
                 return ResourceManager.GetString("LicenseeWL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Information is not available due to network latency. Please wait a few minutes and try again. .
+        /// </summary>
+        public static string NetworkLatency {
+            get {
+                return ResourceManager.GetString("NetworkLatency", resourceCulture);
             }
         }
         
@@ -709,6 +763,15 @@ namespace Fanex.Athena.BetTicket.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ref No.
+        /// </summary>
+        public static string RefNo {
+            get {
+                return ResourceManager.GetString("RefNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Result.
         /// </summary>
         public static string Result {
@@ -795,6 +858,15 @@ namespace Fanex.Athena.BetTicket.Core.Resources {
         public static string TransTime {
             get {
                 return ResourceManager.GetString("TransTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View in {0}.
+        /// </summary>
+        public static string ViewIn {
+            get {
+                return ResourceManager.GetString("ViewIn", resourceCulture);
             }
         }
         

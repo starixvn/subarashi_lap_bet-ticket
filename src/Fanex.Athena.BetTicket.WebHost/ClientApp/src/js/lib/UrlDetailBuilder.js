@@ -101,6 +101,16 @@ export default class UrlDetailBuilder {
         };
     }
 
+    static getNewCashOutHistoryPopupSetting(rootUrl, commonParams, transId, custId, winlostDate, currency) {
+        let url = rootUrl + 'NewCashOutBetListDetail/Index';
+        url = this._assignCommonParams(url, commonParams);
+        url = QueryString.setParam(url, 'transId', transId);
+        url = QueryString.setParam(url, 'custId', custId);
+        url = QueryString.setParam(url, 'date', winlostDate);
+        url = QueryString.setParam(url, 'currency', currency);
+        return url;
+    }
+
     static getColossusBetsDetailUrl(rootUrl, commonParams, refNo, winlostDate, custId, betCheck) {
         let url = rootUrl + 'ColossusBetListDetail/Index';
         url = this._assignCommonParams(url, commonParams);
