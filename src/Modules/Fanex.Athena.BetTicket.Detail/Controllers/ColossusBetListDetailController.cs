@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Fanex.Athena.BetTicket.Detail.Controllers
 {
+    [Authorize]
     public class ColossusBetListDetailController : Controller
     {
         [HttpGet]

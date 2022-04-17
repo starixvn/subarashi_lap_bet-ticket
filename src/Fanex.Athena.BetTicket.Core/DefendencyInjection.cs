@@ -8,7 +8,7 @@ namespace Fanex.Athena.BetTicket.Core
 {
     public static class DefendencyInjection
     {
-        public static IServiceCollection AddInfrastructure(this IServiceCollection services)
+        public static IServiceCollection AddCore(this IServiceCollection services)
         {
             return services
                 .AddRepositories()

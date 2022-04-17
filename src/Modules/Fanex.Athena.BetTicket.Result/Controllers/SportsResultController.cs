@@ -1,10 +1,12 @@
 ﻿using Fanex.Athena.BetTicket.Core.ConsoleClient;
 using Fanex.Athena.BetTicket.Result.MetaModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace Fanex.Athena.BetTicket.Result.Controllers
-{
+{                         
+    [Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public class SportsResultController : Controller
     {

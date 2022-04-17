@@ -31,7 +31,7 @@ namespace Fanex.Athena.BetTicket.Core.Extensions
                .AddUrlGroup(new Uri($"{configuration["ConsoleClient:BetList:Host"]}{configuration["ConsoleClient:BetList:HealthPath"]}"), "BetList API");
         }
 
-        public static void UseHealthCheck(this IApplicationBuilder app, IConfiguration configuration)
+        public static void UsePing(this IApplicationBuilder app)
         {
             app.Use(async (context, next) =>
             {
@@ -41,7 +41,10 @@ namespace Fanex.Athena.BetTicket.Core.Extensions
                 }
                 await next();
             });
+        }
 
+        public static void UseHealthCheck(this IApplicationBuilder app, IConfiguration configuration)
+        {
             Func<HttpContext, HealthReport, Task> customResponseWriter = async (context, report) =>
             {
                 var result = JsonConvert.SerializeObject(
