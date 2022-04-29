@@ -74,7 +74,7 @@ export default class UrlResultBuilder {
     }
 
     static getVRGResultUrl(rootUrl) {
-        return rootUrl + 'Proxy/VirtualGamesResultPopup/GetDetailResult';
+        return rootUrl + 'Proxy/VirtualGamesResultPopup/Index';
     }
 
     static getCGResultUrl(rootUrl) {

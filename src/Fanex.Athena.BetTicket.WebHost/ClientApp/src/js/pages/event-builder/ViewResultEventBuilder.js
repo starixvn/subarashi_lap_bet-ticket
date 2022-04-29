@@ -43,7 +43,7 @@ export default function ViewResultEventBuilder() {
         }
         else if (sporttype === SportType.VRG) {
             const url = UrlResultBuilder.getVRGResultUrl(this.rootUrl);
-            _showThirdPartyResult.call(this, url, { languageCode, gamePlayId: refno, platform: defaultPlatform }, title, sporttype);
+            _showThirdPartyResult.call(this, url, { languageCode, custid, transId3rd: transdecs, gameId3rd: extension2, currencyId: extension1, siteId, betTypeId: bettype }, title, sporttype);
         }
         else if (sporttype === SportType.ALLBET) {
             const url = UrlResultBuilder.getAllBetResultUrl(this.rootUrl, transdecs, extension2, bettype, languageCode, accessToken);
