@@ -11,11 +11,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Proxy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Primitives;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -42,37 +42,28 @@ namespace Fanex.Athena.BetTicket.WebHost
 
         public void ConfigureServices(IServiceCollection services)
         {
+            _ = bool.TryParse(Configuration["SkipCheckClientIP"], out bool skipCheckClientIP);
+
             services.AddControllersWithViews(options =>
             {
-                var policy = new AuthorizationPolicyBuilder()
-                              .RequireAuthenticatedUser()
-                              .Build();
+                var policyBuilder = new AuthorizationPolicyBuilder()
+                              .RequireAuthenticatedUser();
+                if(!skipCheckClientIP)
+                {
+                    policyBuilder.RequireAssertion(context => context.Resource is not AuthorizationFilterContext mvcContext ||
+                                    string.Equals(mvcContext.HttpContext.Connection.RemoteIpAddress.ToString(),
+                                          context.User.FindFirst("ClientIP")?.Value, StringComparison.InvariantCultureIgnoreCase));
+                }
+                             
 
-                options.Filters.Add(new AuthorizeFilter(policy));
+                options.Filters.Add(new AuthorizeFilter(policyBuilder.Build()));
             });
 
             ConfigFanexData();
+            ConfigAuthentication(services);
+            ConfigProxy(services, skipCheckClientIP);
 
-            services.AddInfrastructure();
-
-            var instrospecCacheDuration = int.TryParse(Configuration["IdentityServer:CacheDuration"], out int cache) ? cache : 0;
-            services.AddAuthentication(IntrospectionSchema)
-               .AddOAuth2Introspection(IntrospectionSchema, options =>
-               {
-                   options.Authority = Configuration["IdentityServer:Host"];
-                   options.ClientId = Configuration["IdentityServer:CredentialIntrospection:ClientId"];
-                   options.ClientSecret = Configuration["IdentityServer:CredentialIntrospection:ClientSecret"];
-                   options.SaveToken = true;
-                   options.SkipTokensWithDots = true;
-                   options.EnableCaching = instrospecCacheDuration > 0;
-                   options.CacheKeyPrefix = "OAuth2Introspection:";
-                   options.CacheDuration = TimeSpan.FromMinutes(instrospecCacheDuration);
-                   options.DiscoveryPolicy.RequireHttps = false;
-
-                   var fromQuery = TokenRetrieval.FromQueryString();
-                   var fromHeader = TokenRetrieval.FromAuthorizationHeader();
-                   options.TokenRetriever = request => fromQuery.Invoke(request) ?? fromHeader.Invoke(request);
-               });
+            services.AddCore();
 
             services.AddHttpClient<IBetListApiClient, BetListApiClient>(client =>
             {
@@ -80,8 +71,6 @@ namespace Fanex.Athena.BetTicket.WebHost
                 client.DefaultRequestHeaders.Add("BETLIST_TOKEN_KEY", Configuration["ConsoleClient:BetList:AuthKey"]);
             }).SetHandlerLifetime(TimeSpan.FromDays(1));
 
-            var proxySetting = Configuration.GetSection("Proxy:BetList").Get<ProxyApiSetting>();
-            ConfigProxy(services, proxySetting);
 
             services.AddCors(options =>
             {
@@ -126,10 +115,17 @@ namespace Fanex.Athena.BetTicket.WebHost
                 options.KnownNetworks.Clear();
                 options.KnownProxies.Clear();
             });
+
+            services.AddHttpsRedirection(options =>
+            {
+                const int httpsPort = 443;
+                options.HttpsPort = httpsPort;
+            });
         }
 
         public void Configure(IApplicationBuilder app)
         {
+            app.UsePing();
             app.UseForwardedHeaders();
 
             if (string.Equals(Configuration["UseErrorHandler"], "1"))
@@ -177,15 +173,43 @@ namespace Fanex.Athena.BetTicket.WebHost
                 .Run();
         }
 
-        private void ConfigProxy(IServiceCollection services, ProxyApiSetting proxySetting)
+        private void ConfigAuthentication(IServiceCollection services)
         {
+            var instrospecCacheDuration = int.TryParse(Configuration["IdentityServer:CacheDuration"], out int cache) ? cache : 0;
+            services.AddAuthentication(IntrospectionSchema)
+               .AddOAuth2Introspection(IntrospectionSchema, options =>
+               {
+                   options.Authority = Configuration["IdentityServer:Host"];
+                   options.ClientId = Configuration["IdentityServer:CredentialIntrospection:ClientId"];
+                   options.ClientSecret = Configuration["IdentityServer:CredentialIntrospection:ClientSecret"];
+                   options.SaveToken = true;
+                   options.SkipTokensWithDots = true;
+                   options.EnableCaching = instrospecCacheDuration > 0;
+                   options.CacheKeyPrefix = "OAuth2Introspection:";
+                   options.CacheDuration = TimeSpan.FromMinutes(instrospecCacheDuration);
+                   options.DiscoveryPolicy.RequireHttps = false;
+
+                   var fromQuery = TokenRetrieval.FromQueryString();
+                   var fromHeader = TokenRetrieval.FromAuthorizationHeader();
+                   options.TokenRetriever = request => fromQuery.Invoke(request) ?? fromHeader.Invoke(request);
+               });
+        }
+
+        private void ConfigProxy(IServiceCollection services, bool skipCheckClientIP)
+        {
+            var proxySetting = Configuration.GetSection("Proxy:BetList").Get<ProxyApiSetting>();
+
             services.AddProxy(options =>
             {
+                const string ProxySegment = "/proxy";
+
                 options.Timeout = TimeSpan.FromSeconds(int.Parse(Configuration["Proxy:Timeout"]));
 
-                options.ValidateRequest = context => context.User.Identity.IsAuthenticated;
+                options.ValidateRequest = context => context.User.Identity.IsAuthenticated
+                && (skipCheckClientIP || string.Equals(context.Connection.RemoteIpAddress.ToString(),
+                    context.User.FindFirst("ClientIP")?.Value, StringComparison.InvariantCultureIgnoreCase));
 
-                options.ShouldProxyRequest = originalRequest => originalRequest.Path.StartsWithSegments("/proxy");
+                options.ShouldProxyRequest = originalRequest => originalRequest.Path.StartsWithSegments(ProxySegment);
 
                 options.OnFailedValidation = context =>
                 {
@@ -212,7 +236,7 @@ namespace Fanex.Athena.BetTicket.WebHost
                 options.PrepareUri = originalRequest =>
                 {
                     var path = originalRequest.Path.Value;
-                    var realPath = path.Substring($"/proxy".Length);
+                    var realPath = path.Substring(ProxySegment.Length);
                     var uri = new UriBuilder(new Uri($"{proxySetting.Url.TrimEnd('/')}{realPath}"))
                     {
                         Query = originalRequest.QueryString.Value

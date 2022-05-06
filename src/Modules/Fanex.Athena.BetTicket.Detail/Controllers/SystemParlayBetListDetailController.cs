@@ -4,9 +4,11 @@ using Fanex.Athena.BetTicket.Core.ConsoleClient;
 using Fanex.Athena.BetTicket.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Fanex.Athena.BetTicket.Detail.Controllers
 {
+    [Authorize]
     public class SystemParlayBetListDetailController : Controller
     {
         [HttpGet]

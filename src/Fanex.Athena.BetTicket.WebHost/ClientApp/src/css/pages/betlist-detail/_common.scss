@@ -62,6 +62,10 @@
         color: #01122B;
         font-weight: bold !important;
         white-space: normal;
+
+        .bet-id {
+            display: block;
+        }
     }
 
     .stake {
@@ -76,6 +80,10 @@
             white-space: normal;
             color: #484848;
             font-weight: normal;
+        }
+
+        .bet-id {
+            display: block;
         }
     }
 

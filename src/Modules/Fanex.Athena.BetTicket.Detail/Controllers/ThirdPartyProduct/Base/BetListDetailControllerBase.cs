@@ -9,9 +9,11 @@ using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Fanex.Athena.BetTicket.Detail.Controllers
 {
+    [Authorize]
     public abstract class BetListDetailControllerBase : Controller
     {
         private readonly IBetListApiClient _betlistClient;
