@@ -53,7 +53,7 @@ namespace Fanex.Athena.BetTicket.Core.Attributes
             _bindLicenseeId = bindLicenseeId;
             _bindPlayerComm = bindPlayerComm;
             _bindBetFromIP = bindBetFromIP;
-    }
+        }
 
         public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {

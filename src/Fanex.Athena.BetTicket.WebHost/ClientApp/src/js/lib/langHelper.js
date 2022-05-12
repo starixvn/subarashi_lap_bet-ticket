@@ -20,8 +20,8 @@ export default class LangHelper {
         return langCode;
     }
 
-    static getSingleResource(key) {
-        var langHandler = resources[langCode] || language_en_US;
+    static getSingleResource(key, lang) {
+        var langHandler = resources[lang || langCode] || language_en_US;
         return (langHandler && langHandler[key]) || key;
     }
 

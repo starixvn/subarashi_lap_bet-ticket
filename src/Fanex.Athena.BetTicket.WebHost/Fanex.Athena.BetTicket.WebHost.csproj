@@ -29,6 +29,7 @@
   <ItemGroup>
     <PackageReference Include="Fanex.Data.SqlServer" Version="4.2.2" />
     <PackageReference Include="IdentityModel.AspNetCore.OAuth2Introspection" Version="5.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.9" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.7" Condition="'$(Configuration)' == 'Debug'" />
     <PackageReference Include="Sentry.AspNetCore" Version="2.1.6" />
   </ItemGroup>

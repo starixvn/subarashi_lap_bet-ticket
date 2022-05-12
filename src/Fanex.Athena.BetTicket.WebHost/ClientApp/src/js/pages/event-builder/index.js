@@ -24,7 +24,7 @@ class EventBuilder {
     }
 
     _getResource(key) {
-        return window.getResource ? window.getResource(key) : LangHelper.getSingleResource(key);
+        return window.getResource ? window.getResource(key) : LangHelper.getSingleResource(key, this._getLanguage());
     }
 
     _formatDateString(dateString) {

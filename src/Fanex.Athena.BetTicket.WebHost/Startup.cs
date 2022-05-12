@@ -5,9 +5,11 @@ using Fanex.Data;
 using Fanex.Data.SqlServer;
 using IdentityModel.AspNetCore.OAuth2Introspection;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Authorization;
@@ -16,12 +18,15 @@ using Microsoft.AspNetCore.Proxy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Http.Headers;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Fanex.Athena.BetTicket.WebHost
@@ -29,6 +34,7 @@ namespace Fanex.Athena.BetTicket.WebHost
     public class Startup
     {
         private const string IntrospectionSchema = "Introspection";
+        private const string JwtSchema = "Jwt";
 
         public Startup(IConfiguration configuration, IWebHostEnvironment hostingEnvironment)
         {
@@ -48,15 +54,20 @@ namespace Fanex.Athena.BetTicket.WebHost
             {
                 var policyBuilder = new AuthorizationPolicyBuilder()
                               .RequireAuthenticatedUser();
-                if(!skipCheckClientIP)
+                if (!skipCheckClientIP)
                 {
-                    policyBuilder.RequireAssertion(context => context.Resource is not AuthorizationFilterContext mvcContext ||
-                                    string.Equals(mvcContext.HttpContext.Connection.RemoteIpAddress.ToString(),
-                                          context.User.FindFirst("ClientIP")?.Value, StringComparison.InvariantCultureIgnoreCase));
+                    policyBuilder.RequireAssertion(context => context.Resource is not AuthorizationFilterContext mvcContext
+                                    || context.User.FindFirst("ClientIP")?.Value is not string clientIP
+                                    || string.Equals(mvcContext.HttpContext.Connection.RemoteIpAddress.ToString(), clientIP, StringComparison.InvariantCultureIgnoreCase));
                 }
-                             
+
 
                 options.Filters.Add(new AuthorizeFilter(policyBuilder.Build()));
+            });
+
+            services.AddAuthorization(options =>
+            {
+                options.ViewDetailPolicy();
             });
 
             ConfigFanexData();
@@ -80,7 +91,8 @@ namespace Fanex.Athena.BetTicket.WebHost
                         builder
                         .AllowAnyOrigin()
                         .AllowAnyHeader()
-                        .AllowAnyMethod();
+                        .AllowAnyMethod()
+                        .SetPreflightMaxAge(TimeSpan.FromDays(1));
                     });
             });
 
@@ -98,7 +110,9 @@ namespace Fanex.Athena.BetTicket.WebHost
                 options.SupportedUICultures = new List<CultureInfo>
                 {
                     enCulture,
-                    csCulture
+                    csCulture,
+                    new CultureInfo("zh-TW"),
+                    new CultureInfo("zh-Hans"),
                 };
                 options.RequestCultureProviders = new List<IRequestCultureProvider>
                 {
@@ -191,8 +205,41 @@ namespace Fanex.Athena.BetTicket.WebHost
 
                    var fromQuery = TokenRetrieval.FromQueryString();
                    var fromHeader = TokenRetrieval.FromAuthorizationHeader();
-                   options.TokenRetriever = request => fromQuery.Invoke(request) ?? fromHeader.Invoke(request);
-               });
+                   string tokenRetriever(HttpRequest request) => fromQuery.Invoke(request) ?? fromHeader.Invoke(request);
+
+                   options.TokenRetriever = tokenRetriever;
+
+                   options.ForwardDefaultSelector = context =>
+                   {
+                       var token = tokenRetriever(context.Request);
+                       if (!string.IsNullOrEmpty(token) && token.Contains("."))
+                       {
+                           if (!context.Request.Headers.ContainsKey("Authorization"))
+                           {
+                               context.Request.Headers.Add("Authorization", "Bearer " + token);
+                           }
+                           return JwtSchema;
+                       }
+                       return IntrospectionSchema;
+                   };
+               })
+               .AddJwtBearer(JwtSchema, x =>
+                {
+                    x.SaveToken = true;
+                    x.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = false,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration["JWTStatement:Secret"])),
+                        TokenDecryptionKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration["JWTStatement:Secret"])),
+                        ValidIssuer = Configuration["JWTStatement:Issuer"],
+                        ValidAudience = Configuration["JWTStatement:Audience"],
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        RoleClaimType = ClaimsIdentity.DefaultNameClaimType,
+                        RequireExpirationTime = true,
+                        ValidateLifetime = true
+                    };
+                });
         }
 
         private void ConfigProxy(IServiceCollection services, bool skipCheckClientIP)
@@ -206,8 +253,8 @@ namespace Fanex.Athena.BetTicket.WebHost
                 options.Timeout = TimeSpan.FromSeconds(int.Parse(Configuration["Proxy:Timeout"]));
 
                 options.ValidateRequest = context => context.User.Identity.IsAuthenticated
-                && (skipCheckClientIP || string.Equals(context.Connection.RemoteIpAddress.ToString(),
-                    context.User.FindFirst("ClientIP")?.Value, StringComparison.InvariantCultureIgnoreCase));
+                && (skipCheckClientIP || context.User.FindFirst("ClientIP")?.Value is not string clientIP 
+                    || string.Equals(context.Connection.RemoteIpAddress.ToString(), clientIP, StringComparison.InvariantCultureIgnoreCase));
 
                 options.ShouldProxyRequest = originalRequest => originalRequest.Path.StartsWithSegments(ProxySegment);
 
