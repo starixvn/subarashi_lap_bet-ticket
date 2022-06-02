@@ -92,6 +92,10 @@ export default class UrlResultBuilder {
     static getFGGLResultUrl(rootUrl) {
         return rootUrl + 'Proxy/FGGLResultPopup/Index';
     }
+    
+    static getMaxGameResultUrl(rootUrl) {
+        return rootUrl + 'Proxy/MaxGameResultPopup/Index';
+    }
 
     static getVS3ResultUrl(rootUrl, language, accessToken, transdecs, sporttype) {
         let url = rootUrl + 'SportsResult/Index';
