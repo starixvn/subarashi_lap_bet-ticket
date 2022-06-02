@@ -6,10 +6,11 @@ using Fanex.Athena.BetTicket.Core.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using Fanex.Athena.BetTicket.Core.Extensions;
 
 namespace Fanex.Athena.BetTicket.Detail.Controllers
 {
-    [Authorize]
+    [Authorize(Policy = PolicyExtensions.ViewDetail)]
     public class ColossusBetListDetailController : Controller
     {
         [HttpGet]

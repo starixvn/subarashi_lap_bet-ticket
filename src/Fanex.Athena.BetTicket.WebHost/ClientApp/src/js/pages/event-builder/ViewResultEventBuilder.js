@@ -8,7 +8,6 @@ export default function ViewResultEventBuilder() {
         const title = this._getResource('Result');
         const languageCode = this._getLanguage();
         const accessToken = this._getAccessToken();
-        const defaultPlatform = 'd';
 
         if (sporttype === SportType.RNG_GAME || sporttype === SportType.RNG_MINIGAME || sporttype === SportType.RNG_MOBILE) {
             const url = UrlResultBuilder.getRngCasinoResultUrl(this.rootUrl, languageCode);
@@ -128,28 +127,6 @@ function _showThirdPartyResult(url, payload, title, sporttype) {
         .then((result) => {
             if (result.data !== '') {
                 this._openPopup(result.data, title, sporttype);
-            }
-
-            this._afterShow();
-        }).catch((error) => {
-            this._afterShow();
-            console.log(error);
-        });
-}
-
-function _showRngCasinoResult(refno, url, title, sporttype) {
-    this._beforeShow();
-    DataService.postData(url, { refno }, this._getAccessToken())
-        .then((result) => {
-            if (result.data.Success) {
-                if (result.data.Result === '') {
-                    return;
-                }
-
-                this._openPopup(result.data.Result, title, sporttype);
-            }
-            else {
-                alert(this._getResource("ErrorProcessingMsg"));
             }
 
             this._afterShow();

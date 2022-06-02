@@ -7,10 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
+using Fanex.Athena.BetTicket.Core.Extensions;
 
 namespace Fanex.Athena.BetTicket.Detail.Controllers
 {
-    [Authorize]
+    [Authorize(Policy = PolicyExtensions.ViewDetail)]
     public class NewCashOutBetListDetailController : Controller
     {
         [HttpGet]

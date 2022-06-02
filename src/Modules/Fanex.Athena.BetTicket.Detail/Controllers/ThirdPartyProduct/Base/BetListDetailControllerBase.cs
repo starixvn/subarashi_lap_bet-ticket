@@ -10,10 +10,11 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Fanex.Athena.BetTicket.Core.Extensions;
 
 namespace Fanex.Athena.BetTicket.Detail.Controllers
 {
-    [Authorize]
+    [Authorize(Policy = PolicyExtensions.ViewDetail)]
     public abstract class BetListDetailControllerBase : Controller
     {
         private readonly IBetListApiClient _betlistClient;

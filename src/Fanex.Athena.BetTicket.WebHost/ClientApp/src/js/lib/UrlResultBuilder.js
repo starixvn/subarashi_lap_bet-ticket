@@ -90,12 +90,11 @@ export default class UrlResultBuilder {
     }
 
     static getVS3ResultUrl(rootUrl, language, accessToken, transdecs, sporttype) {
-        const param = 'transDesc=' + transdecs +
-            '&sporttype=' + sporttype +
-            '&lang=' + language +
-            '&access_token=' + accessToken;
-
-        let url = rootUrl + 'SportsResult/Index?' + param;
+        let url = rootUrl + 'SportsResult/Index';
+        url = QueryString.setParam(url, 'language', language);
+        url = QueryString.setParam(url, 'access_token', accessToken);
+        url = QueryString.setParam(url, 'sporttype', sporttype);
+        url = QueryString.setParam(url, 'transdesc', encodeURIComponent(transdecs));
 
         return url;
     }
