@@ -493,6 +493,15 @@ namespace Fanex.Athena.BetTicket.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to FGG.
+        /// </summary>
+        public static string ProductFGGL {
+            get {
+                return ResourceManager.GetString("ProductFGGL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fishing World.
         /// </summary>
         public static string ProductFW {
