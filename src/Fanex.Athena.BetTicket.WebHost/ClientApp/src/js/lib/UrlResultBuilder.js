@@ -89,6 +89,10 @@ export default class UrlResultBuilder {
         return rootUrl + 'Proxy/AdvantPlayMiniResultPopup/Index';
     }
 
+    static getFGGLResultUrl(rootUrl) {
+        return rootUrl + 'Proxy/FGGLResultPopup/Index';
+    }
+
     static getVS3ResultUrl(rootUrl, language, accessToken, transdecs, sporttype) {
         let url = rootUrl + 'SportsResult/Index';
         url = QueryString.setParam(url, 'language', language);

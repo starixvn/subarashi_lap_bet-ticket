@@ -79,5 +79,6 @@ Total:"Total",
 TransactionDetail:"Transaction Detail",
 TransTime:"Trans.Time",
 ViewIn:"View in {0}",
-WinLoss:"Win Loss"
+WinLoss:"Win Loss",
+ProductFGGL: "FGG"
 };	

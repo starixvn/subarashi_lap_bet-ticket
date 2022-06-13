@@ -26,7 +26,8 @@ const SportType = {
     CG: 167,
     AP: 172,
     APM: 174,
-    VS3: 231
+    VS3: 231,
+    FGGL: 176
 }
 
 export default SportType
