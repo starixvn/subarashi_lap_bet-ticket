@@ -8,7 +8,7 @@ export const DataGrid = (props) => {
     const { columns, columnWidths, columnAlignments } = React.useMemo(() => {
 
         const columns = ['Index', 'TransTime', 'Choice', 'Odds', 'Stake', 'WinLoss', 'LicenseeWL', 'Status'];
-        const columnWidths = [30, 80, 190, 40, 70, 70, 70, 85];
+        const columnWidths = [30, 95, 190, 40, 60, 65, 65, 80];
         const columnAlignments = [
             'center-align', 'center-align',
             'right-align', 'right-align', 'right-align', 'right-align', 'right-align',
