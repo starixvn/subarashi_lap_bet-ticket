@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Primitives;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -44,6 +43,8 @@ namespace Fanex.Athena.BetTicket.Core.Services
 
         public bool IsShowVNIP => IsShowIP && IsInRoles("super_admin", "bl_view_ipvn");
 
+        public string SiteDBServer => GetClaimValue("SiteDBServer") ?? string.Empty;
+
         public string Language => CultureInfo.CurrentUICulture.Name;
 
         public Task<string> AccessToken => Context.GetTokenAsync("access_token");
@@ -86,7 +87,7 @@ namespace Fanex.Athena.BetTicket.Core.Services
             => (T)Convert.ChangeType(GetClaimValue(claimType), typeof(T));
 
         private string GetClaimValue(string claimType)
-            => User.FindFirst(claimType)?.Value ?? throw new InvalidOperationException($"The {claimType} claim was not found");
+            => User.FindFirst(claimType)?.Value;
 
         private IEnumerable<CurrencyAgentInfo> GetCurrencyAgentList()
         {

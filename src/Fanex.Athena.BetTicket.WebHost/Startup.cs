@@ -1,6 +1,7 @@
 using Fanex.Athena.BetTicket.Core;
 using Fanex.Athena.BetTicket.Core.ConsoleClient;
 using Fanex.Athena.BetTicket.Core.Extensions;
+using Fanex.Athena.BetTicket.Core.Services;
 using Fanex.Data;
 using Fanex.Data.SqlServer;
 using IdentityModel.AspNetCore.OAuth2Introspection;
@@ -266,24 +267,24 @@ namespace Fanex.Athena.BetTicket.WebHost
 
                 options.PrepareRequest = async (originalRequest, message) =>
                 {
-                    var context = originalRequest.HttpContext;
+                    var contextService = originalRequest.HttpContext
+                    .RequestServices.GetRequiredService<IContextService>();
+
                     message.Headers.Add(proxySetting.TokenKey, proxySetting.TokenValue);
+                    message.Headers.Add("Language", contextService.Language);
+                    message.Headers.Add("X-SiteDBServer", contextService.SiteDBServer);
 
-                    const string Language = "Language";
-                    message.Headers.Add(Language, CultureInfo.CurrentUICulture.Name);
-
-                    var accessToken = await context.GetTokenAsync("access_token") ?? context.Items["access_token"] as string;
-                    if (string.IsNullOrEmpty(accessToken))
+                    var accessToken = await contextService.AccessToken;
+                    if (!string.IsNullOrEmpty(accessToken))
                     {
-                        return;
+                        message.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
                     }
-                    message.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
                 };
 
                 options.PrepareUri = originalRequest =>
                 {
                     var path = originalRequest.Path.Value;
-                    var realPath = path.Substring(ProxySegment.Length);
+                    var realPath = path[ProxySegment.Length..];
                     var uri = new UriBuilder(new Uri($"{proxySetting.Url.TrimEnd('/')}{realPath}"))
                     {
                         Query = originalRequest.QueryString.Value
