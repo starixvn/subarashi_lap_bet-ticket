@@ -1,12 +1,11 @@
 using Fanex.Athena.BetTicket.Core;
 using Fanex.Athena.BetTicket.Core.ConsoleClient;
 using Fanex.Athena.BetTicket.Core.Extensions;
+using Fanex.Athena.BetTicket.Core.JsonConverter;
 using Fanex.Athena.BetTicket.Core.Services;
 using Fanex.Data;
 using Fanex.Data.SqlServer;
 using IdentityModel.AspNetCore.OAuth2Introspection;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -64,7 +63,11 @@ namespace Fanex.Athena.BetTicket.WebHost
 
 
                 options.Filters.Add(new AuthorizeFilter(policyBuilder.Build()));
-            });
+            }).AddJsonOptions(jsonOptions =>
+                {
+                    jsonOptions.JsonSerializerOptions.PropertyNamingPolicy = null;
+                    jsonOptions.JsonSerializerOptions.Converters.Add(new StringToDateTimeConverter());
+                });
 
             services.AddAuthorization(options =>
             {
@@ -74,7 +77,7 @@ namespace Fanex.Athena.BetTicket.WebHost
             ConfigFanexData();
             ConfigAuthentication(services);
             ConfigProxy(services, skipCheckClientIP);
-
+            ConfigRequestLocalization(services);
             services.AddCore();
 
             services.AddHttpClient<IBetListApiClient, BetListApiClient>(client =>
@@ -95,30 +98,6 @@ namespace Fanex.Athena.BetTicket.WebHost
                         .AllowAnyMethod()
                         .SetPreflightMaxAge(TimeSpan.FromDays(1));
                     });
-            });
-
-            services.Configure<RequestLocalizationOptions>(options =>
-            {
-                const string DefaultCultureName = "en-US";
-                var enCulture = new CultureInfo("en-US");
-                var csCulture = new CultureInfo("zh-CN");
-
-                options.DefaultRequestCulture = new RequestCulture(DefaultCultureName);
-                options.SupportedCultures = new List<CultureInfo>
-                {
-                    enCulture
-                };
-                options.SupportedUICultures = new List<CultureInfo>
-                {
-                    enCulture,
-                    csCulture,
-                    new CultureInfo("zh-TW"),
-                    new CultureInfo("zh-Hans"),
-                };
-                options.RequestCultureProviders = new List<IRequestCultureProvider>
-                {
-                    new QueryStringRequestCultureProvider { UIQueryStringKey = "language" }
-                };
             });
 
             services.AddHealthCheck(Configuration);
@@ -243,6 +222,42 @@ namespace Fanex.Athena.BetTicket.WebHost
                 });
         }
 
+        private static void ConfigRequestLocalization(IServiceCollection services)
+        {
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                const string DefaultCultureName = "en-US";
+                var csCulture = new CultureInfo("zh-CN");
+                var enCulture = new CultureInfo("en-US")
+                {
+                    DateTimeFormat = new DateTimeFormatInfo
+                    {
+                        ShortDatePattern = "M/d/yyyy",
+                        ShortTimePattern = "h:mm tt",
+                        LongDatePattern = "MM/dd/yyyy",
+                        LongTimePattern = "h:mm:ss tt"
+                    }
+                };
+
+                options.DefaultRequestCulture = new RequestCulture(DefaultCultureName);
+                options.SupportedCultures = new List<CultureInfo>
+                {
+                    enCulture
+                };
+                options.SupportedUICultures = new List<CultureInfo>
+                {
+                    enCulture,
+                    csCulture,
+                    new CultureInfo("zh-TW"),
+                    new CultureInfo("zh-Hans"),
+                };
+                options.RequestCultureProviders = new List<IRequestCultureProvider>
+                {
+                    new QueryStringRequestCultureProvider { UIQueryStringKey = "language" }
+                };
+            });
+        }
+
         private void ConfigProxy(IServiceCollection services, bool skipCheckClientIP)
         {
             var proxySetting = Configuration.GetSection("Proxy:BetList").Get<ProxyApiSetting>();
@@ -254,7 +269,7 @@ namespace Fanex.Athena.BetTicket.WebHost
                 options.Timeout = TimeSpan.FromSeconds(int.Parse(Configuration["Proxy:Timeout"]));
 
                 options.ValidateRequest = context => context.User.Identity.IsAuthenticated
-                && (skipCheckClientIP || context.User.FindFirst("ClientIP")?.Value is not string clientIP 
+                && (skipCheckClientIP || context.User.FindFirst("ClientIP")?.Value is not string clientIP
                     || string.Equals(context.Connection.RemoteIpAddress.ToString(), clientIP, StringComparison.InvariantCultureIgnoreCase));
 
                 options.ShouldProxyRequest = originalRequest => originalRequest.Path.StartsWithSegments(ProxySegment);

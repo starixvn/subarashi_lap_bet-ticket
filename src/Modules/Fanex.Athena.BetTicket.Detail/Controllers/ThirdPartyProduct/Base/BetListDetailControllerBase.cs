@@ -7,7 +7,6 @@ using Fanex.Athena.BetTicket.Core.Resources;
 using Fanex.Athena.BetTicket.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
-using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Fanex.Athena.BetTicket.Core.Extensions;
@@ -51,7 +50,7 @@ namespace Fanex.Athena.BetTicket.Detail.Controllers
                     LicenseeWL = responseData.Total.SumLicenseeWl.ToString("#,##0.00")
                 },
                 TotalRows = responseData.Main.Count()
-            }, new JsonSerializerOptions { PropertyNamingPolicy = null });
+            });
         }
 
         [HttpPost]
