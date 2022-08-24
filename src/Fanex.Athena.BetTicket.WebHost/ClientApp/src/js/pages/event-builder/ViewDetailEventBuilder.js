@@ -104,32 +104,32 @@ export default function ViewDetailEventBuilder() {
         this._openPopup(url, title);
     }
 
-    window.showPPJackpotWonDetails = (transId, custId, betTypeId) => {
-        const url = UrlDetailBuilder.getPPJackpotWonDetailUrl(this.rootUrl, _getCommonParams.call(this), transId, custId, betTypeId);
+    window.showPPJackpotWonDetails = (transId, custId, betTypeId, winlostDate) => {
+        const url = UrlDetailBuilder.getPPJackpotWonDetailUrl(this.rootUrl, _getCommonParams.call(this), transId, custId, betTypeId, winlostDate);
         const title = this._getResource('ProductPP') + ' - ' +
             this._getResource('JackpotWonDetails');
 
         this._openPopup(url, title);
     }
 
-    window.showSabaClubJackpotWonDetails = (transId, custId, betTypeId) => {
-        const url = UrlDetailBuilder.getSabaClubJackpotWonDetailUrl(this.rootUrl, _getCommonParams.call(this), transId, custId, betTypeId);
+    window.showSabaClubJackpotWonDetails = (transId, custId, betTypeId, winlostDate) => {
+        const url = UrlDetailBuilder.getSabaClubJackpotWonDetailUrl(this.rootUrl, _getCommonParams.call(this), transId, custId, betTypeId, winlostDate);
         const title = this._getResource('ProductSBC') + ' - ' +
             this._getResource('JackpotWonDetails');
 
         this._openPopup(url, title);
     }
 
-    window.showSGJackpotWonDetails = (transId, custId, betTypeId) => {
-        const url = UrlDetailBuilder.getSGJackpotWonDetailUrl(this.rootUrl, _getCommonParams.call(this), transId, custId, betTypeId);
+    window.showSGJackpotWonDetails = (transId, custId, betTypeId, winlostDate) => {
+        const url = UrlDetailBuilder.getSGJackpotWonDetailUrl(this.rootUrl, _getCommonParams.call(this), transId, custId, betTypeId, winlostDate);
         const title = this._getResource('ProductSG') + ' - ' +
             this._getResource('JackpotWonDetails');
 
         this._openPopup(url, title);
     }
 
-    window.showVGamingJackpotWonDetails = (transId, custId, betTypeId) => {
-        const url = UrlDetailBuilder.getVGamingJackpotWonDetailUrl(this.rootUrl, _getCommonParams.call(this), transId, custId, betTypeId);
+    window.showVGamingJackpotWonDetails = (transId, custId, betTypeId, winlostDate) => {
+        const url = UrlDetailBuilder.getVGamingJackpotWonDetailUrl(this.rootUrl, _getCommonParams.call(this), transId, custId, betTypeId, winlostDate);
         const title = this._getResource('ProductVGA') + ' - ' +
             this._getResource('JackpotWonDetails');
 
