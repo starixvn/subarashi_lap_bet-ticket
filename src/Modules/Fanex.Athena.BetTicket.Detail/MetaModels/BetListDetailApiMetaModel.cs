@@ -1,5 +1,6 @@
 ﻿using Fanex.Athena.BetTicket.Core.Models;
 using Fanex.Core.Utils;
+using System;
 
 namespace Fanex.Athena.BetTicket.Detail.MetaModels
 {
@@ -10,6 +11,8 @@ namespace Fanex.Athena.BetTicket.Detail.MetaModels
             PageIndex = 1;
             PageSize = int.MaxValue - 1;
         }
+
+        public DateTime Date { get; set; }
 
         public string AgentListXml { get; set; }
 
@@ -42,6 +45,5 @@ namespace Fanex.Athena.BetTicket.Detail.MetaModels
         public bool IsMobileView { get; set; }
 
         public bool IsValid => true;
-
     }
 }

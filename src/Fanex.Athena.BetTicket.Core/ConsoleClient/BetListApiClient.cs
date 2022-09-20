@@ -1,16 +1,28 @@
-﻿using System.IO;
+﻿using Fanex.Athena.BetTicket.Core.Services;
+using System.IO;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 namespace Fanex.Athena.BetTicket.Core.ConsoleClient
 {
     public class BetListApiClient : BaseApiClient, IBetListApiClient
     {
-        public BetListApiClient(HttpClient httpClient) : base(httpClient)
+        private readonly IContextService _contextService;
+
+        public BetListApiClient(HttpClient client, IContextService contextService) : base(client)
         {
+            _contextService = contextService;
         }
 
         protected override string ApiName => "Bet List";
+
+        protected override Task PrepareHeaders(HttpRequestHeaders headers)
+        {
+            headers.Add("X-SiteDBServer", _contextService.SiteDBServer);
+            return Task.CompletedTask;
+        }
+
         public virtual async Task<string> PostString(string path, object value, string language, int timeOut = 100)
         {
             return await HandleAsync(path, value, language, MediaType.Json,

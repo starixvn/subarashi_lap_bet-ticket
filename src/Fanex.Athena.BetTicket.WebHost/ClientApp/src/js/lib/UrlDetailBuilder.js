@@ -197,32 +197,35 @@ export default class UrlDetailBuilder {
         return url;
     }
 
-    static getPPJackpotWonDetailUrl(rootUrl, commonParams, transId, custId, betTypeId) {
+    static getPPJackpotWonDetailUrl(rootUrl, commonParams, transId, custId, betTypeId, winlostDate) {
         let url = rootUrl + 'JackpotWonBetListDetail/Index';
         url = this._assignCommonParams(url, commonParams);
         url = QueryString.setParam(url, 'transId', transId);
         url = QueryString.setParam(url, 'custId', custId);
         url = QueryString.setParam(url, 'bettype', betTypeId);
+        url = QueryString.setParam(url, 'date', winlostDate);
 
         return url;
     }
 
-    static getSabaClubJackpotWonDetailUrl(rootUrl, commonParams, transId, custId, betTypeId) {
+    static getSabaClubJackpotWonDetailUrl(rootUrl, commonParams, transId, custId, betTypeId, winlostDate) {
         let url = rootUrl + 'SabaClubJackpotWonBetListDetail/Index';
         url = this._assignCommonParams(url, commonParams);
         url = QueryString.setParam(url, 'transId', transId);
         url = QueryString.setParam(url, 'custId', custId);
         url = QueryString.setParam(url, 'bettype', betTypeId);
+        url = QueryString.setParam(url, 'date', winlostDate);
 
         return url;
     }
 
-    static getSGJackpotWonDetailUrl(rootUrl, commonParams, transId, custId, betTypeId) {
+    static getSGJackpotWonDetailUrl(rootUrl, commonParams, transId, custId, betTypeId, winlostDate) {
         let url = rootUrl + 'JackpotWonBetListDetail/Index';
         url = this._assignCommonParams(url, commonParams);
         url = QueryString.setParam(url, 'transId', transId);
         url = QueryString.setParam(url, 'custId', custId);
         url = QueryString.setParam(url, 'bettype', betTypeId);
+        url = QueryString.setParam(url, 'date', winlostDate);
 
         return url;
     }
@@ -359,12 +362,13 @@ export default class UrlDetailBuilder {
         return url;
     }
 
-    static getVGamingJackpotWonDetailUrl(rootUrl, commonParams, transId, custId, betTypeId) {
+    static getVGamingJackpotWonDetailUrl(rootUrl, commonParams, transId, custId, betTypeId, winlostDate) {
         let url = rootUrl + 'VGamingJackpotWonBetListDetail/Index';
         url = this._assignCommonParams(url, commonParams);
         url = QueryString.setParam(url, 'transId', transId);
         url = QueryString.setParam(url, 'custId', custId);
         url = QueryString.setParam(url, 'bettype', betTypeId);
+        url = QueryString.setParam(url, 'date', winlostDate);
 
         return url;
     }

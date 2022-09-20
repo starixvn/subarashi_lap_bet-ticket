@@ -20,6 +20,8 @@ namespace Fanex.Athena.BetTicket.Core.Services
         bool IsShowIP { get; }
         bool IsShowVNIP { get; }
 
+        string SiteDBServer { get; }
+
         Task<string> AccessToken { get; }
 
         bool IsInRoles(params string[] roles);
