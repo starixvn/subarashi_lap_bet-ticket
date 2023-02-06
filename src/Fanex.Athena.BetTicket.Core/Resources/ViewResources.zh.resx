@@ -262,6 +262,9 @@
   <data name="ProductHB" xml:space="preserve">
     <value>HB电子</value>
   </data>
+  <data name="ProductJIG" xml:space="preserve">
+    <value>吉利电子</value>
+  </data>
   <data name="ProductKN" xml:space="preserve">
     <value>快乐彩</value>
     <comment>113398</comment>
