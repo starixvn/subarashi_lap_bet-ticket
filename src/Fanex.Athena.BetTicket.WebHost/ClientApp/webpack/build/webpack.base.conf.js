@@ -14,7 +14,7 @@ function generateConfig() {
         entry: {
             /*js*/
             [`${jsPath}/event-builder`]: pathConfig.scriptPaths.event_builder, //independent entry
-            [`${jsPath}/betlist-detail`]: pathConfig.scriptPaths.betlist_detail, 
+            [`${jsPath}/betlist-detail`]: pathConfig.scriptPaths.betlist_detail,
 
             // /*css*/
             [`${cssPath}/simple-main`]: pathConfig.cssPaths.simple_main,
@@ -22,7 +22,6 @@ function generateConfig() {
             [`${cssPath}/main`]: pathConfig.cssPaths.main,
             [`${cssPath}/betlist-detail`]: pathConfig.cssPaths.betlist_detail,
             [`${cssPath}/betlist-detail-cashout`]: pathConfig.cssPaths.betlist_detail_cashout,
-            [`${cssPath}/betlist-detail-colossus`]: pathConfig.cssPaths.betlist_detail_colossus,
             [`${cssPath}/betlist-detail-systemparlay`]: pathConfig.cssPaths.betlist_detail_systemparlay
         },
         output: {

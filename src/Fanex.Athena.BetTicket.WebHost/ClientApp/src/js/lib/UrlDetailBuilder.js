@@ -111,17 +111,6 @@ export default class UrlDetailBuilder {
         return url;
     }
 
-    static getColossusBetsDetailUrl(rootUrl, commonParams, refNo, winlostDate, custId, betCheck) {
-        let url = rootUrl + 'ColossusBetListDetail/Index';
-        url = this._assignCommonParams(url, commonParams);
-        url = QueryString.setParam(url, 'refNo', refNo);
-        url = QueryString.setParam(url, 'date', winlostDate);
-        url = QueryString.setParam(url, 'custid', custId);
-        url = QueryString.setParam(url, 'betCheck', betCheck);
-
-        return url;
-    }
-
     static getBonusDetailUrl(rootUrl, commonParams, refCode, transId) {
         let url = rootUrl + 'BonusBetListDetail/Index';
         url = this._assignCommonParams(url, commonParams);
@@ -171,17 +160,6 @@ export default class UrlDetailBuilder {
         url = QueryString.setParam(url, 'custid', custId);
         url = QueryString.setParam(url, 'transType', transType);
         url = QueryString.setParam(url, 'date', winlostDate);
-
-        return url;
-    }
-
-    static getGlobalGamingDetailUrl(rootUrl, commonParams, transId, winlostDate, custId, transType) {
-        let url = rootUrl + 'GlobalGamingBetListDetail/Index';
-        url = this._assignCommonParams(url, commonParams);
-        url = QueryString.setParam(url, 'transId', transId);
-        url = QueryString.setParam(url, 'date', winlostDate);
-        url = QueryString.setParam(url, 'custId', custId);
-        url = QueryString.setParam(url, 'transType', transType);
 
         return url;
     }
@@ -309,17 +287,6 @@ export default class UrlDetailBuilder {
 
     static getPGSDetailUrl(rootUrl, commonParams, transId, winlostDate, custId, transType) {
         let url = rootUrl + 'PGSoftBetListDetail/Index';
-        url = this._assignCommonParams(url, commonParams);
-        url = QueryString.setParam(url, 'transId', transId);
-        url = QueryString.setParam(url, 'date', winlostDate);
-        url = QueryString.setParam(url, 'custId', custId);
-        url = QueryString.setParam(url, 'transType', transType);
-
-        return url;
-    }
-
-    static getGDGDetailUrl(rootUrl, commonParams, transId, winlostDate, custId, transType) {
-        let url = rootUrl + 'GDGBetListDetail/Index';
         url = this._assignCommonParams(url, commonParams);
         url = QueryString.setParam(url, 'transId', transId);
         url = QueryString.setParam(url, 'date', winlostDate);

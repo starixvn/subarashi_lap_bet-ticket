@@ -52,10 +52,6 @@ export default function ViewResultEventBuilder() {
             const url = UrlResultBuilder.getSAGamingResultUrl(this.rootUrl, transdecs, extension2, bettype, languageCode, accessToken);
             this._openPopup(url, title, sporttype);
         }
-        else if (sporttype === SportType.GLOBALGAMING) {
-            const url = UrlResultBuilder.getGlobalGamingResultUrl(this.rootUrl);
-            _showThirdPartyResult.call(this, url, { language: languageCode, custid, gameId: extension2 }, title, sporttype);
-        }
         else if (sporttype === SportType.JK) {
             const url = UrlResultBuilder.getJokerResultUrl(this.rootUrl);
             _showThirdPartyResult.call(this, url, { languageCode, custid, transId3rd: transdecs, gameId3rd: extension2, currencyId: extension1, siteId, betTypeId: bettype }, title, sporttype);
@@ -72,10 +68,7 @@ export default function ViewResultEventBuilder() {
             const url = UrlResultBuilder.getHappy5LinkedGamesResultUrl(this.rootUrl);
             _showThirdPartyResult.call(this, url, { languageCode, custid, transId3rd: refno, gameId3rd: extension2, currencyId: extension1, siteId, betTypeId: bettype }, title, sporttype);
         }
-        else if (sporttype === SportType.GDG) {
-            const url = UrlResultBuilder.getGDGResultUrl(this.rootUrl);
-            _showThirdPartyResult.call(this, url, { languageCode, custid, transId3rd: transdecs, gameId3rd: extension2, currencyId: extension1, siteId, betTypeId: bettype }, title, sporttype);
-        } else if (sporttype === SportType.BGG) {
+        else if (sporttype === SportType.BGG) {
             const url = UrlResultBuilder.getBGGResultUrl(this.rootUrl);
             _showThirdPartyResult.call(this, url, { languageCode, custid, transId3rd: transdecs, gameId3rd: extension2, currencyId: extension1, siteId, betTypeId: bettype }, title, sporttype);
         }
