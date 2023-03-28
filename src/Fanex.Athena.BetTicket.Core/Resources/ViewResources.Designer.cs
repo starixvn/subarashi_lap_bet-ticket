@@ -547,6 +547,15 @@ namespace Fanex.Athena.BetTicket.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Jili.
+        /// </summary>
+        public static string ProductJIG {
+            get {
+                return ResourceManager.GetString("ProductJIG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Joker.
         /// </summary>
         public static string ProductJK {

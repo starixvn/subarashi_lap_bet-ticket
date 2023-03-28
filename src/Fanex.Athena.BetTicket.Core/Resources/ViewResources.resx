@@ -303,6 +303,9 @@
   <data name="ProductI4D" xml:space="preserve">
     <value>Togel 4D</value>
   </data>
+  <data name="ProductJIG" xml:space="preserve">
+    <value>Jili</value>
+  </data>
   <data name="ProductJK" xml:space="preserve">
     <value>Joker</value>
     <comment>141408</comment>

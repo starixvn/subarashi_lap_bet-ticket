@@ -416,9 +416,20 @@ export default class UrlDetailBuilder {
 
         return url;
     }
-    
+
     static getMaxGameDetaillUrl(rootUrl, commonParams, transId, winlostDate, custId, transType) {
         let url = rootUrl + 'MaxGameBetListDetail/Index';
+        url = this._assignCommonParams(url, commonParams);
+        url = QueryString.setParam(url, 'transId', transId);
+        url = QueryString.setParam(url, 'date', winlostDate);
+        url = QueryString.setParam(url, 'custId', custId);
+        url = QueryString.setParam(url, 'transType', transType);
+
+        return url;
+    }
+
+    static getJiliDetaillUrl(rootUrl, commonParams, transId, winlostDate, custId, transType) {
+        let url = rootUrl + 'JiliBetListDetail/Index';
         url = this._assignCommonParams(url, commonParams);
         url = QueryString.setParam(url, 'transId', transId);
         url = QueryString.setParam(url, 'date', winlostDate);

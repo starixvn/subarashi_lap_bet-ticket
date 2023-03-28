@@ -92,7 +92,7 @@ export default class UrlResultBuilder {
     static getFGGLResultUrl(rootUrl) {
         return rootUrl + 'Proxy/FGGLResultPopup/Index';
     }
-    
+
     static getMaxGameResultUrl(rootUrl) {
         return rootUrl + 'Proxy/MaxGameResultPopup/Index';
     }
@@ -198,5 +198,9 @@ export default class UrlResultBuilder {
 
     static getVGamingResultUrl(rootUrl) {
         return rootUrl + 'Proxy/VGamingResultPopup/Index';
+    }
+
+    static getJiliResultUrl(rootUrl) {
+        return rootUrl + 'Proxy/JiliResultPopup/Index';
     }
 }
