@@ -81,21 +81,6 @@ export default function ViewDetailEventBuilder() {
         this._openPopup(url, title);
     }
 
-    window.showColossusBetsDetails = (refNo, winlostDate, transId, custId, betCheck) => {
-        const url = UrlDetailBuilder.getColossusBetsDetailUrl(this.rootUrl, _getCommonParams.call(this), refNo, winlostDate, custId, betCheck);
-        const title = this._getResource('TicketDetailOf').replace('{0}', refNo);
-
-        this._openPopup(url, title);
-    }
-
-    window.showGlobalGaming = (transId, winlostDate, custId, transType) => {
-        const url = UrlDetailBuilder.getGlobalGamingDetailUrl(this.rootUrl, _getCommonParams.call(this), transId, winlostDate, custId, transType);
-        const title = this._getResource('ProductFW') + ' - ' +
-            this._getResource('DetailedBetlist') + ' - ' + this._formatDateString(winlostDate);
-
-        this._openPopup(url, title);
-    }
-
     window.showPPDetails = (transId, winlostDate, custId, transType) => {
         const url = UrlDetailBuilder.getPPDetailUrl(this.rootUrl, _getCommonParams.call(this), transId, winlostDate, custId, transType);
         const title = this._getResource('ProductPP') + ' - ' +
@@ -187,14 +172,6 @@ export default function ViewDetailEventBuilder() {
     window.showPGSoftDetails = (transId, winlostDate, custId, transType) => {
         const url = UrlDetailBuilder.getPGSDetailUrl(this.rootUrl, _getCommonParams.call(this), transId, winlostDate, custId, transType);
         const title = this._getResource('ProductPGS') + ' - ' +
-            this._getResource('DetailedBetlist') + ' - ' + this._formatDateString(winlostDate);
-
-        this._openPopup(url, title);
-    }
-
-    window.showGDGBetDetails = (transId, winlostDate, custId, transType) => {
-        const url = UrlDetailBuilder.getGDGDetailUrl(this.rootUrl, _getCommonParams.call(this), transId, winlostDate, custId, transType);
-        const title = this._getResource('ProductGDG') + ' - ' +
             this._getResource('DetailedBetlist') + ' - ' + this._formatDateString(winlostDate);
 
         this._openPopup(url, title);

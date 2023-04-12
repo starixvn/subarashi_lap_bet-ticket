@@ -157,10 +157,6 @@ export default class UrlResultBuilder {
         return url;
     }
 
-    static getGlobalGamingResultUrl(rootUrl) {
-        return rootUrl + 'Proxy/GlobalGamingResultPopup/Index';
-    }
-
     static getPGSoftResultUrl(rootUrl) {
         return rootUrl + 'Proxy/PGSoftResultPopup/Index';
     }
@@ -171,10 +167,6 @@ export default class UrlResultBuilder {
 
     static getHappy5LinkedGamesResultUrl(rootUrl) {
         return rootUrl + 'Proxy/Happy5LinkedGamesResultPopup/Index';
-    }
-
-    static getGDGResultUrl(rootUrl) {
-        return rootUrl + 'Proxy/GDGResultPopup/Index';
     }
 
     static getSportsLotteryResultUrl(rootUrl) {
