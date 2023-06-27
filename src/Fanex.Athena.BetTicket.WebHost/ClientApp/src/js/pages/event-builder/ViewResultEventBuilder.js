@@ -80,7 +80,7 @@ export default function ViewResultEventBuilder() {
             const url = UrlResultBuilder.getHabaneroResultUrl(this.rootUrl);
             _showThirdPartyResult.call(this, url, { languageCode, custid, transId3rd: transdecs, gameId3rd: extension2, currencyId: extension1, siteId, betTypeId: bettype }, title, sporttype);
         }
-        else if (sporttype === SportType.WM) {
+        else if (sporttype === SportType.WM || sporttype === SportType.YB) {
             const url = UrlResultBuilder.getWMResultUrl(this.rootUrl, transdecs, extension2, bettype, languageCode, accessToken);
             this._openPopup(url, title, sporttype);
         }

@@ -380,6 +380,9 @@
   <data name="ProductWM" xml:space="preserve">
     <value>WM</value>
   </data>
+  <data name="ProductYB" xml:space="preserve">
+    <value>YeeBet</value>
+  </data>
   <data name="RefNo" xml:space="preserve">
     <value>Ref No</value>
   </data>
