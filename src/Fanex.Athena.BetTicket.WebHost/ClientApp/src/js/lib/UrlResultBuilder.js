@@ -195,4 +195,8 @@ export default class UrlResultBuilder {
     static getJiliResultUrl(rootUrl) {
         return rootUrl + 'Proxy/JiliResultPopup/Index';
     }
+
+    static getMGRNGResultUrl(rootUrl) {
+        return rootUrl + 'Proxy/MGRNGResultPopup/Index';
+    }
 }
