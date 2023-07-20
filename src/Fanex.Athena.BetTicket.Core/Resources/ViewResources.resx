@@ -303,6 +303,9 @@
     <value>Lottery</value>
     <comment>79997</comment>
   </data>
+  <data name="ProductMGRNG" xml:space="preserve">
+    <value>MG-RNG</value>
+  </data>
   <data name="ProductMXG" xml:space="preserve">
     <value>MaxGame</value>
   </data>

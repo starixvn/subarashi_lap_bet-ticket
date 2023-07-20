@@ -263,6 +263,9 @@
   <data name="ProductLT" xml:space="preserve">
     <value>彩票</value>
   </data>
+  <data name="ProductMGRNG" xml:space="preserve">
+    <value>MG-RNG</value>
+  </data>
   <data name="ProductNG" xml:space="preserve">
     <value>百练赛</value>
     <comment>#49196</comment>

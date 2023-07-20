@@ -28,7 +28,8 @@ const SportType = {
     FGGL: 176,
     MXG: 237,
     JIG: 158,
-    YB: 159
+    YB: 159,
+    MGRNG: 155
 }
 
 export default SportType
