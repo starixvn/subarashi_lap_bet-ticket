@@ -1,9 +1,11 @@
 import language_en_US from './languages/ViewResources';
 import language_zh_CN from './languages/ViewResources.zh-CN';
+import language_vi_VN from './languages/ViewResources.vi-VN';
 
 const resources = {
     'en-US': language_en_US,
-    'zh-CN': language_zh_CN 
+    'zh-CN': language_zh_CN,
+    'vi-VN': language_vi_VN
 }
 
 const DEFAULT_RESOURCE_NAME = "_betticket_language_en_US";
@@ -13,7 +15,8 @@ export default class LangHelper {
 
     static languageKeys = {
         eng: "en-US", 
-        zhCN: "zh-CN"
+        zhCN: "zh-CN",
+        viVN: "vi-VN"
     }
 
     static get currentLanguage() {
