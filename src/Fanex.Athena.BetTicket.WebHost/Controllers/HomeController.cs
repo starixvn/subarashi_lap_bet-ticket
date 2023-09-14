@@ -9,7 +9,7 @@ namespace Fanex.Athena.BetTicket.WebHost.Controllers
     public class HomeController : Controller
     {
         [HttpGet]
-        [Authorize]
+        [AllowAnonymous]
         public IActionResult Index([FromServices] IWebHostEnvironment hostingEnvironment)
         {
             if (!hostingEnvironment.IsDevelopment())
