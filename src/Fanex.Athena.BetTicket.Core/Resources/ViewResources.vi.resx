@@ -390,4 +390,7 @@
   <data name="WinLoss" xml:space="preserve">
     <value>Thắng Thua</value>
   </data>
+  <data name="Details" xml:space="preserve">
+    <value>Chi tiết</value>
+  </data>
 </root>

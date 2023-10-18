@@ -16,7 +16,7 @@ const Popup = (props) => {
             (<div className='popup-content'>{children}</div>)
     }
 
-    return (<div className={`popup-container ${isShow ? 'show' : 'hide'}`} onClick={props.onClick}>
+    return (<div className={`bet-ticket-popup popup-container ${isShow ? 'show' : 'hide'}`} onClick={props.onClick}>
         <div className='popup-block-body'></div>
         <div className='flat-popup' style={{ height: height, width: width }}>
             <div className='popup-title'>
