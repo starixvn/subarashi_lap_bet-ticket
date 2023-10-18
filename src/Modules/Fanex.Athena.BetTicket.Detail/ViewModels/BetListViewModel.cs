@@ -13,6 +13,10 @@ namespace Fanex.Athena.BetTicket.Detail.ViewModels
         public decimal SumWinLoss { get; set; }
 
         public decimal SumLicenseeWl { get; set; }
+
+        public decimal SumStake { get; set; }
+
+        public decimal SumComm { get; set; }
     }
 
     public class TicketText
@@ -32,5 +36,7 @@ namespace Fanex.Athena.BetTicket.Detail.ViewModels
         public string LicenseeWL { get; set; }
 
         public string Status { get; set; }
+
+        public string RefNo { get; set; }
     }
 }
