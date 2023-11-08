@@ -342,6 +342,9 @@
   <data name="ProductSBVS" xml:space="preserve">
     <value>Saba Virtual Sports</value>
   </data>
+  <data name="ProductSEA" xml:space="preserve">
+    <value>SEAL Entertainment</value>
+  </data>
   <data name="ProductSG" xml:space="preserve">
     <value>SG</value>
   </data>

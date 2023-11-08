@@ -29,7 +29,8 @@ const SportType = {
     MXG: 237,
     JIG: 158,
     YB: 159,
-    MGRNG: 155
+    MGRNG: 155,
+    SEA: 156
 }
 
 export default SportType

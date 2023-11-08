@@ -199,4 +199,8 @@ export default class UrlResultBuilder {
     static getMGRNGResultUrl(rootUrl) {
         return rootUrl + 'Proxy/MGRNGResultPopup/Index';
     }
+
+    static getSealEntertainmentResultUrl(rootUrl) {
+        return rootUrl + 'Proxy/SealEntertainmentResultPopup/Index';
+    }
 }
