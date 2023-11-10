@@ -2,27 +2,32 @@ import React, { useEffect, useRef, useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { Table, HeaderRow, HeaderCell, Row, Cell } from '@legion-lib/react-grid';
 import NoDataTitle from '@jsroot/components/NoDataTitle';
-import { useElementSize, useWindowSize } from 'usehooks-ts';
+import { useElementSize, useIsFirstRender, useWindowSize } from 'usehooks-ts';
 import { RefPager } from '@jsroot/components/RefPager';
 import { v4 as uuidv4 } from 'uuid';
 import MobileBetlistContent from './MobileBetlistContent';
 import MobileWinLossCellContent from './MobileWinLossCellContent';
 
-const SmallColumnWidths = [50, 17, 20, 13]
-const LargeColumnWidths = ['53%', '15%', '22%', '10%']
+const SmallColumnWidths = [50, 22, 28]
+const LargeColumnWidths = ['53%', '22%', '27%']
 const Columns = ['Details', 'Stake', 'WinLoss'];
+const SortTableColumns = ['Stake', 'WinLoss']
 
 export const MobileDataGrid = (props) => {
-    const { data, total, pagingOption, onPaging, totalText, getHeaderName } = props;
+    const { data, total, pagingOption, onPaging, totalText, getHeaderName, onSort } = props;
     const ref = useRef(null);
     const [id, setId] = useState(`${uuidv4()}`);
     const [pagerRef, pagerSize] = useElementSize();
     const { width } = useWindowSize();
     const collumnWidths = width > 400 ? LargeColumnWidths : SmallColumnWidths
+    const isRenderFirstTime = useIsFirstRender();
 
     useEffect(() => {
         setId(`${uuidv4()}`);
-        ref.current?.scrollIntoView();
+        if(!isRenderFirstTime)
+        {
+            ref.current?.scrollIntoView();
+        }
     }, [data]);
 
     useEffect(() => {
@@ -34,10 +39,11 @@ export const MobileDataGrid = (props) => {
         let rows = [];
         for (let i = 0; i < Columns.length; i++) {
             const column = Columns[i];
+            const isSortable = SortTableColumns.indexOf(column) >= 0;
             const headerName = getHeaderName(column);
 
             rows.push(
-                <HeaderCell key={column} colWidth={collumnWidths[i]} >{headerName}</HeaderCell>
+                <HeaderCell key={column} colWidth={collumnWidths[i]} sortBy={isSortable ? column : null}>{headerName}</HeaderCell>
             )
         }
         return <HeaderRow style={{ height: 32 }}>{rows}</HeaderRow>;
@@ -47,7 +53,7 @@ export const MobileDataGrid = (props) => {
             return null;
         }
         return data.map((item) => {
-            return <Row key={item.RefNo}>
+            return <Row key={`${item.RefNo}-${id}`}>
                 <Cell><MobileBetlistContent item={item} /></Cell>
                 <Cell className="right-align" dangerouslySetInnerHTML={{ __html: item.Stake }}></Cell>
                 <Cell className="right-align"><MobileWinLossCellContent item={item} /></Cell>
@@ -78,7 +84,7 @@ export const MobileDataGrid = (props) => {
 
     return (
         <div className="mobile-betlist-container betlist-container result-content" ref={ref}>
-            <Table key={id}
+            <Table
                 autoWidth={true}
                 autoHeight={false}
                 header={header}
@@ -86,8 +92,9 @@ export const MobileDataGrid = (props) => {
                 footer={footer}
                 isPaging={false}
                 bodyHeight="100%"
-                containerPadding={30}
-                isIncludeScrollWidth={false} />
+                containerPadding={3}
+                isIncludeScrollWidth={false}
+                onSort={onSort} />
             <RefPager ref={pagerRef} onPaging={onPaging} pageOption={pagingOption} isShowPagingInfo={isShowPagingInfo} />
         </div>
     );

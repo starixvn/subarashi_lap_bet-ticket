@@ -6,9 +6,10 @@
 @import "./common";
 @import "./mobile.scss";
 
-#app-container {
-    margin-top: 5px;
-    
+#container {
+    .report-title-container{
+        margin-top: 5px;
+    }
 }
 .report-title-container {
     height: 30px;

@@ -7,6 +7,7 @@ import DataService from '@jsroot/lib/DataService';
 import QueryString from '@jsroot/lib/QueryString'
 import { bindActionCreators } from 'redux';
 import { ActionCreators } from '../actions';
+import { saveAs } from 'file-saver';
 
 export const Title = (props) => {
     const handleExportExcel = () => {
@@ -21,7 +22,8 @@ export const Title = (props) => {
                 if (response.status === NoContentStatusCode) {
                     alert(LangHelper.getSingleResource("NoInfo"));
                 } else {
-                    Site.downloadFile(response.data, `${AppData.exportFileName}.xls`);
+                    const blob = new Blob([response.data], {type: "application/vnd.ms-excel"})
+                    saveAs(blob, `${AppData.exportFileName}.xls`);
                 }
                 toggleLoader(false);
             })

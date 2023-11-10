@@ -4,10 +4,13 @@ import AppLayout from '@jsroot/layouts/AppLayout';
 import Loader from '@jsroot/components/Loader';
 import Content from './Content';
 import Title from './Title';
+import useMobileVersion from '@jsroot/lib/useMobileVersion';
 
 export const AppContainer = ({ isLoading }) => {
+    const isUseMobileVersion = useMobileVersion();
+    const className = isUseMobileVersion ? 'mobile-container' : '';
     return (
-        <AppLayout>
+        <AppLayout className={className}>
             <Loader isLoading={isLoading} />
             <Title />
             <Content />

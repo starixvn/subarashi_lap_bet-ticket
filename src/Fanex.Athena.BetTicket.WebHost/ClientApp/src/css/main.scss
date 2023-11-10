@@ -11,6 +11,11 @@
 html {
     height: auto;
 }
+body{
+    overflow: auto;
+    height: 100%;
+    width: 100%;
+}
 .no-info-row {
     border: 1px solid #ccc;
     padding: 5px;
