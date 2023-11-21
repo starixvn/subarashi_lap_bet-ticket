@@ -13,6 +13,8 @@ import DataGrid from './DataGrid';
 import BetListLayout from '@jsroot/layouts/BetListLayout';
 import { HeaderText } from '../lib/constants';
 import QueryString from '@jsroot/lib/QueryString'
+import useMobileVersion from '@jsroot/lib/useMobileVersion';
+import MobileDataGrid from './MobileDataGrid';
 
 const defaultPagingOption = {
     PageIndex: 1,
@@ -36,19 +38,21 @@ const usePagingOption = (initialValue = defaultPagingOption) => {
 
 export const Content = (props) => {
 
+    const isUseMobileVersion = useMobileVersion();
     const { requestParam, setRequestParam } = props;
-    const [gridData, setGridData] = useState({});
+    const [gridData, setGridData] = useState(null);
     const { pagingOption, setPagingOption, onChangePaging } = usePagingOption();
 
     const handleSort = (sortBy, sortOrder) => {
-        setRequestParam({ ...requestParam, sortBy, sortOrder });
+        setRequestParam({ ...requestParam, sortBy, sortOrder});
     }
 
     useEffect(() => {
         let url = Site.resolveClientUrl(AppData.apiUrl);
         url = QueryString.setParam(url, 'language', window.PageLanguage);
         props.toggleLoader(true);
-        DataService.postData(url, requestParam, AppData.access_token)
+        const param = {...requestParam, isMobileView: isUseMobileVersion};
+        DataService.postData(url, param, AppData.access_token)
             .then(response => {
                 const result = response.data;
                 setGridData({ ...gridData, originalData: result.Data , total: result.Total });
@@ -64,7 +68,7 @@ export const Content = (props) => {
     }, [requestParam]);
 
     useEffect(() => {
-            if(gridData && gridData.originalData) {
+            if(gridData?.originalData) {
                 const { PageIndex, PageSize } = pagingOption;
                 const startIndex = (PageIndex - 1)* PageSize;
                 const endIndex = startIndex + PageSize;
@@ -105,7 +109,10 @@ export const Content = (props) => {
             baseCurrency={requestParam.baseCurrency}
             beforeShowFunc={() => props.toggleLoader(true)}
             afterShowFunc={() => props.toggleLoader(false)}>
-            <DataGrid {...dataGridProps} />
+            {isUseMobileVersion 
+                ? <MobileDataGrid {...dataGridProps}/>
+                : <DataGrid {...dataGridProps} />
+            }
         </BetListLayout>
     )
 }
@@ -115,7 +122,7 @@ function mapDispatchToProps(dispatch) {
 }
 function mapStateToProps(state) {
     const { requestParam } = state;
-    return Object.assign({}, { requestParam });
+    return { requestParam};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Content);

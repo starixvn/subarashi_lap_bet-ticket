@@ -47,7 +47,9 @@ namespace Fanex.Athena.BetTicket.Detail.Controllers
                 Total = new 
                 { 
                     WinLoss = responseData.Total.SumWinLoss.ToString("#,##0.00"),
-                    LicenseeWL = responseData.Total.SumLicenseeWl.ToString("#,##0.00")
+                    LicenseeWL = responseData.Total.SumLicenseeWl.ToString("#,##0.00"),
+                    Stake = responseData.Total.SumStake,
+                    Comm = responseData.Total.SumComm.ToString("#,##0.00"),
                 },
                 TotalRows = responseData.Main.Count()
             });

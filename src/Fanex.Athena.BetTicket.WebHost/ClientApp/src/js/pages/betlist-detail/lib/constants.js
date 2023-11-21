@@ -9,7 +9,8 @@ export const HeaderText = {
     WinLoss: LangHelper.getSingleResource("WinLoss"),
     LicenseeWL: `${LangHelper.getSingleResource("LicenseeWL")}/${LangHelper.getSingleResource("Comm")}`,
     Status: LangHelper.getSingleResource("Status"),
-    Comm: LangHelper.getSingleResource("Comm")
+    Comm: LangHelper.getSingleResource("Comm"),
+    Details: LangHelper.getSingleResource("Details")
 }
 
 export const Columns = ['Index', 'TransTime', 'Choice', 'Odds', 'Stake', 'WinLoss', 'LicenseeWL', 'Status'];

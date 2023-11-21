@@ -1,0 +1,97 @@
+.mobile-container{
+    height: 100vh;
+    width: 100vw;
+    overflow: auto;
+    &.container-fluid{
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    .report-title-container{
+        margin-right: 5px;
+    }
+}
+
+.mobile-betlist-container{
+    width: 100%;
+    .fixed-table-grant-total{
+        text-align: right;
+        td:first-child{
+            text-align: center;
+        }
+    }
+    .header-content, .footer-content,  .page-wrapper-container{
+        display: block;
+        position: sticky;
+        position: -webkit-sticky;
+        z-index: 10;
+    }
+    .header-content{
+        top: 0px;
+        tr th:first-child{
+            border-left: 0px;
+        }
+    }
+    .body-content{
+        overflow-x: initial;
+        overflow-y: initial;
+    }
+
+    .page-wrapper-container{       
+        bottom: 0px;
+    }
+    .table-container{
+        overflow-x: visible;
+    }
+    &.betlist-container {
+        .bettype, .match{
+            text-align: left;
+        }
+        .match + div.league{
+            text-align: left;
+        }
+    }
+
+    .collapse-row{
+        td:first-child{
+            background: #9EB4C3;
+        }
+    }
+    .row-active{
+        td{
+            background: #FCF4DF;
+        }
+        &.collapse-row{
+            td:first-child{
+                background: #F6DFA1;
+            }
+        }
+    }
+    .table > tbody tr:hover td{
+        &:hover td{
+            background: initial;
+        }
+        &.row-active:hover td{
+            background: #FCF4DF;
+        }
+    }  
+    .icon{
+        color: #217A4A;
+        font-size: 22px;
+    }
+    .cell-index{
+        color: #AA5200;
+    }  
+    .cell-odd{
+        display: flex;
+    }
+    .cell-external-id{
+        border-bottom: 1px solid #BFB9A9;
+        background: #D9D2C0;
+    }
+    .footer-content .table .fixed-table-grant-total{
+        border-top: 1px;
+        td{
+            background: #b8c3c9;
+        }
+    }
+}

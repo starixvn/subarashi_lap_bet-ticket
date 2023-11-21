@@ -1,15 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
+import classNames from 'classnames';
 
-export default class AppLayout extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
+export const AppLayout = (props) => {
+    const className = classNames('container-fluid', props.className)
     return (
-      <div id="container" className="container-fluid">
-        {this.props.children}
+      <div id="container" className={className}>
+        {props.children}
       </div>
     );
-  }
 }
+
+export default AppLayout;

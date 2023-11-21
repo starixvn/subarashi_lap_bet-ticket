@@ -357,4 +357,7 @@
   <data name="WinLoss" xml:space="preserve">
     <value>输赢</value>
   </data>
+  <data name="Details" xml:space="preserve">
+    <value>细节</value>
+  </data>
 </root>
