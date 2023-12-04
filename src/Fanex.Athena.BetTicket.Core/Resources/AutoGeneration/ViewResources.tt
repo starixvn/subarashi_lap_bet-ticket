@@ -18,7 +18,7 @@
 	};
 	foreach(var filePath in filePaths)
 	{        
-		var fileName = Path.GetFileName(filePath.Replace("resx", "js").Replace("zh", "zh-CN").Replace("vi", "vi-VN"));
+		var fileName = Path.GetFileName(filePath.Replace("resx", "js").Replace("zh", "zh-CN").Replace("vi", "vi-VN").Replace("id", "id-ID").Replace("th", "th-TH"));
 		foreach (var outputPath in outputPaths)
 		{
 					manager.StartNewFile($"{outputPath}\\{fileName}");

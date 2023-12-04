@@ -250,7 +250,9 @@ namespace Fanex.Athena.BetTicket.WebHost
                     csCulture,
                     new CultureInfo("zh-TW"),
                     new CultureInfo("zh-Hans"),
-                    new CultureInfo("vi-VN")
+                    new CultureInfo("vi-VN"),
+                    new CultureInfo("id-ID"),
+                    new CultureInfo("th-TH"),
                 };
                 options.RequestCultureProviders = new List<IRequestCultureProvider>
                 {
