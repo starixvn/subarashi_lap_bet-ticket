@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30717.126
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{44A3C0D2-0A9F-4C20-ADBB-CFC33C22A5C7}"
 EndProject
@@ -18,6 +18,14 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fanex.Athena.BetTicket.Core", "src\Fanex.Athena.BetTicket.Core\Fanex.Athena.BetTicket.Core.csproj", "{6E9142D7-A0AB-4BD8-B7EA-AE3E22F2F0FE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fanex.Athena.BetTicket.Core.UnitTests", "test\Fanex.Athena.BetTicket.Core.UnitTests\Fanex.Athena.BetTicket.Core.UnitTests.csproj", "{A2E6394A-28B6-4897-BA53-F446C2066290}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fanex.Athena.BetTicket.UnitTests.Common", "test\Fanex.Athena.BetTicket.UnitTests.Common\Fanex.Athena.BetTicket.UnitTests.Common.csproj", "{2EC9ED9D-C97B-4E3A-8CFB-47E9FCA83958}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{998FAAD7-2CF7-4D00-AC5B-E47E1EE0DADE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fanex.Athena.BetTicket.Detail.UnitTests", "test\Module\Fanex.Athena.BetTicket.Detail.UnitTests\Fanex.Athena.BetTicket.Detail.UnitTests.csproj", "{5B3EF0EC-E8D9-4FEF-BD77-D42821CE6156}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fanex.Athena.BetTicket.Result.UnitTests", "test\Module\Fanex.Athena.BetTicket.Result.UnitTests\Fanex.Athena.BetTicket.Result.UnitTests.csproj", "{661E5D24-7150-40EF-88D2-08149125220F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +53,18 @@ Global
 		{A2E6394A-28B6-4897-BA53-F446C2066290}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A2E6394A-28B6-4897-BA53-F446C2066290}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A2E6394A-28B6-4897-BA53-F446C2066290}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2EC9ED9D-C97B-4E3A-8CFB-47E9FCA83958}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EC9ED9D-C97B-4E3A-8CFB-47E9FCA83958}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EC9ED9D-C97B-4E3A-8CFB-47E9FCA83958}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EC9ED9D-C97B-4E3A-8CFB-47E9FCA83958}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B3EF0EC-E8D9-4FEF-BD77-D42821CE6156}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B3EF0EC-E8D9-4FEF-BD77-D42821CE6156}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B3EF0EC-E8D9-4FEF-BD77-D42821CE6156}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B3EF0EC-E8D9-4FEF-BD77-D42821CE6156}.Release|Any CPU.Build.0 = Release|Any CPU
+		{661E5D24-7150-40EF-88D2-08149125220F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{661E5D24-7150-40EF-88D2-08149125220F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{661E5D24-7150-40EF-88D2-08149125220F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{661E5D24-7150-40EF-88D2-08149125220F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -56,6 +76,10 @@ Global
 		{2947A0AC-22A6-465B-9DA9-A30E3FEA0907} = {8B7ECCCA-CE5E-4B69-AEB1-496D34176B39}
 		{6E9142D7-A0AB-4BD8-B7EA-AE3E22F2F0FE} = {44A3C0D2-0A9F-4C20-ADBB-CFC33C22A5C7}
 		{A2E6394A-28B6-4897-BA53-F446C2066290} = {45FFFEDF-09EB-4EB0-9C25-AC94A711D577}
+		{2EC9ED9D-C97B-4E3A-8CFB-47E9FCA83958} = {45FFFEDF-09EB-4EB0-9C25-AC94A711D577}
+		{998FAAD7-2CF7-4D00-AC5B-E47E1EE0DADE} = {45FFFEDF-09EB-4EB0-9C25-AC94A711D577}
+		{5B3EF0EC-E8D9-4FEF-BD77-D42821CE6156} = {998FAAD7-2CF7-4D00-AC5B-E47E1EE0DADE}
+		{661E5D24-7150-40EF-88D2-08149125220F} = {998FAAD7-2CF7-4D00-AC5B-E47E1EE0DADE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A68987D7-10E0-4E19-AA31-69D0EB07FB12}
