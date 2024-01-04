@@ -4,5 +4,7 @@
 // Generated items
 // Fanex.Athena.BetTicket.WebHost\ClientApp\src\js\lib\languages\ViewResources.zh-CN.js
 // Fanex.Athena.BetTicket.WebHost\ClientApp\src\js\lib\languages\ViewResources.vi-VN.js
+// Fanex.Athena.BetTicket.WebHost\ClientApp\src\js\lib\languages\ViewResources.th-TH.js
 // Fanex.Athena.BetTicket.WebHost\ClientApp\src\js\lib\languages\ViewResources.js
+// Fanex.Athena.BetTicket.WebHost\ClientApp\src\js\lib\languages\ViewResources.id-ID.js
 
