@@ -203,8 +203,12 @@ export default class UrlResultBuilder {
     static getSealEntertainmentResultUrl(rootUrl) {
         return rootUrl + 'Proxy/SealEntertainmentResultPopup/Index';
     }
-    
+
     static getWELiveCasinoResultUrl(rootUrl) {
         return rootUrl + 'Proxy/WELiveCasinoResultPopup/Index';
+    }
+
+    static getLive22ResultUrl(rootUrl) {
+        return rootUrl + 'Proxy/Live22ResultPopup/Index';
     }
 }

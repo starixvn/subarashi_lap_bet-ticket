@@ -12,6 +12,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ViewResources.js" />
+    <None Remove="ViewResources.vi-VN.js" />
+    <None Remove="ViewResources.zh-CN.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <AdditionalFiles Include="..\..\.sonarlint\lap_betticket\CSharp\SonarLint.xml" Link="SonarLint.xml" />
   </ItemGroup>
 

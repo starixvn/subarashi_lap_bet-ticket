@@ -31,7 +31,8 @@ const SportType = {
     YB: 159,
     MGRNG: 155,
     SEA: 156,
-    WE: 228
+    WE: 228,
+    L22: 227
 }
 
 export default SportType

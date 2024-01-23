@@ -438,9 +438,20 @@ export default class UrlDetailBuilder {
 
         return url;
     }
-    
+
     static getWELiveCasinoDetaillUrl(rootUrl, commonParams, transId, winlostDate, custId, transType) {
         let url = rootUrl + 'WELiveCasinoBetListDetail/Index';
+        url = this._assignCommonParams(url, commonParams);
+        url = QueryString.setParam(url, 'transId', transId);
+        url = QueryString.setParam(url, 'date', winlostDate);
+        url = QueryString.setParam(url, 'custId', custId);
+        url = QueryString.setParam(url, 'transType', transType);
+
+        return url;
+    }
+
+    static getLive22DetaillUrl(rootUrl, commonParams, transId, winlostDate, custId, transType) {
+        let url = rootUrl + 'Live22BetListDetail/Index';
         url = this._assignCommonParams(url, commonParams);
         url = QueryString.setParam(url, 'transId', transId);
         url = QueryString.setParam(url, 'date', winlostDate);
