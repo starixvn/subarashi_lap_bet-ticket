@@ -1,7 +1,19 @@
 {
   "FilesToGenerate": [
     {
+      "Filename": "ViewResources.id-ID.js",
+      "Project": "Fanex.Athena.BetTicket.WebHost",
+      "Path": "ClientApp\\src\\js\\lib\\languages",
+      "Properties": {}
+    },
+    {
       "Filename": "ViewResources.js",
+      "Project": "Fanex.Athena.BetTicket.WebHost",
+      "Path": "ClientApp\\src\\js\\lib\\languages",
+      "Properties": {}
+    },
+    {
+      "Filename": "ViewResources.th-TH.js",
       "Project": "Fanex.Athena.BetTicket.WebHost",
       "Path": "ClientApp\\src\\js\\lib\\languages",
       "Properties": {}

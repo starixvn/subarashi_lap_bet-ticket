@@ -280,7 +280,7 @@ export default function ViewDetailEventBuilder() {
 
         this._openPopup(url, title);
     }
-    
+
     window.showWELiveCasinoBetDetails = (transId, winlostDate, custId, transType) => {
         const url = UrlDetailBuilder.getWELiveCasinoDetaillUrl(this.rootUrl, _getCommonParams.call(this), transId, winlostDate, custId, transType);
         const title = this._getResource('ProductWE') + ' - ' +
@@ -288,7 +288,6 @@ export default function ViewDetailEventBuilder() {
 
         this._openPopup(url, title);
     }
-
 
     window.showWELiveCasinoBetDetails = (transId, winlostDate, custId, transType) => {
         const url = UrlDetailBuilder.getWELiveCasinoDetaillUrl(this.rootUrl, _getCommonParams.call(this), transId, winlostDate, custId, transType);
@@ -301,6 +300,14 @@ export default function ViewDetailEventBuilder() {
     window.showLive22BetDetails = (transId, winlostDate, custId, transType) => {
         const url = UrlDetailBuilder.getLive22DetaillUrl(this.rootUrl, _getCommonParams.call(this), transId, winlostDate, custId, transType);
         const title = this._getResource('ProductL22') + ' - ' +
+            this._getResource('DetailedBetlist') + ' - ' + this._formatDateString(winlostDate);
+
+        this._openPopup(url, title);
+    }
+
+    window.showUUSlotsBetDetails = (transId, winlostDate, custId, transType) => {
+        const url = UrlDetailBuilder.getUUSlotsDetaillUrl(this.rootUrl, _getCommonParams.call(this), transId, winlostDate, custId, transType);
+        const title = this._getResource('ProductUUSL') + ' - ' +
             this._getResource('DetailedBetlist') + ' - ' + this._formatDateString(winlostDate);
 
         this._openPopup(url, title);
