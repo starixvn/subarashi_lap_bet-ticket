@@ -460,4 +460,15 @@ export default class UrlDetailBuilder {
 
         return url;
     }
+
+    static getUUSlotsDetaillUrl(rootUrl, commonParams, transId, winlostDate, custId, transType) {
+        let url = rootUrl + 'UUSlotsBetListDetail/Index';
+        url = this._assignCommonParams(url, commonParams);
+        url = QueryString.setParam(url, 'transId', transId);
+        url = QueryString.setParam(url, 'date', winlostDate);
+        url = QueryString.setParam(url, 'custId', custId);
+        url = QueryString.setParam(url, 'transType', transType);
+
+        return url;
+    }
 }

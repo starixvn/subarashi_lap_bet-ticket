@@ -211,4 +211,8 @@ export default class UrlResultBuilder {
     static getLive22ResultUrl(rootUrl) {
         return rootUrl + 'Proxy/Live22ResultPopup/Index';
     }
+
+    static getUUSlotsResultUrl(rootUrl) {
+        return rootUrl + 'Proxy/UUSlotsResultPopup/Index';
+    }
 }
