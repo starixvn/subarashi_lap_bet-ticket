@@ -86,9 +86,7 @@ export default function ViewResultEventBuilder() {
         }
         else if (sporttype === SportType.VGA || sporttype === SportType.VGA_FreeBets) {
             const url = UrlResultBuilder.getVGamingResultUrl(this.rootUrl);
-            _showThirdPartyResult.call(this, url,
-                { languageCode, custid, gameId: bettype, siteId: extension2, gameRoundId: transdecs, sporttype, currencyName: currency },
-                title, sporttype);
+            _showThirdPartyResult.call(this, url, { languageCode, custid, transId3rd: transdecs, gameId3rd: extension2, currencyId: extension1, siteId, betTypeId: bettype }, title, sporttype);
         }
         else if (sporttype === SportType.CG) {
             const url = UrlResultBuilder.getCGResultUrl(this.rootUrl);
