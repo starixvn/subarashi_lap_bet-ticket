@@ -1,5 +1,5 @@
-import ViewResultEventBuilder from './ViewResultEventBuilder' 
-import ViewDetailEventBuilder from './ViewDetailEventBuilder' 
+import ViewResultEventBuilder from './ViewResultEventBuilder'
+import ViewDetailEventBuilder from './ViewDetailEventBuilder'
 import LangHelper from '../../lib/langHelper';
 import { formatDateString } from '../../lib/dateUtils';
 
@@ -8,8 +8,8 @@ class EventBuilder {
     rootUrl = '/';
 
     _getDomain = () => {
-        var script = document.getElementById('event-builder-script'); 
-        if(script) {
+        var script = document.getElementById('event-builder-script');
+        if (script) {
             const url = new URL(script.src);
             return url.origin + '/';
         } else {
@@ -17,8 +17,18 @@ class EventBuilder {
         }
     }
 
+    _getIsHideSaba = () => {
+        var isHideSaba = document.getElementById('IsHideSaba');
+        if (isHideSaba) {
+            return isHideSaba.value === '1';
+        } else {
+            return false;
+        }
+    }
+
     buildEvent() {
         this.rootUrl = this._getDomain();
+        this.isHideSaba = this._getIsHideSaba();
         ViewResultEventBuilder.call(this);
         ViewDetailEventBuilder.call(this);
     }
