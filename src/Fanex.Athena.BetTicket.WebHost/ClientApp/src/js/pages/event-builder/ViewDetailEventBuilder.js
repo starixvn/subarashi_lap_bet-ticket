@@ -6,19 +6,19 @@ export default function ViewDetailEventBuilder() {
         let divEvent = document.querySelector('#divEvent_' + transId);
         divEvent.classList.add('mx-parlay'); //to make line-through for void-parlay-ticket
         const url = UrlDetailBuilder.getMixParlayDetailUrl(this.rootUrl, this._getLanguage());
-        _showMixParlayDetail.call(this, url, transId, divEvent);
+        _showMixParlayDetail.call(this, url, transId, divEvent, this.isHideSaba);
     };
 
     window.showCombMP = (transId, index) => {
         let divEvent = document.querySelector('#divEvent_' + transId + '' + index);
         divEvent.classList.add('mx-parlay'); //to make line-through for void-parlay-ticket
         const url = UrlDetailBuilder.getMixParlayDetailUrl(this.rootUrl, this._getLanguage());
-        _showMixParlayDetail.call(this, url, transId, divEvent);
+        _showMixParlayDetail.call(this, url, transId, divEvent, this.isHideSaba);
     };
 
     // expand choice content
     window.showNewCombMP = (...args) => {
-        _showNewParlayDetail.apply(this, [this.rootUrl, ...args]);
+        _showNewParlayDetail.apply(this, [this.rootUrl, this.isHideSaba, ...args]);
     };
 
     // expand choice content
@@ -324,10 +324,10 @@ export default function ViewDetailEventBuilder() {
     }
 }
 
-function _showMixParlayDetail(url, transId, divEvent) {
+function _showMixParlayDetail(url, transId, divEvent, isHideSaba) {
     if (divEvent.style.display === 'none') {
         this._beforeShow();
-        DataService.postData(url, { transId }, this._getAccessToken())
+        DataService.postData(url, { transId, isHideSaba }, this._getAccessToken())
             .then((result) => {
                 const choice = UrlDetailBuilder.buildChoiceMixParlayDetail(result.data, divEvent);
                 divEvent.innerHTML = choice;
@@ -343,7 +343,7 @@ function _showMixParlayDetail(url, transId, divEvent) {
     }
 }
 
-function _showNewParlayDetail(rootUrl, transId, transIndex, refNo, handicap1, handicap2, betcheck, betteam, custId) {
+function _showNewParlayDetail(rootUrl, isHideSaba, transId, transIndex, refNo, handicap1, handicap2, betcheck, betteam, custId) {
     let divEvent = document.querySelector('#divEvent_' + transId + '' + transIndex);
     let nameDiv = document.querySelector('#combinationOfferName_' + transId + transIndex);
 
@@ -352,7 +352,7 @@ function _showNewParlayDetail(rootUrl, transId, transIndex, refNo, handicap1, ha
     if (divEvent.style.display == 'none') {
         const url = UrlDetailBuilder.getChoiceParlayDetailUrl(rootUrl, this._getLanguage());
         this._beforeShow();
-        DataService.postData(url, { transId, handicap1, handicap2, betcheck, betteam, custId }, this._getAccessToken())
+        DataService.postData(url, { transId, handicap1, handicap2, betcheck, betteam, custId, isHideSaba }, this._getAccessToken())
             .then((result) => {
                 const choice = UrlDetailBuilder.buildChoiceParlayDetail(result.data);
                 divEvent.innerHTML = choice;
