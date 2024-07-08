@@ -366,4 +366,7 @@
   <data name="ProductUUSL" xml:space="preserve">
     <value>UU 老虎机</value>
   </data>
+  <data name="ProductFS" xml:space="preserve">
+    <value>FS电子</value>
+  </data>
 </root>

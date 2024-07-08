@@ -493,6 +493,15 @@ namespace Fanex.Athena.BetTicket.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to FastSpin.
+        /// </summary>
+        public static string ProductFS {
+            get {
+                return ResourceManager.GetString("ProductFS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Habanero.
         /// </summary>
         public static string ProductHB {

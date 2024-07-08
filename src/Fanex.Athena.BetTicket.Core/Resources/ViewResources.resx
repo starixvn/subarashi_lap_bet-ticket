@@ -444,4 +444,7 @@
   <data name="ProductUUSL" xml:space="preserve">
     <value>UU SLOTS</value>
   </data>
+  <data name="ProductFS" xml:space="preserve">
+    <value>FastSpin</value>
+  </data>
 </root>
