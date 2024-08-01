@@ -215,4 +215,8 @@ export default class UrlResultBuilder {
     static getUUSlotsResultUrl(rootUrl) {
         return rootUrl + 'Proxy/UUSlotsResultPopup/Index';
     }
+
+    static getFastSpinResultUrl(rootUrl) {
+        return rootUrl + 'Proxy/FastSpinResultPopup/Index';
+    }
 }
