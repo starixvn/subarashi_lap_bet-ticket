@@ -219,4 +219,8 @@ export default class UrlResultBuilder {
     static getFastSpinResultUrl(rootUrl) {
         return rootUrl + 'Proxy/FastSpinResultPopup/Index';
     }
+
+    static getFACHAIResultUrl(rootUrl) {
+        return rootUrl + 'Proxy/FACHAIResultPopup/Index';
+    }
 }
