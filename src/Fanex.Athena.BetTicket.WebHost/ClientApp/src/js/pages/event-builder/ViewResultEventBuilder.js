@@ -144,6 +144,10 @@ export default function ViewResultEventBuilder() {
             const url = UrlResultBuilder.getFACHAIResultUrl(this.rootUrl);
             _showThirdPartyResult.call(this, url, { languageCode, custid, transId3rd: transdecs, gameId3rd: extension2, currencyId: extension1, siteId, betTypeId: bettype, WinLostDate: winlostdate }, title, sporttype);
         }
+        else if (sporttype === SportType.NS) {
+            const url = UrlResultBuilder.getNextspinResultUrl(this.rootUrl);
+            _showThirdPartyResult.call(this, url, { languageCode, custid, transId3rd: transdecs, gameId3rd: extension2, currencyId: extension1, siteId, betTypeId: bettype, WinLostDate: winlostdate }, title, sporttype);
+        }
         else {
             const url = UrlResultBuilder.getResultUrl(this.rootUrl, languageCode, accessToken, matchid, raceNo, bettype,
                 sporttype, winlostdate, refnoMixParlay, league, isOutright, extension1, extension2, custid);

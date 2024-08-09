@@ -610,6 +610,15 @@ namespace Fanex.Athena.BetTicket.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nextspin.
+        /// </summary>
+        public static string ProductNS {
+            get {
+                return ResourceManager.GetString("ProductNS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sportsbook Parlay.
         /// </summary>
         public static string ProductParlay {
