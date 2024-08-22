@@ -223,4 +223,9 @@ export default class UrlResultBuilder {
     static getFACHAIResultUrl(rootUrl) {
         return rootUrl + 'Proxy/FACHAIResultPopup/Index';
     }
+    
+    static getNextspinResultUrl(rootUrl) {
+        return rootUrl + 'Proxy/NextspinResultPopup/Index';
+    }
+
 }

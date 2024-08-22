@@ -450,4 +450,7 @@
   <data name="ProductFAC" xml:space="preserve">
     <value>FA CHAI</value>
   </data>
+  <data name="ProductNS" xml:space="preserve">
+    <value>Nextspin</value>
+  </data>
 </root>
