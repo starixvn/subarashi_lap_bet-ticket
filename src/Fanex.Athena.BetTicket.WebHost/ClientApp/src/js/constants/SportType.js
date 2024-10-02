@@ -36,7 +36,8 @@ const SportType = {
     UUSL: 216,
     FS: 230,
     FAC: 146,
-    NS: 229
+    NS: 229,
+    ON: 138
 }
 
 export default SportType
