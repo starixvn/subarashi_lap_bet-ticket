@@ -47,21 +47,6 @@ namespace Fanex.Athena.BetTicket.Result.Controllers
         }
 
         [HttpGet]
-        public async Task<ViewResult> SexyGaming(string transDesc, string matchCode, string betType, string language)
-        {
-            var model = new
-            {
-                transDesc,
-                matchCode,
-                betType,
-                languageCode = language
-            };
-            const string apiPath = "/SexyGamingResultPopup/Index";
-            await BindHtmlResult(apiPath, model, language);
-            return View();
-        }
-
-        [HttpGet]
         public async Task<ViewResult> WM(string transDesc, string gameId3rd, int betType, string language)
         {
             var model = new
