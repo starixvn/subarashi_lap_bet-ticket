@@ -57,8 +57,8 @@ export default function ViewResultEventBuilder() {
             _showThirdPartyResult.call(this, url, { languageCode, custid, transId3rd: transdecs, gameId3rd: extension2, currencyId: extension1, siteId, betTypeId: bettype }, title, sporttype);
         }
         else if (sporttype === SportType.SXG) {
-            const url = UrlResultBuilder.getSexyGamingResultUrl(this.rootUrl, transdecs, extension2, bettype, languageCode, accessToken);
-            this._openPopup(url, title, sporttype);
+            const url = UrlResultBuilder.getSexyGamingResultUrl(this.rootUrl);
+            _showThirdPartyResult.call(this, url, { languageCode, custid, transId3rd: transdecs, site: extension2, currencyId: extension1, siteId, betTypeId: bettype, WinLostDate: winlostdate }, title, sporttype);
         }
         else if (sporttype === SportType.PGS) {
             const url = UrlResultBuilder.getPGSoftResultUrl(this.rootUrl);

@@ -134,30 +134,6 @@ export default class UrlResultBuilder {
         return rootUrl + 'Proxy/JokerResultPopup/Index';
     }
 
-    static getSexyGamingResultUrl(rootUrl, transdesc, matchCode, bettype, language, accessToken) {
-        let url = rootUrl + 'NonSportsResult/SexyGaming';
-
-        url = QueryString.setParam(url, 'language', language);
-        url = QueryString.setParam(url, 'access_token', accessToken);
-        url = QueryString.setParam(url, 'matchCode', matchCode);
-        url = QueryString.setParam(url, 'bettype', bettype);
-        url = QueryString.setParam(url, 'transdesc', encodeURIComponent(transdesc));
-
-        return url;
-    }
-
-    static getSexyGamingResultUrl(rootUrl, transdesc, matchCode, bettype, language, accessToken) {
-        let url = rootUrl + 'NonSportsResult/SexyGaming';
-
-        url = QueryString.setParam(url, 'language', language);
-        url = QueryString.setParam(url, 'access_token', accessToken);
-        url = QueryString.setParam(url, 'matchCode', matchCode);
-        url = QueryString.setParam(url, 'bettype', bettype);
-        url = QueryString.setParam(url, 'transdesc', encodeURIComponent(transdesc));
-
-        return url;
-    }
-
     static getPGSoftResultUrl(rootUrl) {
         return rootUrl + 'Proxy/PGSoftResultPopup/Index';
     }
@@ -231,5 +207,9 @@ export default class UrlResultBuilder {
 
     static getONCasinoResultUrl(rootUrl) {
         return rootUrl + 'Proxy/ONCasinoResultPopup/Index';
+    }
+
+    static getSexyGamingResultUrl(rootUrl) {
+        return rootUrl + 'Proxy/SexyGamingResultPopup/Index';
     }
 }
