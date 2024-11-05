@@ -43,6 +43,7 @@ RUN dotnet publish "Fanex.Athena.BetTicket.WebHost.csproj" -c Release -o /publis
 FROM hub.nexdev.net/base/dotnet/core/aspnet:5.0-alpine
 
 ENV ASPNETCORE_URLS=http://*:5000
+ENV DOTNET_HOSTBUILDER__RELOADCONFIGONCHANGE=false
 EXPOSE 5000
 
 WORKDIR /app
