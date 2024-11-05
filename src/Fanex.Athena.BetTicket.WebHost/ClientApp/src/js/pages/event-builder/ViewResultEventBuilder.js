@@ -4,7 +4,7 @@ import DataService from '../../lib/DataService';
 
 export default function ViewResultEventBuilder() {
     window.ViewResult = (matchid, raceNo, bettype, sporttype, refno,
-        currency, winlostdate, refnoMixParlay, league, isOutright, extension1, extension2, custid, transdecs, siteId) => {
+        currency, winlostdate, refnoMixParlay, league, isOutright, extension1, extension2, custid, transdecs, siteId, transdecs2) => {
         const title = this._getResource('Result');
         const languageCode = this._getLanguage();
         const accessToken = this._getAccessToken();
@@ -114,7 +114,7 @@ export default function ViewResultEventBuilder() {
         }
         else if (sporttype === SportType.JIG) {
             const url = UrlResultBuilder.getJiliResultUrl(this.rootUrl);
-            _showThirdPartyResult.call(this, url, { languageCode, custid, transId3rd: transdecs, gameId3rd: extension2, currencyId: extension1, siteId, betTypeId: bettype, WinLostDate: winlostdate }, title, sporttype);
+            _showThirdPartyResult.call(this, url, { languageCode, custid, transId3rd: transdecs, gameId3rd: extension2, currencyId: extension1, siteId, betTypeId: bettype, WinLostDate: winlostdate, Transdesc: transdecs2 }, title, sporttype);
         }
         else if (sporttype === SportType.MGRNG) {
             const url = UrlResultBuilder.getMGRNGResultUrl(this.rootUrl);
