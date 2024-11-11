@@ -459,4 +459,7 @@
   <data name="ProductPTRNG" xml:space="preserve">
     <value>Playtech</value>
   </data>
+  <data name="ProductGPIRNG" xml:space="preserve">
+    <value>GPI</value>
+  </data>
 </root>
