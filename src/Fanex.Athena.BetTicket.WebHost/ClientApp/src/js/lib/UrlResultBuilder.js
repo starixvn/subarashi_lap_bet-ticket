@@ -212,4 +212,8 @@ export default class UrlResultBuilder {
     static getSexyGamingResultUrl(rootUrl) {
         return rootUrl + 'Proxy/SexyGamingResultPopup/Index';
     }
+
+    static getPlaytechResultUrl(rootUrl) {
+        return rootUrl + 'Proxy/PlaytechResultPopup/Index';
+    }
 }

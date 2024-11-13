@@ -37,7 +37,8 @@ const SportType = {
     FS: 230,
     FAC: 146,
     NS: 229,
-    ON: 138
+    ON: 138,
+    PTRNG: 148
 }
 
 export default SportType
