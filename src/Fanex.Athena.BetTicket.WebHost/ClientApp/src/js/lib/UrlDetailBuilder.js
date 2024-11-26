@@ -505,6 +505,17 @@ export default class UrlDetailBuilder {
         return url;
     }
 
+    static getGPIDetaillUrl(rootUrl, commonParams, transId, winlostDate, custId, transType) {
+        let url = rootUrl + 'GPIBetListDetail/Index';
+        url = this._assignCommonParams(url, commonParams);
+        url = QueryString.setParam(url, 'transId', transId);
+        url = QueryString.setParam(url, 'date', winlostDate);
+        url = QueryString.setParam(url, 'custId', custId);
+        url = QueryString.setParam(url, 'transType', transType);
+
+        return url;
+    }
+
     static getONCasinoDetaillUrl(rootUrl, commonParams, transId, winlostDate, custId, transType) {
         let url = rootUrl + 'ONCasinoBetListDetail/Index';
         url = this._assignCommonParams(url, commonParams);

@@ -205,6 +205,10 @@ export default class UrlResultBuilder {
         return rootUrl + 'Proxy/NextspinResultPopup/Index';
     }
 
+    static getGPIResultUrl(rootUrl) {
+        return rootUrl + 'Proxy/GPIResultPopup/Index';
+    }
+
     static getONCasinoResultUrl(rootUrl) {
         return rootUrl + 'Proxy/ONCasinoResultPopup/Index';
     }
