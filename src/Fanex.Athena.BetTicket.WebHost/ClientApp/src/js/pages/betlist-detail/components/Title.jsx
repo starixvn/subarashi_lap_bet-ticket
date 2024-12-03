@@ -22,8 +22,8 @@ export const Title = (props) => {
                 if (response.status === NoContentStatusCode) {
                     alert(LangHelper.getSingleResource("NoInfo"));
                 } else {
-                    const blob = new Blob([response.data], {type: "application/vnd.ms-excel"})
-                    saveAs(blob, `${AppData.exportFileName}.xls`);
+                    const blob = new Blob([response.data], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" })
+                    saveAs(blob, `${AppData.exportFileName}.xlsx`);
                 }
                 toggleLoader(false);
             })
