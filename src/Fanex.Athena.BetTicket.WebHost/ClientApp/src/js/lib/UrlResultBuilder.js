@@ -220,4 +220,8 @@ export default class UrlResultBuilder {
     static getPlaytechResultUrl(rootUrl) {
         return rootUrl + 'Proxy/PlaytechResultPopup/Index';
     }
+
+    static getGPILiveCasinoResultUrl(rootUrl) {
+        return rootUrl + 'Proxy/GPILiveCasinoResultPopup/Index';
+    }
 }
