@@ -40,7 +40,8 @@ const SportType = {
     ON: 138,
     PTRNG: 148,
     GPIRNG: 145,
-    GPILC: 144
+    GPILC: 144,
+    PS: 143
 }
 
 export default SportType

@@ -224,4 +224,8 @@ export default class UrlResultBuilder {
     static getGPILiveCasinoResultUrl(rootUrl) {
         return rootUrl + 'Proxy/GPILiveCasinoResultPopup/Index';
     }
+
+    static getPlayStarResultUrl(rootUrl) {
+        return rootUrl + 'Proxy/PlayStarResultPopup/Index';
+    }
 }
