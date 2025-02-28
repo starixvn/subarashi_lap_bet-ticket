@@ -1,4 +1,4 @@
-FROM hub.nexdev.net/base/dotnet/core/sdk:5.0.102-ca-patch-buster-slim AS builder
+FROM hub.nexdev.net/base/dotnet/core/sdk:8.0-nodejs-v20 AS builder
 
 RUN apt-get update  \
 	&& curl --silent --location https://deb.nodesource.com/setup_14.x | bash -  \
@@ -37,10 +37,10 @@ WORKDIR /src/Fanex.Athena.BetTicket.WebHost
 RUN npm run build-pro
 
 RUN dotnet publish "Fanex.Athena.BetTicket.WebHost.csproj" -c Release -o /publish \
-  --runtime alpine-x64 \
+  --runtime linux-x64 \
   --self-contained false
 
-FROM hub.nexdev.net/base/dotnet/core/aspnet:5.0-buster-slim
+FROM hub.nexdev.net/base/dotnet/core/aspnet:8.0-alpine
 
 ENV ASPNETCORE_URLS=http://*:5000
 EXPOSE 5000

@@ -1,7 +1,9 @@
-﻿var alias = require('../config/alias');
+﻿const path = require('path');
+const alias = require('../config/alias');
+
 var pathConfig = require('../config/path');
 var pluginGenerator = require('../config/plugin');
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
 
 function generateConfig() {
     var jsPath = pathConfig.scriptPaths.build;
@@ -9,7 +11,10 @@ function generateConfig() {
     var commonConfigs = {
         resolve: {
             alias: alias,
-            extensions: ['.js', '.jsx']
+            extensions: ['.js', '.jsx'],
+            fallback: {
+                fs: false
+            }
         },
         entry: {
             /*js*/
@@ -32,7 +37,7 @@ function generateConfig() {
         module: {
             rules: [{
                 test: /\.(js|jsx)$/,
-                loader: ["babel-loader"],
+                use: "babel-loader",
                 exclude: /node_modules/
             }]
         },
@@ -47,9 +52,6 @@ function generateConfig() {
             chunkModules: false,
             children: true
         },
-        node: {
-            fs: 'empty'
-        },
         externals: [
             { './jszip': 'jszip' },
             { './ods': 'ods' },
@@ -57,13 +59,13 @@ function generateConfig() {
         ],
         optimization: {
             minimizer: [
-                new UglifyJsPlugin({
-                    sourceMap: true
+                new TerserPlugin({
+                    parallel: true,
+                    extractComments: false
                 })
             ],
             splitChunks: {
                 minSize: 30000,
-                maxSize: 0,
                 maxAsyncRequests: 5,
                 maxInitialRequests: 3,
                 name: false,
@@ -71,7 +73,7 @@ function generateConfig() {
                     default: false,
                     vendor: {
                         test: /[\\/]node_modules[\\/]((?!(axios)).*)[\\/]((?!(process)).*)[\\/]/,
-                        name: 'lib/vendor',
+                        name: `${pathConfig.scriptPaths.build}/lib/vendor`,
                         chunks: 'all',
                         minChunks: 1
                     }
