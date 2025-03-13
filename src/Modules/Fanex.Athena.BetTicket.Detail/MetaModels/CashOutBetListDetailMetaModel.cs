@@ -19,7 +19,7 @@ namespace Fanex.Athena.BetTicket.Detail.MetaModels
 
         public bool IsCashOut { get; set; }
 
-        public bool HasPlayerComm { get; set; }
+        public bool HasPlayerCom { get; set; }
 
         public bool IsShowIpVN { get; set; }
 

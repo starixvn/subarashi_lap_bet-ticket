@@ -83,7 +83,6 @@ namespace Fanex.Athena.BetTicket.WebHost
             services.AddHttpClient<IBetListApiClient, BetListApiClient>(client =>
             {
                 client.BaseAddress = new Uri(Configuration["ConsoleClient:BetList:Host"]);
-                client.DefaultRequestHeaders.Add("BETLIST_TOKEN_KEY", Configuration["ConsoleClient:BetList:AuthKey"]);
             }).SetHandlerLifetime(TimeSpan.FromDays(1));
 
 
@@ -289,7 +288,6 @@ namespace Fanex.Athena.BetTicket.WebHost
                     var contextService = originalRequest.HttpContext
                     .RequestServices.GetRequiredService<IContextService>();
 
-                    message.Headers.Add(proxySetting.TokenKey, proxySetting.TokenValue);
                     message.Headers.Add("Language", contextService.Language);
                     message.Headers.Add("X-SiteDBServer", contextService.SiteDBServer);
 
