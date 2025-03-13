@@ -19,8 +19,8 @@ namespace Fanex.Athena.BetTicket.Detail.Controllers
         public async Task<ViewResult> Index([FromServices] IBetListApiClient betListApiClient, [FromServices] IContextService contextService,
             CashOutBetListDetailMetaModel metaModel)
         {
-            metaModel.HasPlayerComm = contextService.IsAllowedCustomerComm;
-            var responseData = await betListApiClient.Post<CashOutBetListDetailViewModel>("/CashOutBetList/Detail", metaModel, contextService.Language);
+            metaModel.HasPlayerCom = contextService.IsAllowedCustomerComm;
+            var responseData = await betListApiClient.Post<CashOutBetListDetailViewModel>("/api/CashOutBetList/Detail", metaModel, contextService.Language);
             return View(responseData);
         }
     }
