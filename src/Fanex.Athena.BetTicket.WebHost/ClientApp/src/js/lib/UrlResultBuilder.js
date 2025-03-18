@@ -228,4 +228,8 @@ export default class UrlResultBuilder {
     static getPlayStarResultUrl(rootUrl) {
         return rootUrl + 'Proxy/PlayStarResultPopup/Index';
     }
+
+    static getASKMESLOTResultUrl(rootUrl) {
+        return rootUrl + 'Proxy/ASKMESLOTResultPopup/Index';
+    }
 }

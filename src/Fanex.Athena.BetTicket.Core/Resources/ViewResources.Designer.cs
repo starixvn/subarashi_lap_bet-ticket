@@ -412,6 +412,15 @@ namespace Fanex.Athena.BetTicket.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ASKMESLOT.
+        /// </summary>
+        public static string ProductASK {
+            get {
+                return ResourceManager.GetString("ProductASK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to BA.
         /// </summary>
         public static string ProductBA {
