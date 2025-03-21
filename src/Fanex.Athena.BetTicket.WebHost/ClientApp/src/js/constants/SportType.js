@@ -43,7 +43,7 @@ const SportType = {
     GPILC: 144,
     PS: 143,
     ASK: 130,
-    FG: 104,
+    FG: 131,
 }
 
 export default SportType
