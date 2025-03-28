@@ -570,7 +570,7 @@ export default class UrlDetailBuilder {
 
         return url;
     }
-    
+
     static getFunkyGameDetailUrl(rootUrl, commonParams, transId, winlostDate, custId, transType) {
         let url = rootUrl + 'FunkyGamesBetListDetail/Index';
         url = this._assignCommonParams(url, commonParams);
@@ -578,7 +578,16 @@ export default class UrlDetailBuilder {
         url = QueryString.setParam(url, 'date', winlostDate);
         url = QueryString.setParam(url, 'custId', custId);
         url = QueryString.setParam(url, 'transType', transType);
+        return url;
+    }
 
+    static getHOTDOGDetailUrl(rootUrl, commonParams, transId, winlostDate, custId, transType) {
+        let url = rootUrl + 'HOTDOGBetListDetail/Index';
+        url = this._assignCommonParams(url, commonParams);
+        url = QueryString.setParam(url, 'transId', transId);
+        url = QueryString.setParam(url, 'date', winlostDate);
+        url = QueryString.setParam(url, 'custId', custId);
+        url = QueryString.setParam(url, 'transType', transType);
         return url;
     }
 }
