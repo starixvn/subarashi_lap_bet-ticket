@@ -384,10 +384,18 @@ export default function ViewDetailEventBuilder() {
 
         this._openPopup(url, title);
     }
-    
+
     window.showFunkyGamesBetDetails = (transId, winlostDate, custId, transType) => {
         const url = UrlDetailBuilder.getFunkyGameDetailUrl(this.rootUrl, _getCommonParams.call(this), transId, winlostDate, custId, transType);
         const title = this._getResource('ProductFG') + ' - ' +
+            this._getResource('DetailedBetlist') + ' - ' + this._formatDateString(winlostDate);
+
+        this._openPopup(url, title);
+    }
+
+    window.showMicroGamingLCBetDetails = (transId, winlostDate, custId, transType) => {
+        const url = UrlDetailBuilder.getMicrogamingLiveDetailUrl(this.rootUrl, _getCommonParams.call(this), transId, winlostDate, custId, transType);
+        const title = this._getResource('ProductMGLC') + ' - ' +
             this._getResource('DetailedBetlist') + ' - ' + this._formatDateString(winlostDate);
 
         this._openPopup(url, title);
