@@ -393,6 +393,14 @@ export default function ViewDetailEventBuilder() {
         this._openPopup(url, title);
     }
 
+    window.showHotDogBetDetails = (transId, winlostDate, custId, transType) => {
+        const url = UrlDetailBuilder.getHOTDOGDetailUrl(this.rootUrl, _getCommonParams.call(this), transId, winlostDate, custId, transType);
+        const title = this._getResource('ProductHOT') + ' - ' +
+            this._getResource('DetailedBetlist') + ' - ' + this._formatDateString(winlostDate);
+
+        this._openPopup(url, title);
+    }
+
     window.showDetail = (id) => {
         var e = document.getElementById(id);
         if (e.style.display == 'block') {

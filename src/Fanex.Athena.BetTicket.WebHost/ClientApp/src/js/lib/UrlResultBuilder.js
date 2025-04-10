@@ -231,8 +231,12 @@ export default class UrlResultBuilder {
     static getASKMESLOTResultUrl(rootUrl) {
         return rootUrl + 'Proxy/ASKMESLOTResultPopup/Index';
     }
-    
+
     static getFunkyGamesResultUrl(rootUrl) {
         return rootUrl + 'Proxy/FunkyGamesResultPopup/Index';
+    }
+
+    static getHOTDOGResultUrl(rootUrl) {
+        return rootUrl + 'Proxy/HOTDOGResultPopup/Index';
     }
 }
