@@ -45,6 +45,7 @@ const SportType = {
     ASK: 130,
     FG: 131,
     HOT: 139,
+    MGLC: 124
 }
 
 export default SportType
