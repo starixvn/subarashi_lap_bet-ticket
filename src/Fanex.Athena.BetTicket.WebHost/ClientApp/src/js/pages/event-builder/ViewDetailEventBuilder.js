@@ -401,6 +401,22 @@ export default function ViewDetailEventBuilder() {
         this._openPopup(url, title);
     }
 
+    window.showPlaytechLCBetDetails = (transId, winlostDate, custId, transType) => {
+        const url = UrlDetailBuilder.getPlaytechLiveDetailUrl(this.rootUrl, _getCommonParams.call(this), transId, winlostDate, custId, transType);
+        const title = this._getResource('ProductPTLC') + ' - ' +
+            this._getResource('DetailedBetlist') + ' - ' + this._formatDateString(winlostDate);
+
+        this._openPopup(url, title);
+    }
+
+    window.showRichGamingBetDetails = (transId, winlostDate, custId, transType) => {
+        const url = UrlDetailBuilder.getRichGamingDetailUrl(this.rootUrl, _getCommonParams.call(this), transId, winlostDate, custId, transType);
+        const title = this._getResource('ProductRGRNG') + ' - ' +
+            this._getResource('DetailedBetlist') + ' - ' + this._formatDateString(winlostDate);
+
+        this._openPopup(url, title);
+    }
+
     window.showHotDogBetDetails = (transId, winlostDate, custId, transType) => {
         const url = UrlDetailBuilder.getHOTDOGDetailUrl(this.rootUrl, _getCommonParams.call(this), transId, winlostDate, custId, transType);
         const title = this._getResource('ProductHOT') + ' - ' +
