@@ -601,24 +601,30 @@ export default class UrlDetailBuilder {
         return url;
     }
 
-    static getPlaytechLiveDetailUrl(rootUrl, commonParams, transId, winlostDate, custId, transType) {
-        let url = rootUrl + 'PlaytechLiveBetListDetail/Index';
+    // dynamic LC and RNG Product
+
+    static getLiveCasinoBetDetailUrl(rootUrl, commonParams, transId, winlostDate, custId, transType, sportTypeId, sportTypeName) {
+        let url = rootUrl + 'LiveCasinoBetListDetail/Index';
         url = this._assignCommonParams(url, commonParams);
         url = QueryString.setParam(url, 'transId', transId);
         url = QueryString.setParam(url, 'date', winlostDate);
         url = QueryString.setParam(url, 'custId', custId);
         url = QueryString.setParam(url, 'transType', transType);
+        url = QueryString.setParam(url, 'sportTypeId', sportTypeId);
+        url = QueryString.setParam(url, 'sportTypeName', sportTypeName);
 
         return url;
     }
 
-    static getRichGamingDetailUrl(rootUrl, commonParams, transId, winlostDate, custId, transType) {
-        let url = rootUrl + 'RichGamingBetListDetail/Index';
+    static getRNGBetDetailUrl(rootUrl, commonParams, transId, winlostDate, custId, transType, sportTypeId, sportTypeName) {
+        let url = rootUrl + 'RNGBetListDetail/Index';
         url = this._assignCommonParams(url, commonParams);
         url = QueryString.setParam(url, 'transId', transId);
         url = QueryString.setParam(url, 'date', winlostDate);
         url = QueryString.setParam(url, 'custId', custId);
         url = QueryString.setParam(url, 'transType', transType);
+        url = QueryString.setParam(url, 'sportTypeId', sportTypeId);
+        url = QueryString.setParam(url, 'sportTypeName', sportTypeName);
 
         return url;
     }

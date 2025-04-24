@@ -401,22 +401,6 @@ export default function ViewDetailEventBuilder() {
         this._openPopup(url, title);
     }
 
-    window.showPlaytechLCBetDetails = (transId, winlostDate, custId, transType) => {
-        const url = UrlDetailBuilder.getPlaytechLiveDetailUrl(this.rootUrl, _getCommonParams.call(this), transId, winlostDate, custId, transType);
-        const title = this._getResource('ProductPTLC') + ' - ' +
-            this._getResource('DetailedBetlist') + ' - ' + this._formatDateString(winlostDate);
-
-        this._openPopup(url, title);
-    }
-
-    window.showRichGamingBetDetails = (transId, winlostDate, custId, transType) => {
-        const url = UrlDetailBuilder.getRichGamingDetailUrl(this.rootUrl, _getCommonParams.call(this), transId, winlostDate, custId, transType);
-        const title = this._getResource('ProductRGRNG') + ' - ' +
-            this._getResource('DetailedBetlist') + ' - ' + this._formatDateString(winlostDate);
-
-        this._openPopup(url, title);
-    }
-
     window.showHotDogBetDetails = (transId, winlostDate, custId, transType) => {
         const url = UrlDetailBuilder.getHOTDOGDetailUrl(this.rootUrl, _getCommonParams.call(this), transId, winlostDate, custId, transType);
         const title = this._getResource('ProductHOT') + ' - ' +
@@ -433,6 +417,22 @@ export default function ViewDetailEventBuilder() {
         else {
             e.style.display = 'block';
         }
+    }
+
+    // dynamic LC and RNG Product show detail
+
+    window.showLiveCasinoBetDetails = (transId, winlostDate, custId, transType, sporttypeId, sporttypeName) => {
+        const url = UrlDetailBuilder.getLiveCasinoBetDetailUrl(this.rootUrl, _getCommonParams.call(this), transId, winlostDate, custId, transType, sporttypeId, sporttypeName);
+        const title = sporttypeName + ' - ' + this._getResource('DetailedBetlist') + ' - ' + this._formatDateString(winlostDate);
+
+        this._openPopup(url, title);
+    }
+
+    window.showRNGBetDetails = (transId, winlostDate, custId, transType, sporttypeId, sporttypeName) => {
+        const url = UrlDetailBuilder.getRNGBetDetailUrl(this.rootUrl, _getCommonParams.call(this), transId, winlostDate, custId, transType, sporttypeId, sporttypeName);
+        const title = sporttypeName + ' - ' + this._getResource('DetailedBetlist') + ' - ' + this._formatDateString(winlostDate);
+
+        this._openPopup(url, title);
     }
 }
 

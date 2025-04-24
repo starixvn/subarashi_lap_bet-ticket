@@ -1,6 +1,6 @@
-﻿using Fanex.Athena.BetTicket.Core.Models;
+﻿using System;
+using Fanex.Athena.BetTicket.Core.Models;
 using Fanex.Core.Utils;
-using System;
 
 namespace Fanex.Athena.BetTicket.Detail.MetaModels
 {
@@ -11,6 +11,10 @@ namespace Fanex.Athena.BetTicket.Detail.MetaModels
             PageIndex = 1;
             PageSize = int.MaxValue - 1;
         }
+
+        public int SportTypeId { get; set; }
+
+        public string SportTypeName { get; set; }
 
         public DateTime Date { get; set; }
 
