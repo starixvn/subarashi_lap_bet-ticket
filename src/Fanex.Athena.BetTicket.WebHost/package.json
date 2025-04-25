@@ -40,7 +40,8 @@
     "webpack-build-notifier": "^0.1.30",
     "webpack-bundle-analyzer": "^4.10.2",
     "webpack-cli": "^5.1.4",
-    "webpack-merge": "^5.10.0"
+    "webpack-merge": "^5.10.0",
+    "webpack-remove-empty-scripts": "^1.0.4"
   },
   "scripts": {
     "stats": "node node_modules/webpack/bin/webpack.js --config www/webpackconfig/build/webpack.dev.conf.js --json > stats.json",

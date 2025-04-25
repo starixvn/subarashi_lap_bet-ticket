@@ -1,5 +1,6 @@
 ﻿var webpack = require('webpack');
 var WebpackBuildNotifierPlugin = require('webpack-build-notifier');
+const RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts');
 
 let _buildNumber = 1;
 function generatePlugins() {
@@ -12,6 +13,7 @@ function generatePlugins() {
             title: "React Webpack Build",
             suppressSuccess: true
         }),
+        new RemoveEmptyScriptsPlugin(),
         function (compiler) {
             compiler.hooks.done.tap("BuildNotifierPlugin", (stats) => {
                 setTimeout(() => {

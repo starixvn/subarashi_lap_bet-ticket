@@ -74,6 +74,7 @@ function generateConfig() {
                     vendor: {
                         test: /[\\/]node_modules[\\/]((?!(axios)).*)[\\/]((?!(process)).*)[\\/]/,
                         name: `${pathConfig.scriptPaths.build}/lib/vendor`,
+                        filename: "[name].chunk.js",
                         chunks: 'all',
                         minChunks: 1
                     }
