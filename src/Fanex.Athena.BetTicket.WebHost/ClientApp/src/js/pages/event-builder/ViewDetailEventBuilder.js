@@ -418,6 +418,22 @@ export default function ViewDetailEventBuilder() {
             e.style.display = 'block';
         }
     }
+
+    // dynamic LC and RNG Product show detail
+
+    window.showLiveCasinoBetDetails = (transId, winlostDate, custId, transType, sporttypeId, sporttypeName) => {
+        const url = UrlDetailBuilder.getLiveCasinoBetDetailUrl(this.rootUrl, _getCommonParams.call(this), transId, winlostDate, custId, transType, sporttypeId, sporttypeName);
+        const title = sporttypeName + ' - ' + this._getResource('DetailedBetlist') + ' - ' + this._formatDateString(winlostDate);
+
+        this._openPopup(url, title);
+    }
+
+    window.showRNGBetDetails = (transId, winlostDate, custId, transType, sporttypeId, sporttypeName) => {
+        const url = UrlDetailBuilder.getRNGBetDetailUrl(this.rootUrl, _getCommonParams.call(this), transId, winlostDate, custId, transType, sporttypeId, sporttypeName);
+        const title = sporttypeName + ' - ' + this._getResource('DetailedBetlist') + ' - ' + this._formatDateString(winlostDate);
+
+        this._openPopup(url, title);
+    }
 }
 
 function _showMixParlayDetail(url, transId, divEvent, isHideSaba) {

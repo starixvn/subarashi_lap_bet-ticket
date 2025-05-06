@@ -590,7 +590,7 @@ export default class UrlDetailBuilder {
         url = QueryString.setParam(url, 'transType', transType);
         return url;
     }
-    
+
     static getMicrogamingLiveDetailUrl(rootUrl, commonParams, transId, winlostDate, custId, transType) {
         let url = rootUrl + 'MicrogamingLiveBetListDetail/Index';
         url = this._assignCommonParams(url, commonParams);
@@ -598,6 +598,34 @@ export default class UrlDetailBuilder {
         url = QueryString.setParam(url, 'date', winlostDate);
         url = QueryString.setParam(url, 'custId', custId);
         url = QueryString.setParam(url, 'transType', transType);
+        return url;
+    }
+
+    // dynamic LC and RNG Product
+
+    static getLiveCasinoBetDetailUrl(rootUrl, commonParams, transId, winlostDate, custId, transType, sportTypeId, sportTypeName) {
+        let url = rootUrl + 'LiveCasinoBetListDetail/Index';
+        url = this._assignCommonParams(url, commonParams);
+        url = QueryString.setParam(url, 'transId', transId);
+        url = QueryString.setParam(url, 'date', winlostDate);
+        url = QueryString.setParam(url, 'custId', custId);
+        url = QueryString.setParam(url, 'transType', transType);
+        url = QueryString.setParam(url, 'sportTypeId', sportTypeId);
+        url = QueryString.setParam(url, 'sportTypeName', sportTypeName);
+
+        return url;
+    }
+
+    static getRNGBetDetailUrl(rootUrl, commonParams, transId, winlostDate, custId, transType, sportTypeId, sportTypeName) {
+        let url = rootUrl + 'RNGBetListDetail/Index';
+        url = this._assignCommonParams(url, commonParams);
+        url = QueryString.setParam(url, 'transId', transId);
+        url = QueryString.setParam(url, 'date', winlostDate);
+        url = QueryString.setParam(url, 'custId', custId);
+        url = QueryString.setParam(url, 'transType', transType);
+        url = QueryString.setParam(url, 'sportTypeId', sportTypeId);
+        url = QueryString.setParam(url, 'sportTypeName', sportTypeName);
+
         return url;
     }
 }

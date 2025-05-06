@@ -1,58 +1,59 @@
-ARG CI_REGISTRY_IMAGE
-
-FROM $CI_REGISTRY_IMAGE:builder as deps
-
-RUN mkdir -p /src/packages
-
-FROM hub.nexdev.net/base/dotnet/core/sdk:5.0.102-node14-ca-patch-buster-slim AS builder
-
-ENV NUGET_PACKAGES=/src/packages
-
-COPY --from=deps $NUGET_PACKAGES/. $NUGET_PACKAGES/
-
-WORKDIR /src/Fanex.Athena.BetTicket.WebHost
-
-COPY src/Fanex.Athena.BetTicket.WebHost/package.json ./
-COPY src/Fanex.Athena.BetTicket.WebHost/package-lock.json ./
-
-RUN node -v
-RUN npm -v
-RUN npm install
+FROM hub.nexdev.net/base/dotnet/core/sdk:8.0-nodejs-v20 AS builder
 
 WORKDIR /src
 
 COPY NuGet.Config .
 
 COPY src/Fanex.Athena.BetTicket.Core/Fanex.Athena.BetTicket.Core.csproj ./Fanex.Athena.BetTicket.Core/
-RUN dotnet restore Fanex.Athena.BetTicket.Core/Fanex.Athena.BetTicket.Core.csproj -v n
+RUN --mount=type=cache,target=/root/.nuget/packages dotnet restore Fanex.Athena.BetTicket.Core/Fanex.Athena.BetTicket.Core.csproj -v n
 
 COPY src/Modules/Fanex.Athena.BetTicket.Detail/Fanex.Athena.BetTicket.Detail.csproj ./Modules/Fanex.Athena.BetTicket.Detail/
-RUN dotnet restore Modules/Fanex.Athena.BetTicket.Detail/Fanex.Athena.BetTicket.Detail.csproj -v n
+RUN --mount=type=cache,target=/root/.nuget/packages dotnet restore Modules/Fanex.Athena.BetTicket.Detail/Fanex.Athena.BetTicket.Detail.csproj -v n
 
 COPY src/Modules/Fanex.Athena.BetTicket.Result/Fanex.Athena.BetTicket.Result.csproj ./Modules/Fanex.Athena.BetTicket.Result/
-RUN dotnet restore Modules/Fanex.Athena.BetTicket.Result/Fanex.Athena.BetTicket.Result.csproj -v n
+RUN --mount=type=cache,target=/root/.nuget/packages dotnet restore Modules/Fanex.Athena.BetTicket.Result/Fanex.Athena.BetTicket.Result.csproj -v n
 
 COPY src/Fanex.Athena.BetTicket.WebHost/Fanex.Athena.BetTicket.WebHost.csproj ./Fanex.Athena.BetTicket.WebHost/
-RUN dotnet restore Fanex.Athena.BetTicket.WebHost/Fanex.Athena.BetTicket.WebHost.csproj -v n
+RUN --mount=type=cache,target=/root/.nuget/packages dotnet restore Fanex.Athena.BetTicket.WebHost/Fanex.Athena.BetTicket.WebHost.csproj -v n
 
 COPY src .
 
 WORKDIR /src/Fanex.Athena.BetTicket.WebHost
 
-RUN npm run build-pro
+COPY src/Fanex.Athena.BetTicket.WebHost/package.json ./
+COPY src/Fanex.Athena.BetTicket.WebHost/package-lock.json ./
 
-RUN dotnet publish "Fanex.Athena.BetTicket.WebHost.csproj" -c Release -o /publish \
-  --runtime alpine-x64 \
-  --self-contained false
+ARG TRANSFORM_CONFIG
 
-FROM hub.nexdev.net/base/dotnet/core/aspnet:5.0-alpine
+RUN node -v
+RUN npm -v
+RUN npm install
 
-ENV ASPNETCORE_URLS=http://*:5000
+# Build front-end
+RUN case "$TRANSFORM_CONFIG" in \
+    (LOCAL|SIT) npm run build-dev;; \
+    (*) npm run build-pro;; \
+    esac
+#
+
+RUN dotnet publish "Fanex.Athena.BetTicket.WebHost.csproj" -c Release -o /publish --self-contained false
+
+FROM hub.nexdev.net/base/dotnet/core/aspnet:8.0-alpine-25h1
+
+# Dont run as root
+RUN adduser --disabled-password \
+    --home /app \
+    --gecos '' dotnetuser && chown -R dotnetuser /app && chown -R dotnetuser /tmp
+USER dotnetuser
+#
+
 ENV DOTNET_HOSTBUILDER__RELOADCONFIGONCHANGE=false
+ENV ASPNETCORE_HTTP_PORTS=5000
 EXPOSE 5000
 
 WORKDIR /app
 
 COPY --from=builder /publish .
+ENV TZ="America/La_Paz"
 
 ENTRYPOINT ["dotnet", "Fanex.Athena.BetTicket.WebHost.dll"]

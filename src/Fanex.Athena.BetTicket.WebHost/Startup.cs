@@ -5,6 +5,7 @@ using Fanex.Athena.BetTicket.Core.JsonConverter;
 using Fanex.Athena.BetTicket.Core.Services;
 using Fanex.Data;
 using Fanex.Data.SqlServer;
+using Fanex.Data.Vault;
 using IdentityModel.AspNetCore.OAuth2Introspection;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -17,6 +18,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Proxy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -61,7 +63,6 @@ namespace Fanex.Athena.BetTicket.WebHost
                                     || string.Equals(mvcContext.HttpContext.Connection.RemoteIpAddress.ToString(), clientIP, StringComparison.InvariantCultureIgnoreCase));
                 }
 
-
                 options.Filters.Add(new AuthorizeFilter(policyBuilder.Build()));
             }).AddJsonOptions(jsonOptions =>
                 {
@@ -74,7 +75,7 @@ namespace Fanex.Athena.BetTicket.WebHost
                 options.ViewDetailPolicy();
             });
 
-            ConfigFanexData();
+            ConfigFanexData(services);
             ConfigAuthentication(services);
             ConfigProxy(services, skipCheckClientIP);
             ConfigRequestLocalization(services);
@@ -84,7 +85,6 @@ namespace Fanex.Athena.BetTicket.WebHost
             {
                 client.BaseAddress = new Uri(Configuration["ConsoleClient:BetList:Host"]);
             }).SetHandlerLifetime(TimeSpan.FromDays(1));
-
 
             services.AddCors(options =>
             {
@@ -152,19 +152,15 @@ namespace Fanex.Athena.BetTicket.WebHost
             });
         }
 
-        private void ConfigFanexData()
+        private void ConfigFanexData(IServiceCollection services)
         {
-            var listConnectionName = Configuration.GetSection("ConnectionStrings").GetChildren().Select(_ => _.Key);
-            var connectionStrings = new Dictionary<string, ConnectionConfiguration>(listConnectionName
-                .Select(connectionName => new KeyValuePair<string, ConnectionConfiguration>(connectionName,
-                    new ConnectionConfiguration(connectionName, Configuration.GetConnectionString(connectionName)))
-                ));
-
             DbSettingProviderManager
                 .StartNewSession()
-                .WithSqlServer(resourcePath: "~/App_Data/SpConfig/FanexSpName.xml")
-                .Use(connectionStrings)
+                .WithSqlServer(Configuration)
+                .UseDefaultDbSettingProvider("~/App_Data/SpConfig", true)
                 .Run();
+
+            services.TryAddSingleton<VaultDbAliasService, VaultDbAliasServiceImp>();
         }
 
         private void ConfigAuthentication(IServiceCollection services)

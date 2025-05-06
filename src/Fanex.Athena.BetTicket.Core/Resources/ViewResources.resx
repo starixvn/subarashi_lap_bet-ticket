@@ -480,4 +480,10 @@
   <data name="ProductMGLC" xml:space="preserve">
     <value>Microgaming Live</value>
   </data>
+  <data name="ProductPTLC" xml:space="preserve">
+    <value>Playtech Live</value>
+  </data>
+  <data name="ProductRGRNG" xml:space="preserve">
+    <value>RichGaming</value>
+  </data>
 </root>

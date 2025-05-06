@@ -1,18 +1,18 @@
-﻿using Fanex.Athena.BetTicket.Detail.Constants;
-using Fanex.Athena.BetTicket.Detail.MetaModels;
-using Fanex.Athena.BetTicket.Detail.ViewModels;
-using Fanex.Athena.BetTicket.Core.Attributes;
-using Fanex.Athena.BetTicket.Core.ConsoleClient;
-using Fanex.Athena.BetTicket.Core.Resources;
-using Fanex.Athena.BetTicket.Core.Services;
-using Microsoft.AspNetCore.Mvc;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Fanex.Athena.BetTicket.Core.Extensions;
-
-namespace Fanex.Athena.BetTicket.Detail.Controllers
+﻿namespace Fanex.Athena.BetTicket.Detail.Controllers
 {
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Constants;
+    using Core.Attributes;
+    using Core.ConsoleClient;
+    using Core.Extensions;
+    using Core.Resources;
+    using Core.Services;
+    using MetaModels;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using ViewModels;
+
     [Authorize(Policy = PolicyExtensions.ViewDetail)]
     public abstract class BetListDetailControllerBase : Controller
     {
@@ -25,12 +25,22 @@ namespace Fanex.Athena.BetTicket.Detail.Controllers
             _contextService = contextService;
         }
 
+        protected abstract int[] HiddenColumns { get; }
+
+        protected virtual string ProductName { get; }
+
+        protected virtual string ExcelFileName { get; }
+
+        public abstract string StoreProcedure { get; }
+
+        protected abstract ShowingOption ShowingOption { get; }
+
         [HttpGet]
         [AutoBindingMetaModel(bindPlayerComm: true)]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public ViewResult Index(BetListDetailMetaModel metaModel)
         {
-            AssignDataToViewBag();
+            AssignDataToViewBag(metaModel);
             return View("~/Views/ThirdPartyProductBetListDetail/Index.cshtml", metaModel);
         }
 
@@ -44,12 +54,12 @@ namespace Fanex.Athena.BetTicket.Detail.Controllers
             return new JsonResult(new
             {
                 Data = responseData.Main,
-                Total = new 
-                { 
+                Total = new
+                {
                     WinLoss = responseData.Total.SumWinLoss.ToString("#,##0.00"),
                     LicenseeWL = responseData.Total.SumLicenseeWl.ToString("#,##0.00"),
                     Stake = responseData.Total.SumStake,
-                    Comm = responseData.Total.SumComm.ToString("#,##0.00"),
+                    Comm = responseData.Total.SumComm.ToString("#,##0.00")
                 },
                 TotalRows = responseData.Main.Count()
             });
@@ -63,7 +73,7 @@ namespace Fanex.Athena.BetTicket.Detail.Controllers
             metaModel.UspKey = StoreProcedure;
             metaModel.ShowingOption = ShowingOption;
             metaModel.HiddenColumns = BetListColumn.DefaultHiddenColumnIndexes.Union(HiddenColumns).ToArray();
-            metaModel.Title = BuildTitle(metaModel.Date);
+            metaModel.Title = BuildTitle(metaModel.Date, metaModel.SportTypeName);
 
             var streamData = await _betlistClient.PostStream("/BetList/ExportExcel", metaModel, _contextService.Language);
             HttpContext.Response.RegisterForDispose(streamData);
@@ -71,26 +81,23 @@ namespace Fanex.Athena.BetTicket.Detail.Controllers
             return File(streamData, "application/octet-stream");
         }
 
-        protected abstract int[] HiddenColumns { get; }
+        protected virtual string BuildTitle(string betDate, string sportTypeName = default)
+            => $"{(string.IsNullOrEmpty(sportTypeName) ? ProductName : sportTypeName)} - {ViewResources.DetailedBetlist} - {betDate}";
 
-        protected virtual string ProductName { get; }
-
-        protected abstract string ExcelFileName { get; }
-
-        public abstract string StoreProcedure { get; }
-
-        protected abstract ShowingOption ShowingOption { get; }
-
-        protected virtual string BuildTitle(string betDate)
-            => $"{ProductName} - {ViewResources.DetailedBetlist} - {betDate}";
-
-        private void AssignDataToViewBag()
+        private void AssignDataToViewBag(BetListDetailMetaModel metaModel)
         {
             ViewBag.ApiUrl = $"{HttpContext.Request.RouteValues["controller"]}/Data";
             ViewBag.ExportUrl = $"{HttpContext.Request.RouteValues["controller"]}/Export";
             ViewBag.HiddenColumns = HiddenColumns.Select(_ => BetListColumn.ColumnNames[_]);
             ViewBag.IsShowGrandTotal = ShowingOption.GrandTotalVisible;
-            ViewBag.ExportFileName = ExcelFileName;
+            ViewBag.ExportFileName = string.IsNullOrEmpty(ExcelFileName) ? GetExcelNameBySportTypeName(metaModel.SportTypeName) : ExcelFileName;
+        }
+
+        private static string GetExcelNameBySportTypeName(string sportTypeName)
+        {
+            string fileName = $"{sportTypeName}Detail";
+            fileName = fileName.Replace(" ", ""); // remove space in file name
+            return fileName;
         }
     }
 }

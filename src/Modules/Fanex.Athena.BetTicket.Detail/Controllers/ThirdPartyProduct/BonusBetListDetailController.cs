@@ -1,10 +1,10 @@
-﻿using Fanex.Athena.BetTicket.Detail.MetaModels;
-using Fanex.Athena.BetTicket.Core.ConsoleClient;
-using Fanex.Athena.BetTicket.Core.Resources;
-using Fanex.Athena.BetTicket.Core.Services;
-
-namespace Fanex.Athena.BetTicket.Detail.Controllers
+﻿namespace Fanex.Athena.BetTicket.Detail.Controllers
 {
+    using Core.ConsoleClient;
+    using Core.Resources;
+    using Core.Services;
+    using MetaModels;
+
     public class BonusBetListDetailController : BetListDetailControllerBase
     {
         public BonusBetListDetailController(IBetListApiClient betlistClient, IContextService contextService)
@@ -15,12 +15,13 @@ namespace Fanex.Athena.BetTicket.Detail.Controllers
         public override string StoreProcedure => "Lrf_BetList_LicenseeBonus_Detail";
         protected override int[] HiddenColumns => new int[] { };
         protected override string ExcelFileName => "BonusTransactionDetail";
-        protected override ShowingOption ShowingOption => new ShowingOption
+
+        protected override ShowingOption ShowingOption => new()
         {
             GrandTotalVisible = false,
             CustomerCommVisible = _contextService.IsAllowedCustomerComm
         };
 
-        protected override string BuildTitle(string betDate) => ViewResources.TransactionDetail;
+        protected override string BuildTitle(string betDate, string sportTypeName = default) => ViewResources.TransactionDetail;
     }
 }

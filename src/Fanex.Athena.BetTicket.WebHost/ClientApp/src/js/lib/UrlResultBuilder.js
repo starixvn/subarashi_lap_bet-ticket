@@ -239,8 +239,16 @@ export default class UrlResultBuilder {
     static getHOTDOGResultUrl(rootUrl) {
         return rootUrl + 'Proxy/HOTDOGResultPopup/Index';
     }
-    
+
     static getMGLCResultUrl(rootUrl) {
         return rootUrl + 'Proxy/MicrogamingLiveResultPopup/Index';
+    }
+
+    static getPTLCResultUrl(rootUrl) {
+        return rootUrl + 'Proxy/PlaytechLiveResultPopup/Index';
+    }
+
+    static getRGRNGResultUrl(rootUrl) {
+        return rootUrl + 'Proxy/RichGamingResultPopup/Index';
     }
 }

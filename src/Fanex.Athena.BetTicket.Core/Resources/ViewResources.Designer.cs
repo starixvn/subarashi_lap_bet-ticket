@@ -727,11 +727,29 @@ namespace Fanex.Athena.BetTicket.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Playtech Live.
+        /// </summary>
+        public static string ProductPTLC {
+            get {
+                return ResourceManager.GetString("ProductPTLC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Playtech.
         /// </summary>
         public static string ProductPTRNG {
             get {
                 return ResourceManager.GetString("ProductPTRNG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RichGaming.
+        /// </summary>
+        public static string ProductRGRNG {
+            get {
+                return ResourceManager.GetString("ProductRGRNG", resourceCulture);
             }
         }
         
