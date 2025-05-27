@@ -61,6 +61,20 @@ namespace Fanex.Athena.BetTicket.Result.Controllers
             return View();
         }
 
+        public async Task<ViewResult> WCasino(string transDesc, string gameId3rd, int betType, string language)
+        {
+            var model = new
+            {
+                transDesc,
+                gameId3rd,
+                betType,
+                languageCode = language
+            };
+            const string apiPath = "/WCasinoResultPopup/Index";
+            await BindHtmlResult(apiPath, model, language);
+            return View();
+        }
+
         private async Task BindHtmlResult(string apiPath, object model, string language)
         {
             var data = await _betlistClient.PostString(apiPath, model, language);
