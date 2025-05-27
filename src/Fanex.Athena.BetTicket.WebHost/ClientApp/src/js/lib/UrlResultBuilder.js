@@ -165,6 +165,17 @@ export default class UrlResultBuilder {
         return url;
     }
 
+    static getWCasinoResultUrl(rootUrl, transDesc, gameId3rd, bettype, language, accessToken) {
+        let url = rootUrl + 'NonSportsResult/WCasino';
+        url = QueryString.setParam(url, 'language', language);
+        url = QueryString.setParam(url, 'access_token', accessToken);
+        url = QueryString.setParam(url, 'gameId3rd', gameId3rd);
+        url = QueryString.setParam(url, 'bettype', bettype);
+        url = QueryString.setParam(url, 'transdesc', encodeURIComponent(transDesc));
+
+        return url;
+    }
+
     static getVGamingResultUrl(rootUrl) {
         return rootUrl + 'Proxy/VGamingResultPopup/Index';
     }
