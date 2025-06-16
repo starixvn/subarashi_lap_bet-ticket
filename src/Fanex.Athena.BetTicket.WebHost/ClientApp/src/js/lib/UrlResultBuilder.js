@@ -16,7 +16,7 @@ export default class UrlResultBuilder {
         return url;
     }
 
-    static _getSportBookResultUrl(rootUrl, matchid, bettype, raceNo, sporttype, league, isOutright, extension1, extension2, custid, winlostdate) {
+    static _getSportResultUrl(rootUrl, matchid, bettype, raceNo, sporttype, isOutright, extension1, extension2, custid, winlostdate, transdecs, siteId) {
         let url = rootUrl + 'SportsResult/Index';
         url = QueryString.setParam(url, 'matchid', matchid);
         url = QueryString.setParam(url, 'bettype', bettype);
@@ -24,28 +24,32 @@ export default class UrlResultBuilder {
         url = QueryString.setParam(url, 'sporttype', sporttype);
         url = QueryString.setParam(url, 'isoutright', isOutright);
         url = QueryString.setParam(url, 'winLossdate', winlostdate);
+        url = QueryString.setParam(url, 'sporttype', sporttype);
+        url = QueryString.setParam(url, 'isoutright', isOutright);
+        url = QueryString.setParam(url, 'custid', custid);
+        url = QueryString.setParam(url, 'siteId', siteId);       
 
         if (this._isFastMarket(bettype)) {
             url = QueryString.setParam(url, 'handicap1', extension1);
             url = QueryString.setParam(url, 'handicap2', extension2);
         } else {
-            url = QueryString.setParam(url, 'betid', extension1);
-            url = QueryString.setParam(url, 'transdesc', extension2);
+            url = QueryString.setParam(url, 'extension1', extension1);
+            url = QueryString.setParam(url, 'extension2', extension2);
         }
 
         return url;
     }
-
-    static getResultUrl(rootUrl, language, accessToken, matchid, raceNo, bettype, sporttype, winlostdate, refnoMixParlay, league, isOutright, extension1, extension2, custid) {
+    static getResultUrl(rootUrl, language, accessToken, matchid, raceNo, bettype, sporttype, winlostdate, refnoMixParlay, isOutright, extension1, extension2, custid, transdecs, siteId) {
         bettype = Number(bettype);
 
         let isParlay = bettype === BetType.MIXPARLAY || bettype === BetType.SYSTEMPARLAY || bettype === BetType.MIXPARLAY_BETRADAR || bettype === BetType.MIXPARLAY_VS4 || bettype === BetType.MIXPARLAY_VS5;
         let url = isParlay
             ? this._getMixParlayResultUrl(rootUrl, refnoMixParlay, winlostdate, bettype)
-            : this._getSportBookResultUrl(rootUrl, matchid, bettype, raceNo, sporttype, league, isOutright, extension1, extension2, custid, winlostdate);
+            : this._getSportResultUrl(rootUrl, matchid, bettype, raceNo, sporttype, isOutright, extension1, extension2, custid, winlostdate, transdecs, siteId);
 
         url = QueryString.setParam(url, 'language', language);
         url = QueryString.setParam(url, 'access_token', accessToken);
+        url = QueryString.setParam(url, 'transId3rd', encodeURIComponent(transdecs));
 
         return url;
     }

@@ -198,12 +198,48 @@ export default function ViewResultEventBuilder() {
         }
         else {
             const url = UrlResultBuilder.getResultUrl(this.rootUrl, languageCode, accessToken, matchid, raceNo, bettype,
-                sporttype, winlostdate, refnoMixParlay, league, isOutright, extension1, extension2, custid);
-            this._openPopup(url, title, sporttype);
+                sporttype, winlostdate, refnoMixParlay, isOutright, extension1, extension2, custid, transdecs, siteId);
+
+            _handleExternalPopup.call(this, url, title);
         }
     }
 }
 
+function _handleExternalPopup(url, title) {
+    this._beforeShow();
+
+    fetch(url, {
+        method: 'GET',
+        headers: {
+            Accept: 'application/json, text/html',
+        },
+    })
+    .then(async (response) => {
+        const contentType = response.headers.get('content-type');
+
+        if (contentType && contentType.includes('application/json')) {
+            const data = await response.json();
+            if (data.Success && data.RedirectUrl) {
+                this._openPopup(data.RedirectUrl, title);
+            } else {
+                console.error('No valid redirect URL found in the response');
+            }
+        } else {
+            const html = await response.text();
+            const finalUrl = response.url;
+            const baseUrl = new URL(finalUrl).origin;
+            const modifiedHtml = html.replace(/<head[^>]*>/i, `$&<base href="${baseUrl}">`);
+            const dataUrl = `data:text/html;charset=utf-8,${encodeURIComponent(modifiedHtml)}`;
+            this._openPopup(dataUrl, title);
+        }
+
+        this._afterShow();
+    })
+    .catch(error => {
+        console.error('Error fetching content:', error);
+        this._afterShow();
+    });
+}
 function _showThirdPartyResult(url, payload, title, sporttype) {
     this._beforeShow();
     DataService.postData(url, payload, this._getAccessToken())
