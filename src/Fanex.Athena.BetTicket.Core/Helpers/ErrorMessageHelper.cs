@@ -16,7 +16,7 @@ namespace Fanex.Athena.BetTicket.Core.Helpers
 
             messageBuilder.AppendLine($"ErrMsg: {exception.Message}");
 
-            if(context != null)
+            if (context != null)
             {
                 AddRequestInfo(context, messageBuilder);
             }

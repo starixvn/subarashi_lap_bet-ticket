@@ -1,6 +1,4 @@
 ﻿using Fanex.Core.Utils;
-using System;
-using System.Collections.Generic;
 
 namespace Fanex.Athena.BetTicket.Detail.MetaModels
 {
