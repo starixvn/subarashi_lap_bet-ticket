@@ -1,11 +1,21 @@
-using Fanex.Athena.BetTicket.Core;
-using Fanex.Athena.BetTicket.Core.ConsoleClient;
-using Fanex.Athena.BetTicket.Core.Extensions;
-using Fanex.Athena.BetTicket.Core.JsonConverter;
-using Fanex.Athena.BetTicket.Core.Services;
-using Fanex.Data;
-using Fanex.Data.SqlServer;
-using Fanex.Data.Vault;
+namespace Fanex.Athena.BetTicket.WebHost;
+
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Net;
+using System.Net.Http.Headers;
+using System.Security.Claims;
+using System.Text;
+using System.Threading.Tasks;
+using Core;
+using Core.ConsoleClient;
+using Core.Extensions;
+using Core.JsonConverter;
+using Core.Services;
+using Data;
+using Data.SqlServer;
+using Data.Vault;
 using IdentityModel.AspNetCore.OAuth2Introspection;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -21,290 +31,274 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Net;
-using System.Net.Http.Headers;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Fanex.Athena.BetTicket.WebHost
+public class Startup
 {
-    public class Startup
+    private const string IntrospectionSchema = "Introspection";
+    private const string JwtSchema = "Jwt";
+
+    public Startup(IConfiguration configuration, IWebHostEnvironment hostingEnvironment)
     {
-        private const string IntrospectionSchema = "Introspection";
-        private const string JwtSchema = "Jwt";
+        Configuration = configuration;
+        HostingEnvironment = hostingEnvironment;
+    }
 
-        public Startup(IConfiguration configuration, IWebHostEnvironment hostingEnvironment)
+    public IConfiguration Configuration { get; }
+
+    public IWebHostEnvironment HostingEnvironment { get; }
+
+    public void ConfigureServices(IServiceCollection services)
+    {
+        _ = bool.TryParse(Configuration["SkipCheckClientIP"], out bool skipCheckClientIP);
+
+        services.AddControllersWithViews(options =>
         {
-            Configuration = configuration;
-            HostingEnvironment = hostingEnvironment;
-        }
-
-        public IConfiguration Configuration { get; }
-
-        public IWebHostEnvironment HostingEnvironment { get; }
-
-        public void ConfigureServices(IServiceCollection services)
-        {
-            _ = bool.TryParse(Configuration["SkipCheckClientIP"], out bool skipCheckClientIP);
-
-            services.AddControllersWithViews(options =>
+            var policyBuilder = new AuthorizationPolicyBuilder()
+                .RequireAuthenticatedUser();
+            if (!skipCheckClientIP)
             {
-                var policyBuilder = new AuthorizationPolicyBuilder()
-                              .RequireAuthenticatedUser();
-                if (!skipCheckClientIP)
-                {
-                    policyBuilder.RequireAssertion(context => context.Resource is not AuthorizationFilterContext mvcContext
-                                    || context.User.FindFirst("ClientIP")?.Value is not string clientIP
-                                    || string.Equals(mvcContext.HttpContext.Connection.RemoteIpAddress.ToString(), clientIP, StringComparison.InvariantCultureIgnoreCase));
-                }
-
-                options.Filters.Add(new AuthorizeFilter(policyBuilder.Build()));
-            }).AddJsonOptions(jsonOptions =>
-                {
-                    jsonOptions.JsonSerializerOptions.PropertyNamingPolicy = null;
-                    jsonOptions.JsonSerializerOptions.Converters.Add(new StringToDateTimeConverter());
-                });
-
-            services.AddAuthorization(options =>
-            {
-                options.ViewDetailPolicy();
-            });
-
-            ConfigFanexData(services);
-            ConfigAuthentication(services);
-            ConfigProxy(services, skipCheckClientIP);
-            ConfigRequestLocalization(services);
-            services.AddCore();
-
-            services.AddHttpClient<IBetListApiClient, BetListApiClient>(client =>
-            {
-                client.BaseAddress = new Uri(Configuration["ConsoleClient:BetList:Host"]);
-            }).SetHandlerLifetime(TimeSpan.FromDays(1));
-
-            services.AddCors(options =>
-            {
-                options.AddDefaultPolicy(
-                    builder =>
-                    {
-                        builder
-                        .AllowAnyOrigin()
-                        .AllowAnyHeader()
-                        .AllowAnyMethod()
-                        .SetPreflightMaxAge(TimeSpan.FromDays(1));
-                    });
-            });
-
-            services.AddHealthCheck(Configuration);
-            services.AddUnderMaintenance(Configuration);
-
-            services.Configure<ForwardedHeadersOptions>(options =>
-            {
-                options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto | ForwardedHeaders.XForwardedHost;
-                options.KnownNetworks.Clear();
-                options.KnownProxies.Clear();
-                options.ForwardLimit = null;
-            });
-
-            services.AddHttpsRedirection(options =>
-            {
-                const int httpsPort = 443;
-                options.HttpsPort = httpsPort;
-            });
-        }
-
-        public void Configure(IApplicationBuilder app)
-        {
-            app.UsePing();
-            app.UseForwardedHeaders();
-
-            if (string.Equals(Configuration["UseErrorHandler"], "1"))
-            {
-                app.UseErrorHandler();
-            }
-            else
-            {
-                app.UseDeveloperExceptionPage();
+                policyBuilder.RequireAssertion(context => context.Resource is not AuthorizationFilterContext mvcContext
+                                                          || context.User.FindFirst("ClientIP")?.Value is not string clientIP
+                                                          || string.Equals(mvcContext.HttpContext.Connection.RemoteIpAddress.ToString(), clientIP,
+                                                              StringComparison.InvariantCultureIgnoreCase));
             }
 
-            if (!HostingEnvironment.IsDevelopment())
-            {
-                app.UseHsts();
-                app.UseHttpsRedirection();
-            }
+            options.Filters.Add(new AuthorizeFilter(policyBuilder.Build()));
+        }).AddJsonOptions(jsonOptions =>
+        {
+            jsonOptions.JsonSerializerOptions.PropertyNamingPolicy = null;
+            jsonOptions.JsonSerializerOptions.Converters.Add(new StringToDateTimeConverter());
+        });
 
-            app.UseHealthCheck(Configuration);
-            app.UseStaticResource(HostingEnvironment.IsDevelopment());
-            app.UseUnderMaintenance();
-            app.UseRouting();
-            app.UseCors();
-            app.UseRequestLocalization();
-            app.UseAuthentication();
-            app.UseProxy();
-            app.UseAuthorization();
-            app.UseEndpoints(endpoints =>
+        services.AddAuthorization(options => { options.ViewDetailPolicy(); });
+
+        ConfigFanexData(services);
+        ConfigAuthentication(services);
+        ConfigProxy(services, skipCheckClientIP);
+        ConfigRequestLocalization(services);
+        services.AddCore();
+
+        services.AddHttpClient<IBetListApiClient, BetListApiClient>(client => { client.BaseAddress = new Uri(Configuration["ConsoleClient:BetList:Host"]); })
+            .SetHandlerLifetime(TimeSpan.FromDays(1));
+
+        services.AddCors(options =>
+        {
+            options.AddDefaultPolicy(builder =>
             {
-                endpoints.MapDefaultControllerRoute();
+                builder
+                    .AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .SetPreflightMaxAge(TimeSpan.FromDays(1));
             });
+        });
+
+        services.AddHealthCheck(Configuration);
+        services.AddUnderMaintenance(Configuration);
+
+        services.Configure<ForwardedHeadersOptions>(options =>
+        {
+            options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto | ForwardedHeaders.XForwardedHost;
+            options.KnownNetworks.Clear();
+            options.KnownProxies.Clear();
+            options.ForwardLimit = null;
+        });
+
+        services.AddHttpsRedirection(options =>
+        {
+            const int httpsPort = 443;
+            options.HttpsPort = httpsPort;
+        });
+    }
+
+    public void Configure(IApplicationBuilder app)
+    {
+        app.UsePing();
+        app.UseForwardedHeaders();
+
+        if (string.Equals(Configuration["UseErrorHandler"], "1"))
+        {
+            app.UseErrorHandler();
+        }
+        else
+        {
+            app.UseDeveloperExceptionPage();
         }
 
-        private void ConfigFanexData(IServiceCollection services)
+        if (!HostingEnvironment.IsDevelopment())
         {
-            DbSettingProviderManager
-                .StartNewSession()
-                .WithSqlServer(Configuration)
-                .UseDefaultDbSettingProvider("~/App_Data/SpConfig", true)
-                .Run();
-
-            services.TryAddSingleton<VaultDbAliasService, VaultDbAliasServiceImp>();
+            app.UseHsts();
+            app.UseHttpsRedirection();
         }
 
-        private void ConfigAuthentication(IServiceCollection services)
-        {
-            var instrospecCacheDuration = int.TryParse(Configuration["IdentityServer:CacheDuration"], out int cache) ? cache : 0;
-            services.AddAuthentication(IntrospectionSchema)
-               .AddOAuth2Introspection(IntrospectionSchema, options =>
-               {
-                   options.Authority = Configuration["IdentityServer:Host"];
-                   options.ClientId = Configuration["IdentityServer:CredentialIntrospection:ClientId"];
-                   options.ClientSecret = Configuration["IdentityServer:CredentialIntrospection:ClientSecret"];
-                   options.SaveToken = true;
-                   options.SkipTokensWithDots = true;
-                   options.EnableCaching = instrospecCacheDuration > 0;
-                   options.CacheKeyPrefix = "OAuth2Introspection:";
-                   options.CacheDuration = TimeSpan.FromMinutes(instrospecCacheDuration);
-                   options.DiscoveryPolicy.RequireHttps = false;
+        app.UseHealthCheck(Configuration);
+        app.UseStaticResource(HostingEnvironment.IsDevelopment());
+        app.UseRouting();
+        app.UseCors();
+        app.UseUnderMaintenance();
+        app.UseRequestLocalization();
+        app.UseAuthentication();
+        app.UseProxy();
+        app.UseAuthorization();
+        app.UseEndpoints(endpoints => { endpoints.MapDefaultControllerRoute(); });
+    }
 
-                   var fromQuery = TokenRetrieval.FromQueryString();
-                   var fromHeader = TokenRetrieval.FromAuthorizationHeader();
-                   string tokenRetriever(HttpRequest request) => fromQuery.Invoke(request) ?? fromHeader.Invoke(request);
+    private void ConfigFanexData(IServiceCollection services)
+    {
+        DbSettingProviderManager
+            .StartNewSession()
+            .WithSqlServer(Configuration)
+            .UseDefaultDbSettingProvider("~/App_Data/SpConfig", true)
+            .Run();
 
-                   options.TokenRetriever = tokenRetriever;
+        services.TryAddSingleton<VaultDbAliasService, VaultDbAliasServiceImp>();
+    }
 
-                   options.ForwardDefaultSelector = context =>
-                   {
-                       var token = tokenRetriever(context.Request);
-                       if (!string.IsNullOrEmpty(token) && token.Contains("."))
-                       {
-                           if (!context.Request.Headers.ContainsKey("Authorization"))
-                           {
-                               context.Request.Headers.Add("Authorization", "Bearer " + token);
-                           }
-                           return JwtSchema;
-                       }
-                       return IntrospectionSchema;
-                   };
-               })
-               .AddJwtBearer(JwtSchema, x =>
-                {
-                    x.SaveToken = true;
-                    x.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuerSigningKey = false,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration["JWTStatement:Secret"])),
-                        TokenDecryptionKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration["JWTStatement:Secret"])),
-                        ValidIssuer = Configuration["JWTStatement:Issuer"],
-                        ValidAudience = Configuration["JWTStatement:Audience"],
-                        ValidateIssuer = true,
-                        ValidateAudience = true,
-                        RoleClaimType = ClaimsIdentity.DefaultNameClaimType,
-                        RequireExpirationTime = true,
-                        ValidateLifetime = true
-                    };
-                });
-        }
-
-        private static void ConfigRequestLocalization(IServiceCollection services)
-        {
-            services.Configure<RequestLocalizationOptions>(options =>
+    private void ConfigAuthentication(IServiceCollection services)
+    {
+        var instrospecCacheDuration = int.TryParse(Configuration["IdentityServer:CacheDuration"], out int cache) ? cache : 0;
+        services.AddAuthentication(IntrospectionSchema)
+            .AddOAuth2Introspection(IntrospectionSchema, options =>
             {
-                const string DefaultCultureName = "en-US";
-                var csCulture = new CultureInfo("zh-CN");
-                var enCulture = new CultureInfo("en-US")
+                options.Authority = Configuration["IdentityServer:Host"];
+                options.ClientId = Configuration["IdentityServer:CredentialIntrospection:ClientId"];
+                options.ClientSecret = Configuration["IdentityServer:CredentialIntrospection:ClientSecret"];
+                options.SaveToken = true;
+                options.SkipTokensWithDots = true;
+                options.EnableCaching = instrospecCacheDuration > 0;
+                options.CacheKeyPrefix = "OAuth2Introspection:";
+                options.CacheDuration = TimeSpan.FromMinutes(instrospecCacheDuration);
+                options.DiscoveryPolicy.RequireHttps = false;
+
+                var fromQuery = TokenRetrieval.FromQueryString();
+                var fromHeader = TokenRetrieval.FromAuthorizationHeader();
+                string tokenRetriever(HttpRequest request) => fromQuery.Invoke(request) ?? fromHeader.Invoke(request);
+
+                options.TokenRetriever = tokenRetriever;
+
+                options.ForwardDefaultSelector = context =>
                 {
-                    DateTimeFormat = new DateTimeFormatInfo
+                    var token = tokenRetriever(context.Request);
+                    if (!string.IsNullOrEmpty(token) && token.Contains("."))
                     {
-                        ShortDatePattern = "M/d/yyyy",
-                        ShortTimePattern = "h:mm tt",
-                        LongDatePattern = "MM/dd/yyyy",
-                        LongTimePattern = "h:mm:ss tt"
+                        if (!context.Request.Headers.ContainsKey("Authorization"))
+                        {
+                            context.Request.Headers.Add("Authorization", "Bearer " + token);
+                        }
+
+                        return JwtSchema;
                     }
-                };
 
-                options.DefaultRequestCulture = new RequestCulture(DefaultCultureName);
-                options.SupportedCultures = new List<CultureInfo>
-                {
-                    enCulture
+                    return IntrospectionSchema;
                 };
-                options.SupportedUICultures = new List<CultureInfo>
+            })
+            .AddJwtBearer(JwtSchema, x =>
+            {
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
                 {
-                    enCulture,
-                    csCulture,
-                    new CultureInfo("zh-TW"),
-                    new CultureInfo("zh-Hans"),
-                    new CultureInfo("vi-VN"),
-                    new CultureInfo("id-ID"),
-                    new CultureInfo("th-TH"),
-                };
-                options.RequestCultureProviders = new List<IRequestCultureProvider>
-                {
-                    new QueryStringRequestCultureProvider { UIQueryStringKey = "language" }
+                    ValidateIssuerSigningKey = false,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration["JWTStatement:Secret"])),
+                    TokenDecryptionKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration["JWTStatement:Secret"])),
+                    ValidIssuer = Configuration["JWTStatement:Issuer"],
+                    ValidAudience = Configuration["JWTStatement:Audience"],
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    RoleClaimType = ClaimsIdentity.DefaultNameClaimType,
+                    RequireExpirationTime = true,
+                    ValidateLifetime = true
                 };
             });
-        }
+    }
 
-        private void ConfigProxy(IServiceCollection services, bool skipCheckClientIP)
+    private static void ConfigRequestLocalization(IServiceCollection services)
+    {
+        services.Configure<RequestLocalizationOptions>(options =>
         {
-            var proxySetting = Configuration.GetSection("Proxy:BetList").Get<ProxyApiSetting>();
-
-            services.AddProxy(options =>
+            const string DefaultCultureName = "en-US";
+            var csCulture = new CultureInfo("zh-CN");
+            var enCulture = new CultureInfo("en-US")
             {
-                const string ProxySegment = "/proxy";
-
-                options.Timeout = TimeSpan.FromSeconds(int.Parse(Configuration["Proxy:Timeout"]));
-
-                options.ValidateRequest = context => context.User.Identity.IsAuthenticated
-                && (skipCheckClientIP || context.User.FindFirst("ClientIP")?.Value is not string clientIP
-                    || string.Equals(context.Connection.RemoteIpAddress.ToString(), clientIP, StringComparison.InvariantCultureIgnoreCase));
-
-                options.ShouldProxyRequest = originalRequest => originalRequest.Path.StartsWithSegments(ProxySegment);
-
-                options.OnFailedValidation = context =>
+                DateTimeFormat = new DateTimeFormatInfo
                 {
-                    context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-                    return Task.CompletedTask;
-                };
+                    ShortDatePattern = "M/d/yyyy",
+                    ShortTimePattern = "h:mm tt",
+                    LongDatePattern = "MM/dd/yyyy",
+                    LongTimePattern = "h:mm:ss tt"
+                }
+            };
 
-                options.PrepareRequest = async (originalRequest, message) =>
-                {
-                    var contextService = originalRequest.HttpContext
+            options.DefaultRequestCulture = new RequestCulture(DefaultCultureName);
+            options.SupportedCultures = new List<CultureInfo>
+            {
+                enCulture
+            };
+            options.SupportedUICultures = new List<CultureInfo>
+            {
+                enCulture,
+                csCulture,
+                new("zh-TW"),
+                new("zh-Hans"),
+                new("vi-VN"),
+                new("id-ID"),
+                new("th-TH")
+            };
+            options.RequestCultureProviders = new List<IRequestCultureProvider>
+            {
+                new QueryStringRequestCultureProvider { UIQueryStringKey = "language" }
+            };
+        });
+    }
+
+    private void ConfigProxy(IServiceCollection services, bool skipCheckClientIP)
+    {
+        var proxySetting = Configuration.GetSection("Proxy:BetList").Get<ProxyApiSetting>();
+
+        services.AddProxy(options =>
+        {
+            const string ProxySegment = "/proxy";
+
+            options.Timeout = TimeSpan.FromSeconds(int.Parse(Configuration["Proxy:Timeout"]));
+
+            options.ValidateRequest = context => context.User.Identity.IsAuthenticated
+                                                 && (skipCheckClientIP || context.User.FindFirst("ClientIP")?.Value is not string clientIP
+                                                                       || string.Equals(context.Connection.RemoteIpAddress.ToString(), clientIP,
+                                                                           StringComparison.InvariantCultureIgnoreCase));
+
+            options.ShouldProxyRequest = originalRequest => originalRequest.Path.StartsWithSegments(ProxySegment);
+
+            options.OnFailedValidation = context =>
+            {
+                context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                return Task.CompletedTask;
+            };
+
+            options.PrepareRequest = async (originalRequest, message) =>
+            {
+                var contextService = originalRequest.HttpContext
                     .RequestServices.GetRequiredService<IContextService>();
 
-                    message.Headers.Add("Language", contextService.Language);
-                    message.Headers.Add("X-SiteDBServer", contextService.SiteDBServer);
+                message.Headers.Add("Language", contextService.Language);
+                message.Headers.Add("X-SiteDBServer", contextService.SiteDBServer);
 
-                    var accessToken = await contextService.AccessToken;
-                    if (!string.IsNullOrEmpty(accessToken))
-                    {
-                        message.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-                    }
-                };
-
-                options.PrepareUri = originalRequest =>
+                var accessToken = await contextService.AccessToken;
+                if (!string.IsNullOrEmpty(accessToken))
                 {
-                    var path = originalRequest.Path.Value;
-                    var realPath = path[ProxySegment.Length..];
-                    var uri = new UriBuilder(new Uri($"{proxySetting.Url.TrimEnd('/')}{realPath}"))
-                    {
-                        Query = originalRequest.QueryString.Value
-                    }.Uri;
+                    message.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+                }
+            };
 
-                    return uri;
-                };
-            });
-        }
+            options.PrepareUri = originalRequest =>
+            {
+                var path = originalRequest.Path.Value;
+                var realPath = path[ProxySegment.Length..];
+                var uri = new UriBuilder(new Uri($"{proxySetting.Url.TrimEnd('/')}{realPath}"))
+                {
+                    Query = originalRequest.QueryString.Value
+                }.Uri;
+
+                return uri;
+            };
+        });
     }
 }
