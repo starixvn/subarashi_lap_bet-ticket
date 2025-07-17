@@ -82,7 +82,7 @@ namespace Fanex.Athena.BetTicket.Core.Attributes
             {
                 languageMetaModel.Language = _contextService.Language;
             }
-         
+
             await next();
         }
     }

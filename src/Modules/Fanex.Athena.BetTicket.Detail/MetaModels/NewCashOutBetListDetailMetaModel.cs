@@ -1,5 +1,4 @@
-﻿using Fanex.Athena.BetTicket.Detail.DTO;
-using System;
+﻿using System;
 
 namespace Fanex.Athena.BetTicket.Detail.MetaModels
 {

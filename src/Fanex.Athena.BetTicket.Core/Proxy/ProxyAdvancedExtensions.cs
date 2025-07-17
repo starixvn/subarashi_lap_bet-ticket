@@ -13,12 +13,13 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Microsoft.AspNetCore.Proxy
 {
-    internal static class ProxyAdvancedExtensions
+    public static class ProxyAdvancedExtensions
     {
-        private static readonly string[] NotForwardedWebSocketHeaders = new[] 
-        { 
-            "Connection", "Host", "Upgrade", "Sec-WebSocket-Accept", "Sec-WebSocket-Protocol", "Sec-WebSocket-Key", "Sec-WebSocket-Version", "Sec-WebSocket-Extensions" 
+        private static readonly string[] NotForwardedWebSocketHeaders = new[]
+        {
+            "Connection", "Host", "Upgrade", "Sec-WebSocket-Accept", "Sec-WebSocket-Protocol", "Sec-WebSocket-Key", "Sec-WebSocket-Version", "Sec-WebSocket-Extensions"
         };
+
         private const int DefaultWebSocketBufferSize = 4096;
         private const int StreamCopyBufferSize = 81920;
 
@@ -30,17 +31,15 @@ namespace Microsoft.AspNetCore.Proxy
             }
 
             var uriBuilder = new UriBuilder(uri);
+
             if (string.Equals(uriBuilder.Scheme, "https", StringComparison.OrdinalIgnoreCase))
             {
                 uriBuilder.Scheme = "wss";
             }
-            else if (string.Equals(uriBuilder.Scheme, "http", StringComparison.OrdinalIgnoreCase))
+
+            if (string.Equals(uriBuilder.Scheme, "http", StringComparison.OrdinalIgnoreCase))
             {
                 uriBuilder.Scheme = "ws";
-            }
-            else
-            {
-                //
             }
 
             return uriBuilder.Uri;
@@ -100,7 +99,7 @@ namespace Microsoft.AspNetCore.Proxy
                 {
                     client.Options.AddSubProtocol(protocol);
                 }
-                
+
                 foreach (var headerEntry in context.Request.Headers)
                 {
                     if (!NotForwardedWebSocketHeaders.Contains(headerEntry.Key, StringComparer.OrdinalIgnoreCase))

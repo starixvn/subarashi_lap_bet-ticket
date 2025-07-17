@@ -49,7 +49,7 @@ namespace Fanex.Athena.BetTicket.Core.Services
 
         public Task<string> AccessToken => Context.GetTokenAsync("access_token");
 
-        public bool IsInRoles(params string[] roles) => roles?.Any(_ => User.IsInRole(_)) ?? false;
+        public bool IsInRoles(params string[] roles) => roles != null && Array.Exists(roles, role => User.IsInRole(role));
 
         private IReadOnlyDictionary<int, int[]> _agentList;
 

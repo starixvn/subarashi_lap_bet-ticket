@@ -3,7 +3,6 @@ using Fanex.Athena.BetTicket.Result.MetaModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
 using System.Threading.Tasks;
 
 namespace Fanex.Athena.BetTicket.Result.Controllers

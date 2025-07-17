@@ -1,6 +1,7 @@
 ﻿using Fanex.Athena.BetTicket.Detail.DTO;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Xml.Linq;
 
 namespace Fanex.Athena.BetTicket.Detail.ViewModels
@@ -31,7 +32,7 @@ namespace Fanex.Athena.BetTicket.Detail.ViewModels
                         var amount = item.Attribute("w").Value;
                         var action = item.Attribute("s").Value;
 
-                        detailHistory.Add(new CashoutHistoryDetail(DateTime.Parse(time), decimal.Parse(amount) * Rate, action));
+                        detailHistory.Add(new CashoutHistoryDetail(DateTime.Parse(time, CultureInfo.InvariantCulture), decimal.Parse(amount) * Rate, action));
                     }
                 }
 
