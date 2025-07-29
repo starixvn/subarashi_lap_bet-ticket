@@ -486,4 +486,7 @@
   <data name="ProductRGRNG" xml:space="preserve">
     <value>RichGaming</value>
   </data>
+  <data name="ProductODG" xml:space="preserve">
+    <value>ODIN GAMING</value>
+  </data>
 </root>
