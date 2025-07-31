@@ -673,6 +673,15 @@ namespace Fanex.Athena.BetTicket.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ODIN GAMING.
+        /// </summary>
+        public static string ProductODG {
+            get {
+                return ResourceManager.GetString("ProductODG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ON Casino.
         /// </summary>
         public static string ProductON {
