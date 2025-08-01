@@ -1,0 +1,61 @@
+using Fanex.Athena.BetTicket.Detail.Controllers;
+using Fanex.Athena.BetTicket.Detail.Controllers.ThirdPartyProduct;
+using Fanex.Athena.BetTicket.Core.ConsoleClient;
+using Fanex.Athena.BetTicket.Core.Services;
+using Moq;
+using Xunit;
+
+namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct
+{
+    public class SabaClubJackpotWonBetListDetailControllerTests
+    {
+        private readonly Mock<IBetListApiClient> _mockBetListApiClient;
+        private readonly Mock<IContextService> _mockContextService;
+
+        public SabaClubJackpotWonBetListDetailControllerTests()
+        {
+            _mockBetListApiClient = new Mock<IBetListApiClient>();
+            _mockContextService = new Mock<IContextService>();
+        }
+
+        [Fact]
+        public void SabaClubJackpotWonBetListDetailController_ShouldInheritFromBase()
+        {
+            // Arrange & Act
+            var controller = new SabaClubJackpotWonBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+
+            // Assert
+            Assert.IsAssignableFrom<BetListDetailControllerBase>(controller);
+        }
+
+        [Fact]
+        public void SabaClubJackpotWonBetListDetailController_ShouldHaveCorrectStoreProcedure()
+        {
+            // Arrange & Act
+            var controller = new SabaClubJackpotWonBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+
+            // Assert
+            Assert.Equal("Lrf_BetList_Jackpot_Detail", controller.StoreProcedure);
+        }
+
+        [Fact]
+        public void Constructor_WithValidDependencies_ShouldInitialize()
+        {
+            // Arrange & Act
+            var controller = new SabaClubJackpotWonBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+
+            // Assert
+            Assert.NotNull(controller);
+        }
+
+        [Fact]
+        public void Constructor_WithNullDependencies_ShouldNotThrowException()
+        {
+            // Act & Assert
+            var controller = new SabaClubJackpotWonBetListDetailController(null, null);
+
+            // Assert
+            Assert.NotNull(controller);
+        }
+    }
+} 
