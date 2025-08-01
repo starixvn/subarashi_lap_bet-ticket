@@ -1,7 +1,10 @@
+using Fanex.Athena.BetTicket.Core.ConsoleClient;
+using Fanex.Athena.BetTicket.Core.Resources;
+using Fanex.Athena.BetTicket.Core.Services;
+using Fanex.Athena.BetTicket.Detail.Constants;
 using Fanex.Athena.BetTicket.Detail.Controllers;
 using Fanex.Athena.BetTicket.Detail.Controllers.ThirdPartyProduct;
-using Fanex.Athena.BetTicket.Core.ConsoleClient;
-using Fanex.Athena.BetTicket.Core.Services;
+using Fanex.Athena.BetTicket.Detail.MetaModels;
 using Moq;
 using Xunit;
 
@@ -57,5 +60,78 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct
             // Assert
             Assert.NotNull(controller);
         }
+
+        [Fact]
+        public void HiddenColumns_ShouldReturnLicenseeWLColumn()
+        {
+            // Arrange
+            var controller = new CreativeGamingBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+
+            // Act
+            var hiddenColumns = controller.GetType().GetProperty("HiddenColumns", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)?.GetValue(controller) as int[];
+
+            // Assert
+            Assert.NotNull(hiddenColumns);
+            Assert.Single(hiddenColumns);
+            Assert.Contains(BetListColumn.LicenseeWLColumn, hiddenColumns);
+        }
+
+        [Fact]
+        public void ProductName_ShouldReturnCreativeGaming()
+        {
+            // Arrange
+            var controller = new CreativeGamingBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+
+            // Act
+            var productName = controller.GetType().GetProperty("ProductName", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)?.GetValue(controller) as string;
+
+            // Assert
+            Assert.Equal(ViewResources.ProductCG, productName);
+        }
+
+        [Fact]
+        public void ExcelFileName_ShouldReturnCreativeGamingDetail()
+        {
+            // Arrange
+            var controller = new CreativeGamingBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+
+            // Act
+            var excelFileName = controller.GetType().GetProperty("ExcelFileName", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)?.GetValue(controller) as string;
+
+            // Assert
+            Assert.Equal("CreativeGamingDetail", excelFileName);
+        }
+
+        [Fact]
+        public void ShowingOption_WhenCustomerCommAllowed_ShouldHaveCorrectSettings()
+        {
+            // Arrange
+            _mockContextService.Setup(x => x.IsAllowedCustomerComm).Returns(true);
+            var controller = new CreativeGamingBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+
+            // Act
+            var showingOption = controller.GetType().GetProperty("ShowingOption", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)?.GetValue(controller) as ShowingOption;
+
+            // Assert
+            Assert.NotNull(showingOption);
+            Assert.True(showingOption.GrandTotalVisible); // Default value from ShowingOption constructor
+            Assert.True(showingOption.CustomerCommVisible);
+        }
+
+        [Fact]
+        public void ShowingOption_WhenCustomerCommNotAllowed_ShouldHaveCorrectSettings()
+        {
+            // Arrange
+            _mockContextService.Setup(x => x.IsAllowedCustomerComm).Returns(false);
+            var controller = new CreativeGamingBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+
+            // Act
+            var showingOption = controller.GetType().GetProperty("ShowingOption", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)?.GetValue(controller) as ShowingOption;
+
+            // Assert
+            Assert.NotNull(showingOption);
+            Assert.True(showingOption.GrandTotalVisible); // Default value from ShowingOption constructor
+            Assert.False(showingOption.CustomerCommVisible);
+        }
     }
-} 
+}

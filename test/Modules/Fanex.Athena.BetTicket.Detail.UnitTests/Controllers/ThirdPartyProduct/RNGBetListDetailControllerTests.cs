@@ -1,16 +1,16 @@
-using Fanex.Athena.BetTicket.Detail.Controllers;
-using Fanex.Athena.BetTicket.Detail.Controllers.ThirdPartyProduct;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Fanex.Athena.BetTicket.Core.ConsoleClient;
 using Fanex.Athena.BetTicket.Core.Services;
 using Fanex.Athena.BetTicket.Detail.Constants;
+using Fanex.Athena.BetTicket.Detail.Controllers;
+using Fanex.Athena.BetTicket.Detail.Controllers.ThirdPartyProduct;
 using Fanex.Athena.BetTicket.Detail.MetaModels;
 using Fanex.Athena.BetTicket.Detail.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct
@@ -82,6 +82,36 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct
         }
 
         [Fact]
+        public void ProductName_ShouldReturnNull()
+        {
+            // Arrange
+            var controller = new RNGBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+
+            // Act
+            var productName = controller.GetType()
+                .GetProperty("ProductName", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+                ?.GetValue(controller) as string;
+
+            // Assert
+            Assert.Null(productName);
+        }
+
+        [Fact]
+        public void ExcelFileName_ShouldReturnNull()
+        {
+            // Arrange
+            var controller = new RNGBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+
+            // Act
+            var excelFileName = controller.GetType()
+                .GetProperty("ExcelFileName", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+                ?.GetValue(controller) as string;
+
+            // Assert
+            Assert.Null(excelFileName);
+        }
+
+        [Fact]
         public void ShowingOption_WhenCustomerCommAllowed_ShouldHaveCorrectSettings()
         {
             // Arrange
@@ -93,6 +123,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct
 
             // Assert
             Assert.NotNull(showingOption);
+            Assert.True(showingOption.GrandTotalVisible); // Default value from ShowingOption constructor
             Assert.True(showingOption.CustomerCommVisible);
         }
 
@@ -108,6 +139,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct
 
             // Assert
             Assert.NotNull(showingOption);
+            Assert.True(showingOption.GrandTotalVisible); // Default value from ShowingOption constructor
             Assert.False(showingOption.CustomerCommVisible);
         }
 
@@ -335,4 +367,4 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct
             Assert.NotNull(httpPostAttribute);
         }
     }
-} 
+}
