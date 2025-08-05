@@ -340,6 +340,18 @@ export default class UrlDetailBuilder {
         return url;
     }
 
+    static getRNGJackpotWonDetailUrl(rootUrl, commonParams, transId, custId, betTypeId, winlostDate, sportTypeName) {
+        let url = rootUrl + 'RNGJackpotWonBetListDetail/Index';
+        url = this._assignCommonParams(url, commonParams);
+        url = QueryString.setParam(url, 'transId', transId);
+        url = QueryString.setParam(url, 'custId', custId);
+        url = QueryString.setParam(url, 'bettype', betTypeId);
+        url = QueryString.setParam(url, 'date', winlostDate);
+        url = QueryString.setParam(url, 'SportTypeName', sportTypeName);
+
+        return url;
+    }
+
     static getCGDetailUrl(rootUrl, commonParams, transId, winlostDate, custId, transType) {
         let url = rootUrl + 'CreativeGamingBetListDetail/Index';
         url = this._assignCommonParams(url, commonParams);
