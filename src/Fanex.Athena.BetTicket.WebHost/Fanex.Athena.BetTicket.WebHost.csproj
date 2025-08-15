@@ -33,10 +33,10 @@
 		<ProjectReference Include="..\Modules\Fanex.Athena.BetTicket.Result\Fanex.Athena.BetTicket.Result.csproj" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Fanex.Data.SqlServer" Version="4.3.3" />
-		<PackageReference Include="IdentityModel.AspNetCore.OAuth2Introspection" Version="5.1.0" />
-		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.9" />
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.7" Condition="'$(Configuration)' == 'Debug'" />
+		<PackageReference Include="Fanex.Data.SqlServer" Version="4.3.4.5" />
+		<PackageReference Include="IdentityModel.AspNetCore.OAuth2Introspection" Version="6.2.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.19" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.19" Condition="'$(Configuration)' == 'Debug'" />
 		<PackageReference Include="Sentry.AspNetCore" Version="2.1.6" />
 	</ItemGroup>
 
