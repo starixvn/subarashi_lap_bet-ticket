@@ -3,6 +3,7 @@
     ViewData["Title"] = ViewResources.CashOutHistory;
 }
 
+@using System.Globalization
 @model NewCashOutBetListDetailViewModel
 
 @{
@@ -16,7 +17,7 @@
     <div class="table-content">
         <div class="content-title">
             @ViewResources.RefNo: @Html.Raw(Model.TransId) - <span class="base-currency">
-                @(string.IsNullOrEmpty(Model.BaseCurrency) ? string.Format(ViewResources.ViewIn, Model.Currency) : string.Format(ViewResources.ViewIn, Model.BaseCurrency.ToUpper()))
+                @(string.IsNullOrEmpty(Model.BaseCurrency) ? string.Format(ViewResources.ViewIn, Model.Currency) : string.Format(ViewResources.ViewIn, Model.BaseCurrency.ToUpper(CultureInfo.InvariantCulture)))
             </span>
         </div>
 
