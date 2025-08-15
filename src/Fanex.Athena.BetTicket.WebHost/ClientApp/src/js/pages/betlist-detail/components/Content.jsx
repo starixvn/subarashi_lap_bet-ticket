@@ -43,8 +43,8 @@ export const Content = (props) => {
     const [gridData, setGridData] = useState(null);
     const { pagingOption, setPagingOption, onChangePaging } = usePagingOption();
 
-    const handleSort = (sortBy, sortOrder) => {
-        setRequestParam({ ...requestParam, sortBy, sortOrder});
+    const handleSort = (sortType, sortOrder) => {
+        setRequestParam({ ...requestParam, sortType, sortOrder});
     }
 
     useEffect(() => {
@@ -109,7 +109,7 @@ export const Content = (props) => {
             baseCurrency={requestParam.baseCurrency}
             beforeShowFunc={() => props.toggleLoader(true)}
             afterShowFunc={() => props.toggleLoader(false)}>
-            {isUseMobileVersion 
+            {isUseMobileVersion
                 ? <MobileDataGrid {...dataGridProps}/>
                 : <DataGrid {...dataGridProps} />
             }

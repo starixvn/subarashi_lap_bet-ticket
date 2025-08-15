@@ -26,9 +26,9 @@ namespace Fanex.Athena.BetTicket.Detail.MetaModels
 
         public string UspKey { get; set; }
 
-        public string SortBy { get; set; }
+        public byte SortType { get; set; }
 
-        public string SortOrder { get; set; }
+        public byte SortOrder { get; set; }
 
         public int PageSize { get; set; }
 
