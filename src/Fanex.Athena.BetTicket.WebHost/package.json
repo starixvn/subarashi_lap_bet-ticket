@@ -46,6 +46,7 @@
   "scripts": {
     "stats": "node node_modules/webpack/bin/webpack.js --config www/webpackconfig/build/webpack.dev.conf.js --json > stats.json",
     "build-dev": "node node_modules/webpack/bin/webpack.js --config ClientApp/webpack/build/webpack.dev.conf.js",
+    "build-dev-watch": "node node_modules/webpack/bin/webpack.js --config ClientApp/webpack/build/webpack.dev.conf.js --watch",
     "build-pro": "node node_modules/webpack/bin/webpack.js --config ClientApp/webpack/build/webpack.pro.conf.js",
     "lint": "eslint ./ClientApp/src/js"
   },

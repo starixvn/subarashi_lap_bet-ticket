@@ -19,6 +19,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fanex.Athena.BetTicket.Core
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fanex.Athena.BetTicket.Core.UnitTests", "test\Fanex.Athena.BetTicket.Core.UnitTests\Fanex.Athena.BetTicket.Core.UnitTests.csproj", "{A2E6394A-28B6-4897-BA53-F446C2066290}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fanex.Athena.BetTicket.Detail.UnitTests", "test\Modules\Fanex.Athena.BetTicket.Detail.UnitTests\Fanex.Athena.BetTicket.Detail.UnitTests.csproj", "{B3E6394A-28B6-4897-BA53-F446C2066291}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fanex.Athena.BetTicket.Result.UnitTests", "test\Modules\Fanex.Athena.BetTicket.Result.UnitTests\Fanex.Athena.BetTicket.Result.UnitTests.csproj", "{C4E6394A-28B6-4897-BA53-F446C2066292}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +49,14 @@ Global
 		{A2E6394A-28B6-4897-BA53-F446C2066290}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A2E6394A-28B6-4897-BA53-F446C2066290}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A2E6394A-28B6-4897-BA53-F446C2066290}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3E6394A-28B6-4897-BA53-F446C2066291}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3E6394A-28B6-4897-BA53-F446C2066291}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3E6394A-28B6-4897-BA53-F446C2066291}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3E6394A-28B6-4897-BA53-F446C2066291}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4E6394A-28B6-4897-BA53-F446C2066292}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4E6394A-28B6-4897-BA53-F446C2066292}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4E6394A-28B6-4897-BA53-F446C2066292}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4E6394A-28B6-4897-BA53-F446C2066292}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -56,6 +68,8 @@ Global
 		{2947A0AC-22A6-465B-9DA9-A30E3FEA0907} = {8B7ECCCA-CE5E-4B69-AEB1-496D34176B39}
 		{6E9142D7-A0AB-4BD8-B7EA-AE3E22F2F0FE} = {44A3C0D2-0A9F-4C20-ADBB-CFC33C22A5C7}
 		{A2E6394A-28B6-4897-BA53-F446C2066290} = {45FFFEDF-09EB-4EB0-9C25-AC94A711D577}
+		{B3E6394A-28B6-4897-BA53-F446C2066291} = {45FFFEDF-09EB-4EB0-9C25-AC94A711D577}
+		{C4E6394A-28B6-4897-BA53-F446C2066292} = {45FFFEDF-09EB-4EB0-9C25-AC94A711D577}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A68987D7-10E0-4E19-AA31-69D0EB07FB12}

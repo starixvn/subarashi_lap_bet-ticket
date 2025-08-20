@@ -99,20 +99,15 @@ namespace Fanex.Athena.BetTicket.Core.ConsoleClient
 
                 int statusCode = (int)response.StatusCode;
                 string responseContent = null;
-
-                if (response.Content != null)
+                try
                 {
-                    try
-                    {
-                        using var stream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
-                        responseContent = ReadStreamToString(stream);
-                    }
-                    catch
-                    {
-                        // In case of any error reading the content, return the status code with null content
-                    }
+                    using var stream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
+                    responseContent = ReadStreamToString(stream);
                 }
-
+                catch
+                {
+                    // In case of any error reading the content, return the status code with null content
+                }
                 return new ApiResponse<string>(responseContent, statusCode);
             }
             catch (Exception ex)
