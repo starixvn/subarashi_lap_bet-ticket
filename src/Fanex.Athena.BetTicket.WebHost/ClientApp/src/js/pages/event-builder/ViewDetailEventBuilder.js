@@ -128,6 +128,13 @@ export default function ViewDetailEventBuilder() {
         this._openPopup(url, title);
     }
 
+    window.showLCJackpotWonDetails = (transId, custId, betTypeId, winlostDate, sporttypeName) => {
+        const url = UrlDetailBuilder.getRNGJackpotWonDetailUrl(this.rootUrl, _getCommonParams.call(this), transId, custId, betTypeId, winlostDate, sporttypeName);
+        const title = sporttypeName + ' - ' + this._getResource('JackpotWonDetails');
+
+        this._openPopup(url, title);
+    }
+
     window.showVideoPokerGameDetails = (transId, winlostDate, custId, transType) => {
         const url = UrlDetailBuilder.getVideoPokerGameDetailUrl(this.rootUrl, _getCommonParams.call(this), transId, winlostDate, custId, transType);
         const title = this._getResource('ProductCC') + ' - ' +
