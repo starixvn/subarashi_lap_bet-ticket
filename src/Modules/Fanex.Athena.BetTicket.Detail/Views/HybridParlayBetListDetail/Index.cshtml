@@ -1,0 +1,17 @@
+﻿@{
+    Layout = "_SimpleLayout";
+    ViewData["Title"] = ViewResources.DetailedBetlist;
+}
+
+@section pagecss {
+    <link href="~/css/betlist-detail-hybridparlay.css" rel="stylesheet" type="text/css" asp-append-version="true" />
+}
+
+<div class="system-parlay-detail-container">
+    @Html.Raw(ViewBag.DetailText)
+
+    <div class="note-block">
+        <p class="text-bold"><span class="red-text">* </span>@ViewResources.Note</p>
+        <p>@ViewResources.SystemParlayDetailNote</p>
+    </div>
+</div>

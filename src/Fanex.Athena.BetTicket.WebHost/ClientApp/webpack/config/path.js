@@ -10,7 +10,8 @@ var cssPaths = {
     main: "./ClientApp/src/css/main.scss",
     betlist_detail: "./ClientApp/src/css/pages/betlist-detail/index.scss",
     betlist_detail_cashout: "./ClientApp/src/css/pages/betlist-detail/cashout.scss",
-    betlist_detail_systemparlay: "./ClientApp/src/css/pages/betlist-detail/systemparlay.scss"
+    betlist_detail_systemparlay: "./ClientApp/src/css/pages/betlist-detail/systemparlay.scss",
+    betlist_detail_hybridparlay: "./ClientApp/src/css/pages/betlist-detail/hybridparlay.scss"
 };
 
 var scriptPaths = {

@@ -27,7 +27,8 @@ function generateConfig() {
             [`${cssPath}/main`]: pathConfig.cssPaths.main,
             [`${cssPath}/betlist-detail`]: pathConfig.cssPaths.betlist_detail,
             [`${cssPath}/betlist-detail-cashout`]: pathConfig.cssPaths.betlist_detail_cashout,
-            [`${cssPath}/betlist-detail-systemparlay`]: pathConfig.cssPaths.betlist_detail_systemparlay
+            [`${cssPath}/betlist-detail-systemparlay`]: pathConfig.cssPaths.betlist_detail_systemparlay,
+            [`${cssPath}/betlist-detail-hybridparlay`]: pathConfig.cssPaths.betlist_detail_hybridparlay
         },
         output: {
             path: pathConfig.projectRoot,

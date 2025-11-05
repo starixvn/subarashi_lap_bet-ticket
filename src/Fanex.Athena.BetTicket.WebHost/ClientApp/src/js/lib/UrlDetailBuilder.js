@@ -55,6 +55,20 @@ export default class UrlDetailBuilder {
         return choice;
     }
 
+    static buildChoiceBetBuilderPlusDetail(response) {
+        let choice = '';
+        let length = response.Data === null ? 0 : response.Data.length;
+        if (length > 0) {
+
+            for (let i = 0; i < response.Data.length; i++) {
+                let item = response.Data[i];
+                choice += item;
+            }
+        }
+
+        return choice;
+    }
+
     static buildSingleMatchParlayDetail(data) {
         let selection = '';
         let length = data === null ? 0 : data.length;
@@ -73,6 +87,12 @@ export default class UrlDetailBuilder {
         if (Number(transId) === 0) { return; }
 
         let url = rootUrl + 'Proxy/SingleMatchParlayBetList/Detail';
+        url = QueryString.setParam(url, 'language', language);
+        return url;
+    }
+
+    static getChoiceBuilderPlusDetailUrl(rootUrl, language) {
+        let url = rootUrl + 'Proxy/BetBuilderPlusBetList/Detail';
         url = QueryString.setParam(url, 'language', language);
         return url;
     }
