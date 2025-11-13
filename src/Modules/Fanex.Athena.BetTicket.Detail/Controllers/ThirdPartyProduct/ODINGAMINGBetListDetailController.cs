@@ -8,8 +8,8 @@
 
     public class ODINGAMINGBetListDetailController : BetListDetailControllerBase
     {
-        public ODINGAMINGBetListDetailController(IBetListApiClient betListClient, IContextService contextService)
-            : base(betListClient, contextService)
+        public ODINGAMINGBetListDetailController(IBetListApiClient betlistClient, IContextService contextService, IResourceService resourceService)
+            : base(betlistClient, contextService, resourceService)
         {
         }
 

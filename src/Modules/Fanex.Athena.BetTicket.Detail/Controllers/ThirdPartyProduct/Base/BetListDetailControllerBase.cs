@@ -18,11 +18,13 @@
     {
         private readonly IBetListApiClient _betlistClient;
         protected readonly IContextService _contextService;
+        protected readonly IResourceService _resourceService;
 
-        protected BetListDetailControllerBase(IBetListApiClient betlistClient, IContextService contextService)
+        protected BetListDetailControllerBase(IBetListApiClient betlistClient, IContextService contextService, IResourceService resourceService)
         {
             _betlistClient = betlistClient;
             _contextService = contextService;
+            _resourceService = resourceService;
         }
 
         protected abstract int[] HiddenColumns { get; }
@@ -90,11 +92,12 @@
             ViewBag.ExportUrl = $"{HttpContext.Request.RouteValues["controller"]}/Export";
             ViewBag.HiddenColumns = HiddenColumns.Select(_ => BetListColumn.ColumnNames[_]);
             ViewBag.IsShowGrandTotal = ShowingOption.GrandTotalVisible;
-            ViewBag.ExportFileName = string.IsNullOrEmpty(ExcelFileName) ? GetExcelNameBySportTypeName(metaModel.SportTypeName) : ExcelFileName;
+            ViewBag.ExportFileName = string.IsNullOrEmpty(ExcelFileName) ? GetExcelNameBySportTypeName(metaModel.SportTypeId) : ExcelFileName;
         }
 
-        private static string GetExcelNameBySportTypeName(string sportTypeName)
+        private string GetExcelNameBySportTypeName(int sportId)
         {
+            var sportTypeName = _resourceService.GetSportName(sportId, "en-US");
             string fileName = $"{sportTypeName}Detail";
             fileName = fileName.Replace(" ", ""); // remove space in file name
             return fileName;

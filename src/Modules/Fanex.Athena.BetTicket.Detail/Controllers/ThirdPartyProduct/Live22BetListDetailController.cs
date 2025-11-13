@@ -3,13 +3,12 @@ using Fanex.Athena.BetTicket.Detail.MetaModels;
 using Fanex.Athena.BetTicket.Core.ConsoleClient;
 using Fanex.Athena.BetTicket.Core.Resources;
 using Fanex.Athena.BetTicket.Core.Services;
-
 namespace Fanex.Athena.BetTicket.Detail.Controllers
 {
     public class Live22BetListDetailController : BetListDetailControllerBase
     {
-        public Live22BetListDetailController(IBetListApiClient betlistClient, IContextService contextService)
-            : base(betlistClient, contextService)
+        public Live22BetListDetailController(IBetListApiClient betlistClient, IContextService contextService, IResourceService resourceService)
+            : base(betlistClient, contextService, resourceService)
         {
         }
 

@@ -11,18 +11,20 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct
     {
         private readonly Mock<IBetListApiClient> _mockBetListApiClient;
         private readonly Mock<IContextService> _mockContextService;
-
+        private readonly Mock<IResourceService> _mockResourceService;
         public VGamingJackpotWonBetListDetailControllerTests()
         {
             _mockBetListApiClient = new Mock<IBetListApiClient>();
             _mockContextService = new Mock<IContextService>();
-        }
+            _mockResourceService = new Mock<IResourceService>();
+
+                }
 
         [Fact]
         public void VGamingJackpotWonBetListDetailController_ShouldInheritFromBase()
         {
             // Arrange & Act
-            var controller = new VGamingJackpotWonBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new VGamingJackpotWonBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
 
             // Assert
             Assert.IsAssignableFrom<BetListDetailControllerBase>(controller);
@@ -32,7 +34,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct
         public void VGamingJackpotWonBetListDetailController_ShouldHaveCorrectStoreProcedure()
         {
             // Arrange & Act
-            var controller = new VGamingJackpotWonBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new VGamingJackpotWonBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
 
             // Assert
             Assert.Equal("Lrf_BetList_Jackpot_Detail", controller.StoreProcedure);
@@ -42,7 +44,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct
         public void Constructor_WithValidDependencies_ShouldInitialize()
         {
             // Arrange & Act
-            var controller = new VGamingJackpotWonBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new VGamingJackpotWonBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
 
             // Assert
             Assert.NotNull(controller);
@@ -52,7 +54,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct
         public void Constructor_WithNullDependencies_ShouldNotThrowException()
         {
             // Act & Assert
-            var controller = new VGamingJackpotWonBetListDetailController(null, null);
+            var controller = new VGamingJackpotWonBetListDetailController(null, null, null);
 
             // Assert
             Assert.NotNull(controller);

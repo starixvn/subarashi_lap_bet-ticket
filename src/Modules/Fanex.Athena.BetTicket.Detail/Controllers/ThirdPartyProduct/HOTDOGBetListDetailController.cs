@@ -8,8 +8,8 @@ namespace Fanex.Athena.BetTicket.Detail.Controllers.ThirdPartyProduct
 
     public class HOTDOGBetListDetailController : BetListDetailControllerBase
     {
-        public HOTDOGBetListDetailController(IBetListApiClient betListClient, IContextService contextService)
-            : base(betListClient, contextService)
+        public HOTDOGBetListDetailController(IBetListApiClient betlistClient, IContextService contextService, IResourceService resourceService)
+            : base(betlistClient, contextService, resourceService)
         {
         }
 

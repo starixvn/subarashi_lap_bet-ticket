@@ -19,18 +19,20 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct
     {
         private readonly Mock<IBetListApiClient> _mockBetListApiClient;
         private readonly Mock<IContextService> _mockContextService;
-
+        private readonly Mock<IResourceService> _mockResourceService;
         public YeeBetBetListDetailControllerTests()
         {
             _mockBetListApiClient = new Mock<IBetListApiClient>();
             _mockContextService = new Mock<IContextService>();
-        }
+            _mockResourceService = new Mock<IResourceService>();
+
+                }
 
         [Fact]
         public void YeeBetBetListDetailController_ShouldInheritFromBase()
         {
             // Arrange & Act
-            var controller = new YeeBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new YeeBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
 
             // Assert
             Assert.IsAssignableFrom<BetListDetailControllerBase>(controller);
@@ -40,7 +42,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct
         public void YeeBetBetListDetailController_ShouldHaveCorrectStoreProcedure()
         {
             // Arrange & Act
-            var controller = new YeeBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new YeeBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
 
             // Assert
             Assert.Equal("Lrf_BetList_LC_Detail", controller.StoreProcedure);
@@ -50,7 +52,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct
         public void Constructor_WithValidDependencies_ShouldInitialize()
         {
             // Arrange & Act
-            var controller = new YeeBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new YeeBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
 
             // Assert
             Assert.NotNull(controller);
@@ -60,7 +62,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct
         public void Constructor_WithNullDependencies_ShouldNotThrowException()
         {
             // Act & Assert
-            var controller = new YeeBetBetListDetailController(null, null);
+            var controller = new YeeBetBetListDetailController(null, null, null);
 
             // Assert
             Assert.NotNull(controller);
@@ -70,7 +72,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct
         public void HiddenColumns_ShouldReturnLicenseeWLColumn()
         {
             // Arrange
-            var controller = new YeeBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new YeeBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
 
             // Act
             var hiddenColumns = controller.GetType().GetProperty("HiddenColumns", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)?.GetValue(controller) as int[];
@@ -85,7 +87,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct
         public void ProductName_ShouldReturnYeeBet()
         {
             // Arrange
-            var controller = new YeeBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new YeeBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
 
             // Act
             var productName = controller.GetType().GetProperty("ProductName", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)?.GetValue(controller) as string;
@@ -98,7 +100,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct
         public void ExcelFileName_ShouldReturnYeeBetDetail()
         {
             // Arrange
-            var controller = new YeeBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new YeeBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
 
             // Act
             var excelFileName = controller.GetType().GetProperty("ExcelFileName", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)?.GetValue(controller) as string;
@@ -112,7 +114,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct
         {
             // Arrange
             _mockContextService.Setup(x => x.IsAllowedCustomerComm).Returns(true);
-            var controller = new YeeBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new YeeBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
 
             // Act
             var showingOption = controller.GetType().GetProperty("ShowingOption", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)?.GetValue(controller) as ShowingOption;
@@ -127,7 +129,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct
         {
             // Arrange
             _mockContextService.Setup(x => x.IsAllowedCustomerComm).Returns(false);
-            var controller = new YeeBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new YeeBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
 
             // Act
             var showingOption = controller.GetType().GetProperty("ShowingOption", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)?.GetValue(controller) as ShowingOption;
@@ -141,7 +143,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct
         public void Index_ShouldReturnViewResult()
         {
             // Arrange
-            var controller = new YeeBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new YeeBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
             var metaModel = new BetListDetailMetaModel();
 
             // Setup HttpContext
@@ -162,7 +164,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct
         public void Index_ShouldSetViewBagProperties()
         {
             // Arrange
-            var controller = new YeeBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new YeeBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
             var metaModel = new BetListDetailMetaModel { SportTypeName = "Football" };
 
             // Setup HttpContext
@@ -187,7 +189,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct
         public async Task Data_ShouldReturnJsonResult()
         {
             // Arrange
-            var controller = new YeeBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new YeeBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
             var metaModel = new BetListDetailApiMetaModel();
             var mockResponse = new BetListViewModel
             {
@@ -209,7 +211,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct
         public async Task Data_ShouldSetMetaModelUspKey()
         {
             // Arrange
-            var controller = new YeeBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new YeeBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
             var metaModel = new BetListDetailApiMetaModel();
             var mockResponse = new BetListViewModel
             {
@@ -231,7 +233,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct
         public async Task Export_ShouldReturnFileResult()
         {
             // Arrange
-            var controller = new YeeBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new YeeBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
             var metaModel = new BetListDetailExportMetaModel { Date = "2024-01-01", SportTypeName = "Football" };
             var mockStream = new System.IO.MemoryStream();
 
@@ -256,7 +258,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct
         public async Task Export_ShouldSetMetaModelProperties()
         {
             // Arrange
-            var controller = new YeeBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new YeeBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
             var metaModel = new BetListDetailExportMetaModel { Date = "2024-01-01", SportTypeName = "Football" };
             var mockStream = new System.IO.MemoryStream();
 
@@ -284,7 +286,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct
         public void BuildTitle_WithSportTypeName_ShouldReturnFormattedTitle()
         {
             // Arrange
-            var controller = new YeeBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new YeeBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
             var betDate = "2024-01-01";
             var sportTypeName = "Football";
 
@@ -300,7 +302,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct
         public void BuildTitle_WithoutSportTypeName_ShouldReturnFormattedTitle()
         {
             // Arrange
-            var controller = new YeeBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new YeeBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
             var betDate = "2024-01-01";
 
             // Act
@@ -326,7 +328,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct
         public void Index_ShouldHaveHttpGetAttribute()
         {
             // Arrange
-            var controller = new YeeBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new YeeBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
             var methodInfo = typeof(BetListDetailControllerBase).GetMethod("Index");
 
             // Act & Assert
@@ -339,7 +341,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct
         public void Data_ShouldHaveHttpPostAttribute()
         {
             // Arrange
-            var controller = new YeeBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new YeeBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
             var methodInfo = typeof(BetListDetailControllerBase).GetMethod("Data");
 
             // Act & Assert
@@ -352,7 +354,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct
         public void Export_ShouldHaveHttpPostAttribute()
         {
             // Arrange
-            var controller = new YeeBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new YeeBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
             var methodInfo = typeof(BetListDetailControllerBase).GetMethod("Export");
 
             // Act & Assert

@@ -8,8 +8,8 @@
 
     public class LCJackpotWonBetListDetailController : BetListDetailControllerBase
     {
-        public LCJackpotWonBetListDetailController(IBetListApiClient betlistClient, IContextService contextService)
-            : base(betlistClient, contextService)
+        public LCJackpotWonBetListDetailController(IBetListApiClient betlistClient, IContextService contextService, IResourceService resourceService)
+            : base(betlistClient, contextService, resourceService)
         {
         }
 

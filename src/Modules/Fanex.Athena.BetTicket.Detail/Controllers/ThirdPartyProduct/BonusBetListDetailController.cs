@@ -7,8 +7,8 @@
 
     public class BonusBetListDetailController : BetListDetailControllerBase
     {
-        public BonusBetListDetailController(IBetListApiClient betlistClient, IContextService contextService)
-            : base(betlistClient, contextService)
+        public BonusBetListDetailController(IBetListApiClient betlistClient, IContextService contextService, IResourceService resourceService)
+            : base(betlistClient, contextService, resourceService)
         {
         }
 

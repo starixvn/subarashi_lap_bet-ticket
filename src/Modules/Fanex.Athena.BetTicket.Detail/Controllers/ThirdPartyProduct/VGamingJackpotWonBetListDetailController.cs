@@ -8,8 +8,8 @@
 
     public class VGamingJackpotWonBetListDetailController : BetListDetailControllerBase
     {
-        public VGamingJackpotWonBetListDetailController(IBetListApiClient betlistClient, IContextService contextService)
-            : base(betlistClient, contextService)
+        public VGamingJackpotWonBetListDetailController(IBetListApiClient betlistClient, IContextService contextService, IResourceService resourceService)
+            : base(betlistClient, contextService, resourceService)
         {
         }
 
