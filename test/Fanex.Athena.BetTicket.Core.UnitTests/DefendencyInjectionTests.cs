@@ -46,7 +46,7 @@ namespace Fanex.Athena.BetTicket.Core.UnitTests
             // Assert
             var service1 = serviceProvider.GetService<IBetListApiClient>();
             var service2 = serviceProvider.GetService<IBetListApiClient>();
-            
+
             Assert.NotNull(service1);
             Assert.NotNull(service2);
             Assert.NotSame(service1, service2); // Transient services should be different instances
@@ -65,7 +65,7 @@ namespace Fanex.Athena.BetTicket.Core.UnitTests
             // Assert
             var service1 = serviceProvider.GetService<IContextService>();
             var service2 = serviceProvider.GetService<IContextService>();
-            
+
             Assert.NotNull(service1);
             Assert.NotNull(service2);
             Assert.Same(service1, service2); // Scoped services should be the same instance within the same scope
@@ -84,7 +84,26 @@ namespace Fanex.Athena.BetTicket.Core.UnitTests
             // Assert
             var service1 = serviceProvider.GetService<ILicenseeService>();
             var service2 = serviceProvider.GetService<ILicenseeService>();
-            
+
+            Assert.NotNull(service1);
+            Assert.NotNull(service2);
+            Assert.Same(service1, service2); // Singleton services should be the same instance
+        }
+
+        [Fact]
+        public void AddCore_ShouldRegisterResourceServiceAsSingleton()
+        {
+            // Arrange
+            var services = new ServiceCollection();
+
+            // Act
+            services.AddCore();
+            var serviceProvider = services.BuildServiceProvider();
+
+            // Assert
+            var service1 = serviceProvider.GetService<IResourceService>();
+            var service2 = serviceProvider.GetService<IResourceService>();
+
             Assert.NotNull(service1);
             Assert.NotNull(service2);
             Assert.Same(service1, service2); // Singleton services should be the same instance
@@ -120,7 +139,7 @@ namespace Fanex.Athena.BetTicket.Core.UnitTests
             // Assert
             var service1 = serviceProvider.GetService<IDbFactory>();
             var service2 = serviceProvider.GetService<IDbFactory>();
-            
+
             Assert.NotNull(service1);
             Assert.NotNull(service2);
             Assert.Same(service1, service2); // Singleton services should be the same instance
@@ -141,6 +160,7 @@ namespace Fanex.Athena.BetTicket.Core.UnitTests
             Assert.NotNull(serviceProvider.GetService<IBetListApiClient>());
             Assert.NotNull(serviceProvider.GetService<IContextService>());
             Assert.NotNull(serviceProvider.GetService<ILicenseeService>());
+            Assert.NotNull(serviceProvider.GetService<IResourceService>());
             Assert.NotNull(serviceProvider.GetService<IHttpContextAccessor>());
             Assert.NotNull(serviceProvider.GetService<IDbFactory>());
         }
@@ -189,11 +209,13 @@ namespace Fanex.Athena.BetTicket.Core.UnitTests
             var betListApiClient = serviceProvider.GetService<IBetListApiClient>();
             var contextService = serviceProvider.GetService<IContextService>();
             var licenseeService = serviceProvider.GetService<ILicenseeService>();
+            var resourceService = serviceProvider.GetService<IResourceService>();
             var dbFactory = serviceProvider.GetService<IDbFactory>();
 
             Assert.IsType<BetListApiClient>(betListApiClient);
             Assert.IsType<ContextService>(contextService);
             Assert.IsType<LicenseeService>(licenseeService);
+            Assert.IsType<ResourceService>(resourceService);
             Assert.IsType<DbFactory>(dbFactory);
         }
 
@@ -226,6 +248,10 @@ namespace Fanex.Athena.BetTicket.Core.UnitTests
             var singleton1 = serviceProvider.GetService<ILicenseeService>();
             var singleton2 = scope.ServiceProvider.GetService<ILicenseeService>();
             Assert.Same(singleton1, singleton2);
+
+            var resourceService1 = serviceProvider.GetService<IResourceService>();
+            var resourceService2 = scope.ServiceProvider.GetService<IResourceService>();
+            Assert.Same(resourceService1, resourceService2);
         }
 
         [Fact]
@@ -243,4 +269,4 @@ namespace Fanex.Athena.BetTicket.Core.UnitTests
             Assert.Null(serviceProvider.GetService<string>());
         }
     }
-} 
+}

@@ -16,6 +16,7 @@ using Core.Services;
 using Data;
 using Data.SqlServer;
 using Data.Vault;
+using Fanex.RemotingRef;
 using IdentityModel.AspNetCore.OAuth2Introspection;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -77,6 +78,10 @@ public class Startup
         ConfigProxy(services, skipCheckClientIP);
         ConfigRequestLocalization(services);
         services.AddCore();
+
+        RefDataTypeContainer
+            .ConnectTo(new Uri(Configuration["RemotingRefUrl"]))
+            .FromApplication("LAP.BetTicket");
 
         services.AddHttpClient<IBetListApiClient, BetListApiClient>(client => { client.BaseAddress = new Uri(Configuration["ConsoleClient:BetList:Host"]); })
             .SetHandlerLifetime(TimeSpan.FromDays(1));

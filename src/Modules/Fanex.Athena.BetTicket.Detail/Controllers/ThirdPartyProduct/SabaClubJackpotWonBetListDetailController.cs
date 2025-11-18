@@ -8,8 +8,8 @@
 
     public class SabaClubJackpotWonBetListDetailController : BetListDetailControllerBase
     {
-        public SabaClubJackpotWonBetListDetailController(IBetListApiClient betlistClient, IContextService contextService)
-            : base(betlistClient, contextService)
+        public SabaClubJackpotWonBetListDetailController(IBetListApiClient betlistClient, IContextService contextService, IResourceService resourceService)
+            : base(betlistClient, contextService, resourceService)
         {
         }
 

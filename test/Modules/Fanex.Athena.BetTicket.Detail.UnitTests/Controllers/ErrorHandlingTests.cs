@@ -18,18 +18,20 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers
     {
         private readonly Mock<IBetListApiClient> _mockBetListApiClient;
         private readonly Mock<IContextService> _mockContextService;
+        private readonly Mock<IResourceService> _mockResourceService;
 
         public ErrorHandlingTests()
         {
             _mockBetListApiClient = new Mock<IBetListApiClient>();
             _mockContextService = new Mock<IContextService>();
+            _mockResourceService = new Mock<IResourceService>();
         }
 
         [Fact]
         public async Task Data_WhenApiClientThrowsException_ShouldPropagateException()
         {
             // Arrange
-            var controller = new AllBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new AllBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
             var metaModel = new BetListDetailApiMetaModel();
 
             _mockBetListApiClient.Setup(x => x.Post<BetListViewModel>(It.IsAny<string>(), It.IsAny<object>(), It.IsAny<string>()))
@@ -43,7 +45,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers
         public async Task Data_WhenApiClientReturnsNull_ShouldHandleGracefully()
         {
             // Arrange
-            var controller = new AllBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new AllBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
             var metaModel = new BetListDetailApiMetaModel();
 
             _mockBetListApiClient.Setup(x => x.Post<BetListViewModel>(It.IsAny<string>(), It.IsAny<object>(), It.IsAny<string>()))
@@ -57,7 +59,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers
         public async Task Export_WhenApiClientThrowsException_ShouldPropagateException()
         {
             // Arrange
-            var controller = new AllBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new AllBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
             var metaModel = new BetListDetailExportMetaModel { Date = "2024-01-01", SportTypeName = "Football" };
 
             _mockBetListApiClient.Setup(x => x.PostStream(It.IsAny<string>(), It.IsAny<object>(), It.IsAny<string>(), 100))
@@ -78,7 +80,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers
         public async Task Export_WhenApiClientReturnsNullStream_ShouldHandleGracefully()
         {
             // Arrange
-            var controller = new AllBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new AllBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
             var metaModel = new BetListDetailExportMetaModel { Date = "2024-01-01", SportTypeName = "Football" };
 
             _mockBetListApiClient.Setup(x => x.PostStream(It.IsAny<string>(), It.IsAny<object>(), It.IsAny<string>(), 100))
@@ -99,7 +101,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers
         public void Index_WithNullMetaModel_ShouldHandleGracefully()
         {
             // Arrange
-            var controller = new AllBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new AllBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
             BetListDetailMetaModel metaModel = null;
 
             // Setup HttpContext
@@ -118,7 +120,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers
         public async Task Data_WithNullMetaModel_ShouldThrowException()
         {
             // Arrange
-            var controller = new AllBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new AllBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
             BetListDetailApiMetaModel metaModel = null;
 
             // Act & Assert
@@ -131,7 +133,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers
             // Arrange
             _mockContextService.Setup(x => x.IsAllowedCustomerComm)
                 .Throws(new UnauthorizedAccessException("Access denied"));
-            var controller = new AllBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new AllBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
 
             // Act & Assert - Exception is thrown when ShowingOption property is accessed (wrapped in TargetInvocationException)
             var ex = Assert.Throws<System.Reflection.TargetInvocationException>(() =>
@@ -147,7 +149,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers
         public async Task Data_WithEmptyResponseData_ShouldHandleGracefully()
         {
             // Arrange
-            var controller = new AllBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new AllBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
             var metaModel = new BetListDetailApiMetaModel();
             var mockResponse = new BetListViewModel
             {
@@ -171,7 +173,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers
         public async Task Data_WithNullTotalInResponse_ShouldThrowException()
         {
             // Arrange
-            var controller = new AllBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new AllBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
             var metaModel = new BetListDetailApiMetaModel();
             var mockResponse = new BetListViewModel
             {
@@ -190,7 +192,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers
         public async Task Data_WithNullMainInResponse_ShouldThrowException()
         {
             // Arrange
-            var controller = new AllBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new AllBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
             var metaModel = new BetListDetailApiMetaModel();
             var mockResponse = new BetListViewModel
             {
@@ -209,7 +211,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers
         public void Index_WithoutHttpContext_ShouldThrowException()
         {
             // Arrange
-            var controller = new AllBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new AllBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
             var metaModel = new BetListDetailMetaModel { SportTypeName = "Football" };
             // Don't set HttpContext
 
@@ -221,7 +223,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers
         public async Task Export_WithoutHttpContext_ShouldThrowException()
         {
             // Arrange
-            var controller = new AllBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new AllBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
             var metaModel = new BetListDetailExportMetaModel { Date = "2024-01-01", SportTypeName = "Football" };
             var mockStream = new System.IO.MemoryStream();
 
@@ -238,7 +240,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers
         public async Task Data_WithVeryLargeDecimalValues_ShouldHandleGracefully()
         {
             // Arrange
-            var controller = new AllBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new AllBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
             var metaModel = new BetListDetailApiMetaModel();
             var mockResponse = new BetListViewModel
             {
@@ -271,7 +273,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers
         public async Task Data_WithNegativeDecimalValues_ShouldHandleGracefully()
         {
             // Arrange
-            var controller = new AllBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new AllBetBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
             var metaModel = new BetListDetailApiMetaModel();
             var mockResponse = new BetListViewModel
             {

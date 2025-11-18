@@ -8,8 +8,8 @@
 
     public class FunkyGamesBetListDetailController : BetListDetailControllerBase
     {
-        public FunkyGamesBetListDetailController(IBetListApiClient betListClient, IContextService contextService)
-            : base(betListClient, contextService)
+        public FunkyGamesBetListDetailController(IBetListApiClient betlistClient, IContextService contextService, IResourceService resourceService)
+            : base(betlistClient, contextService, resourceService)
         {
         }
 

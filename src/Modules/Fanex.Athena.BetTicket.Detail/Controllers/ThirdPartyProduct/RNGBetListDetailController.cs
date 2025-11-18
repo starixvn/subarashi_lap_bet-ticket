@@ -7,8 +7,8 @@ namespace Fanex.Athena.BetTicket.Detail.Controllers
 {
     public class RNGBetListDetailController : BetListDetailControllerBase
     {
-        public RNGBetListDetailController(IBetListApiClient betlistClient, IContextService contextService)
-            : base(betlistClient, contextService)
+        public RNGBetListDetailController(IBetListApiClient betlistClient, IContextService contextService, IResourceService resourceService)
+            : base(betlistClient, contextService, resourceService)
         {
         }
 

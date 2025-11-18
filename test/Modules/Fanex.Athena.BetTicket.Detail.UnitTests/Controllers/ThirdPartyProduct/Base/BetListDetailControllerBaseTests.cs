@@ -21,8 +21,8 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct.
     // Concrete implementation for testing the abstract base class
     public class TestBetListDetailController : BetListDetailControllerBase
     {
-        public TestBetListDetailController(IBetListApiClient betlistClient, IContextService contextService)
-            : base(betlistClient, contextService)
+        public TestBetListDetailController(IBetListApiClient betlistClient, IContextService contextService, IResourceService resourceService)
+            : base(betlistClient, contextService, resourceService)
         {
         }
 
@@ -37,10 +37,29 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct.
         protected override ShowingOption ShowingOption => new ShowingOption { GrandTotalVisible = true };
     }
 
+    public class TestBetListDetailControllerWithoutExcelFileName : BetListDetailControllerBase
+    {
+        public TestBetListDetailControllerWithoutExcelFileName(IBetListApiClient betlistClient, IContextService contextService, IResourceService resourceService)
+            : base(betlistClient, contextService, resourceService)
+        {
+        }
+
+        protected override int[] HiddenColumns => new[] { 1, 2, 3 };
+
+        protected override string ProductName => "TestProduct";
+
+        protected override string ExcelFileName => null;
+
+        public override string StoreProcedure => "sp_TestBetList";
+
+        protected override ShowingOption ShowingOption => new ShowingOption { GrandTotalVisible = true };
+    }
+
     public class BetListDetailControllerBaseTests
     {
         private readonly Mock<IBetListApiClient> _mockBetListApiClient;
         private readonly Mock<IContextService> _mockContextService;
+        private readonly Mock<IResourceService> _mockResourceService;
         private readonly Mock<HttpContext> _mockHttpContext;
         private readonly TestBetListDetailController _controller;
 
@@ -48,9 +67,10 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct.
         {
             _mockBetListApiClient = new Mock<IBetListApiClient>();
             _mockContextService = new Mock<IContextService>();
+            _mockResourceService = new Mock<IResourceService>();
             _mockHttpContext = new Mock<HttpContext>();
-            _controller = new TestBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
-            
+            _controller = new TestBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
+
             // Setup HttpContext for the controller
             _controller.ControllerContext = new ControllerContext
             {
@@ -73,7 +93,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct.
         public void Controller_ShouldInheritFromController()
         {
             // Arrange & Act
-            var controller = new TestBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new TestBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
 
             // Assert
             Assert.IsAssignableFrom<Controller>(controller);
@@ -258,8 +278,8 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct.
 
             _mockContextService.Setup(x => x.Language).Returns("en-US");
             _mockBetListApiClient.Setup(x => x.Post<BetListViewModel>(
-                "/BetList/GetBetList", 
-                It.IsAny<object>(), 
+                "/BetList/GetBetList",
+                It.IsAny<object>(),
                 "en-US"))
                 .ReturnsAsync(expectedResponse);
 
@@ -291,8 +311,8 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct.
 
             _mockContextService.Setup(x => x.Language).Returns("en-US");
             _mockBetListApiClient.Setup(x => x.Post<BetListViewModel>(
-                It.IsAny<string>(), 
-                It.IsAny<object>(), 
+                It.IsAny<string>(),
+                It.IsAny<object>(),
                 It.IsAny<string>()))
                 .ReturnsAsync(expectedResponse);
 
@@ -316,8 +336,8 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct.
 
             _mockContextService.Setup(x => x.Language).Returns("th-TH");
             _mockBetListApiClient.Setup(x => x.Post<BetListViewModel>(
-                It.IsAny<string>(), 
-                It.IsAny<object>(), 
+                It.IsAny<string>(),
+                It.IsAny<object>(),
                 It.IsAny<string>()))
                 .ReturnsAsync(expectedResponse);
 
@@ -326,9 +346,9 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct.
 
             // Assert
             _mockBetListApiClient.Verify(x => x.Post<BetListViewModel>(
-                "/BetList/GetBetList", 
-                metaModel, 
-                "th-TH"), 
+                "/BetList/GetBetList",
+                metaModel,
+                "th-TH"),
                 Times.Once);
         }
 
@@ -345,8 +365,8 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct.
             var mockStream = new MemoryStream();
             _mockContextService.Setup(x => x.Language).Returns("en-US");
             _mockBetListApiClient.Setup(x => x.PostStream(
-                "/BetList/ExportExcel", 
-                It.IsAny<object>(), 
+                "/BetList/ExportExcel",
+                It.IsAny<object>(),
                 "en-US",
                 100))
                 .ReturnsAsync(mockStream);
@@ -385,8 +405,8 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct.
             var mockStream = new MemoryStream();
             _mockContextService.Setup(x => x.Language).Returns("en-US");
             _mockBetListApiClient.Setup(x => x.PostStream(
-                It.IsAny<string>(), 
-                It.IsAny<object>(), 
+                It.IsAny<string>(),
+                It.IsAny<object>(),
                 It.IsAny<string>(),
                 100))
                 .ReturnsAsync(mockStream);
@@ -427,8 +447,8 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct.
             var mockStream = new MemoryStream();
             _mockContextService.Setup(x => x.Language).Returns("th-TH");
             _mockBetListApiClient.Setup(x => x.PostStream(
-                It.IsAny<string>(), 
-                It.IsAny<object>(), 
+                It.IsAny<string>(),
+                It.IsAny<object>(),
                 It.IsAny<string>(),
                 100))
                 .ReturnsAsync(mockStream);
@@ -449,10 +469,10 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct.
 
             // Assert
             _mockBetListApiClient.Verify(x => x.PostStream(
-                "/BetList/ExportExcel", 
-                metaModel, 
+                "/BetList/ExportExcel",
+                metaModel,
                 "th-TH",
-                100), 
+                100),
                 Times.Once);
         }
 
@@ -463,11 +483,152 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct.
         [Fact]
         public void Index_ShouldSetViewBagProperties()
         {
-            // Arrange
+            var controllerWithoutExcelFileName = new TestBetListDetailControllerWithoutExcelFileName(
+                _mockBetListApiClient.Object,
+                _mockContextService.Object,
+                _mockResourceService.Object);
+
+            controllerWithoutExcelFileName.ControllerContext = new ControllerContext
+            {
+                HttpContext = _mockHttpContext.Object
+            };
+
             var metaModel = new BetListDetailMetaModel
             {
                 Date = DateTime.Parse("2024-01-01"),
-                SportTypeName = "Football"
+                SportTypeName = "Football",
+                SportTypeId = 1
+            };
+
+            var mockRequest = new Mock<HttpRequest>();
+            var mockRouteValues = new Microsoft.AspNetCore.Routing.RouteValueDictionary
+            {
+                { "controller", "TestController" }
+            };
+            mockRequest.Setup(x => x.RouteValues).Returns(mockRouteValues);
+            _mockHttpContext.Setup(x => x.Request).Returns(mockRequest.Object);
+            _mockResourceService.Setup(x => x.GetSportName(1, "en-US")).Returns("Football");
+
+            var result = controllerWithoutExcelFileName.Index(metaModel);
+
+            Assert.NotNull(result);
+            _mockResourceService.Verify(x => x.GetSportName(1, "en-US"), Times.Once);
+        }
+
+        [Fact]
+        public void Constructor_WithValidDependencies_ShouldInitialize()
+        {
+            // Arrange & Act
+            var controller = new TestBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
+
+            // Assert
+            Assert.NotNull(controller);
+        }
+
+        [Fact]
+        public void Constructor_WithNullBetListApiClient_ShouldNotThrowException()
+        {
+            // Act & Assert
+            var controller = new TestBetListDetailController(null, _mockContextService.Object, _mockResourceService.Object);
+            Assert.NotNull(controller);
+        }
+
+        [Fact]
+        public void Constructor_WithNullContextService_ShouldNotThrowException()
+        {
+            // Act & Assert
+            var controller = new TestBetListDetailController(_mockBetListApiClient.Object, null, _mockResourceService.Object);
+            Assert.NotNull(controller);
+        }
+
+        [Fact]
+        public void Constructor_WithNullResourceService_ShouldNotThrowException()
+        {
+            // Act & Assert
+            var controller = new TestBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, null);
+            Assert.NotNull(controller);
+        }
+
+        [Fact]
+        public void Index_WhenExcelFileNameIsNull_ShouldCallGetSportNameAndRemoveSpaces()
+        {
+            var controllerWithoutExcelFileName = new TestBetListDetailControllerWithoutExcelFileName(
+                _mockBetListApiClient.Object,
+                _mockContextService.Object,
+                _mockResourceService.Object);
+
+            controllerWithoutExcelFileName.ControllerContext = new ControllerContext
+            {
+                HttpContext = _mockHttpContext.Object
+            };
+
+            var metaModel = new BetListDetailMetaModel
+            {
+                Date = DateTime.Parse("2024-01-01"),
+                SportTypeName = "Football",
+                SportTypeId = 1
+            };
+
+            var mockRequest = new Mock<HttpRequest>();
+            var mockRouteValues = new Microsoft.AspNetCore.Routing.RouteValueDictionary
+            {
+                { "controller", "TestController" }
+            };
+            mockRequest.Setup(x => x.RouteValues).Returns(mockRouteValues);
+            _mockHttpContext.Setup(x => x.Request).Returns(mockRequest.Object);
+            _mockResourceService.Setup(x => x.GetSportName(1, "en-US")).Returns("American Football");
+
+            var result = controllerWithoutExcelFileName.Index(metaModel);
+
+            Assert.NotNull(result);
+            _mockResourceService.Verify(x => x.GetSportName(1, "en-US"), Times.Once);
+        }
+
+        [Fact]
+        public void Index_WhenExcelFileNameIsNull_ShouldSetViewBagExportFileNameWithoutSpaces()
+        {
+            var controllerWithoutExcelFileName = new TestBetListDetailControllerWithoutExcelFileName(
+                _mockBetListApiClient.Object,
+                _mockContextService.Object,
+                _mockResourceService.Object);
+
+            controllerWithoutExcelFileName.ControllerContext = new ControllerContext
+            {
+                HttpContext = _mockHttpContext.Object
+            };
+
+            var metaModel = new BetListDetailMetaModel
+            {
+                Date = DateTime.Parse("2024-01-01"),
+                SportTypeName = "Football",
+                SportTypeId = 1
+            };
+
+            var mockRequest = new Mock<HttpRequest>();
+            var mockRouteValues = new Microsoft.AspNetCore.Routing.RouteValueDictionary
+            {
+                { "controller", "TestController" }
+            };
+            mockRequest.Setup(x => x.RouteValues).Returns(mockRouteValues);
+            _mockHttpContext.Setup(x => x.Request).Returns(mockRequest.Object);
+            _mockResourceService.Setup(x => x.GetSportName(1, "en-US")).Returns("Ice Hockey");
+
+            var result = controllerWithoutExcelFileName.Index(metaModel);
+
+            Assert.NotNull(result);
+            var viewResult = result as ViewResult;
+            Assert.NotNull(viewResult);
+            Assert.Equal("IceHockeyDetail", controllerWithoutExcelFileName.ViewBag.ExportFileName);
+        }
+
+        [Fact]
+        public void Index_WhenExcelFileNameIsSet_ShouldUseExcelFileName()
+        {
+            var metaModel = new BetListDetailMetaModel
+            {
+                Date = DateTime.Parse("2024-01-01"),
+                SportTypeName = "Football",
+                SportTypeId = 1
             };
 
             var mockRequest = new Mock<HttpRequest>();
@@ -478,41 +639,87 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct.
             mockRequest.Setup(x => x.RouteValues).Returns(mockRouteValues);
             _mockHttpContext.Setup(x => x.Request).Returns(mockRequest.Object);
 
-            // Act
             var result = _controller.Index(metaModel);
 
-            // Assert
             Assert.NotNull(result);
-            // ViewBag properties are set but not easily testable without reflection
-            // The main test is that the method executes without exception
+            var viewResult = result as ViewResult;
+            Assert.NotNull(viewResult);
+            Assert.Equal("TestProduct.xlsx", _controller.ViewBag.ExportFileName);
+            _mockResourceService.Verify(x => x.GetSportName(It.IsAny<int>(), It.IsAny<string>()), Times.Never);
         }
 
         [Fact]
-        public void Constructor_WithValidDependencies_ShouldInitialize()
+        public void Index_WhenExcelFileNameIsNullAndSportNameHasMultipleSpaces_ShouldRemoveAllSpaces()
         {
-            // Arrange & Act
-            var controller = new TestBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controllerWithoutExcelFileName = new TestBetListDetailControllerWithoutExcelFileName(
+                _mockBetListApiClient.Object,
+                _mockContextService.Object,
+                _mockResourceService.Object);
 
-            // Assert
-            Assert.NotNull(controller);
+            controllerWithoutExcelFileName.ControllerContext = new ControllerContext
+            {
+                HttpContext = _mockHttpContext.Object
+            };
+
+            var metaModel = new BetListDetailMetaModel
+            {
+                Date = DateTime.Parse("2024-01-01"),
+                SportTypeName = "Football",
+                SportTypeId = 1
+            };
+
+            var mockRequest = new Mock<HttpRequest>();
+            var mockRouteValues = new Microsoft.AspNetCore.Routing.RouteValueDictionary
+            {
+                { "controller", "TestController" }
+            };
+            mockRequest.Setup(x => x.RouteValues).Returns(mockRouteValues);
+            _mockHttpContext.Setup(x => x.Request).Returns(mockRequest.Object);
+            _mockResourceService.Setup(x => x.GetSportName(1, "en-US")).Returns("Table  Tennis  Sport");
+
+            var result = controllerWithoutExcelFileName.Index(metaModel);
+
+            Assert.NotNull(result);
+            var viewResult = result as ViewResult;
+            Assert.NotNull(viewResult);
+            Assert.Equal("TableTennisSportDetail", controllerWithoutExcelFileName.ViewBag.ExportFileName);
         }
 
         [Fact]
-        public void Constructor_WithNullBetListApiClient_ShouldNotThrowException()
+        public void Index_WhenExcelFileNameIsNullAndSportNameIsEmpty_ShouldHandleEmptyString()
         {
-            // Act & Assert
-            var controller = new TestBetListDetailController(null, _mockContextService.Object);
-            Assert.NotNull(controller);
+            var controllerWithoutExcelFileName = new TestBetListDetailControllerWithoutExcelFileName(
+                _mockBetListApiClient.Object,
+                _mockContextService.Object,
+                _mockResourceService.Object);
+
+            controllerWithoutExcelFileName.ControllerContext = new ControllerContext
+            {
+                HttpContext = _mockHttpContext.Object
+            };
+
+            var metaModel = new BetListDetailMetaModel
+            {
+                Date = DateTime.Parse("2024-01-01"),
+                SportTypeName = "Football",
+                SportTypeId = 1
+            };
+
+            var mockRequest = new Mock<HttpRequest>();
+            var mockRouteValues = new Microsoft.AspNetCore.Routing.RouteValueDictionary
+            {
+                { "controller", "TestController" }
+            };
+            mockRequest.Setup(x => x.RouteValues).Returns(mockRouteValues);
+            _mockHttpContext.Setup(x => x.Request).Returns(mockRequest.Object);
+            _mockResourceService.Setup(x => x.GetSportName(1, "en-US")).Returns(string.Empty);
+
+            var result = controllerWithoutExcelFileName.Index(metaModel);
+
+            Assert.NotNull(result);
+            var viewResult = result as ViewResult;
+            Assert.NotNull(viewResult);
+            Assert.Equal("Detail", controllerWithoutExcelFileName.ViewBag.ExportFileName);
         }
-
-        [Fact]
-        public void Constructor_WithNullContextService_ShouldNotThrowException()
-        {
-            // Act & Assert
-            var controller = new TestBetListDetailController(_mockBetListApiClient.Object, null);
-            Assert.NotNull(controller);
-        }
-
-
     }
-} 
+}

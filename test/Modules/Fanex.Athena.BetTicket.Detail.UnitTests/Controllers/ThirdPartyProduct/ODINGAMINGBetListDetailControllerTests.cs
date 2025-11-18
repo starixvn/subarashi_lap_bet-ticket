@@ -20,18 +20,20 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct
     {
         private readonly Mock<IBetListApiClient> _mockBetListApiClient;
         private readonly Mock<IContextService> _mockContextService;
-
+        private readonly Mock<IResourceService> _mockResourceService;
         public ODINGAMINGBetListDetailControllerTests()
         {
             _mockBetListApiClient = new Mock<IBetListApiClient>();
             _mockContextService = new Mock<IContextService>();
-        }
+            _mockResourceService = new Mock<IResourceService>();
+
+                }
 
         [Fact]
         public void ODINGAMINGBetListDetailController_ShouldInheritFromBase()
         {
             // Arrange & Act
-            var controller = new ODINGAMINGBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new ODINGAMINGBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
 
             // Assert
             Assert.IsAssignableFrom<BetListDetailControllerBase>(controller);
@@ -41,7 +43,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct
         public void Constructor_WithValidDependencies_ShouldInitialize()
         {
             // Arrange & Act
-            var controller = new ODINGAMINGBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new ODINGAMINGBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
 
             // Assert
             Assert.NotNull(controller);
@@ -51,7 +53,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct
         public void Constructor_WithNullBetListApiClient_ShouldNotThrow()
         {
             // Arrange, Act & Assert - Controllers don't validate null dependencies
-            var controller = new ODINGAMINGBetListDetailController(null, _mockContextService.Object);
+            var controller = new ODINGAMINGBetListDetailController(null, _mockContextService.Object, null);
             Assert.NotNull(controller);
         }
 
@@ -59,7 +61,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct
         public void Constructor_WithNullContextService_ShouldNotThrow()
         {
             // Arrange, Act & Assert - Controllers don't validate null dependencies
-            var controller = new ODINGAMINGBetListDetailController(_mockBetListApiClient.Object, null);
+            var controller = new ODINGAMINGBetListDetailController(_mockBetListApiClient.Object, null, null);
             Assert.NotNull(controller);
         }
 
@@ -67,7 +69,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct
         public void StoreProcedure_ShouldReturnCorrectValue()
         {
             // Arrange
-            var controller = new ODINGAMINGBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new ODINGAMINGBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
 
             // Act
             var result = controller.StoreProcedure;
@@ -80,7 +82,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct
         public void HiddenColumns_ShouldContainLicenseeWLColumn()
         {
             // Arrange
-            var controller = new ODINGAMINGBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new ODINGAMINGBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
 
             // Act
             var hiddenColumns = controller.GetType()
@@ -96,7 +98,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct
         public void ProductName_ShouldReturnCorrectValue()
         {
             // Arrange
-            var controller = new ODINGAMINGBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new ODINGAMINGBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
 
             // Act
             var productName = controller.GetType()
@@ -111,7 +113,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct
         public void ExcelFileName_ShouldReturnCorrectValue()
         {
             // Arrange
-            var controller = new ODINGAMINGBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new ODINGAMINGBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
 
             // Act
             var excelFileName = controller.GetType()
@@ -127,7 +129,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct
         {
             // Arrange
             _mockContextService.Setup(x => x.IsAllowedCustomerComm).Returns(true);
-            var controller = new ODINGAMINGBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new ODINGAMINGBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
 
             // Act
             var showingOption = controller.GetType()
@@ -144,7 +146,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct
         {
             // Arrange
             _mockContextService.Setup(x => x.IsAllowedCustomerComm).Returns(false);
-            var controller = new ODINGAMINGBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new ODINGAMINGBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
 
             // Act
             var showingOption = controller.GetType()
@@ -160,7 +162,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct
         public void Index_ShouldSetViewBagProperties()
         {
             // Arrange
-            var controller = new ODINGAMINGBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new ODINGAMINGBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
             var metaModel = new BetListDetailMetaModel { SportTypeName = "Football" };
 
             // Setup HttpContext
@@ -185,7 +187,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct
         public async Task Data_ShouldReturnJsonResult()
         {
             // Arrange
-            var controller = new ODINGAMINGBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new ODINGAMINGBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
             var metaModel = new BetListDetailApiMetaModel();
             var mockResponse = new BetListViewModel
             {
@@ -207,7 +209,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct
         public async Task Data_ShouldSetMetaModelUspKey()
         {
             // Arrange
-            var controller = new ODINGAMINGBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new ODINGAMINGBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
             var metaModel = new BetListDetailApiMetaModel();
             var mockResponse = new BetListViewModel
             {
@@ -229,7 +231,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct
         public async Task Export_ShouldReturnFileResult()
         {
             // Arrange
-            var controller = new ODINGAMINGBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new ODINGAMINGBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
             var metaModel = new BetListDetailExportMetaModel { Date = "2024-01-01", SportTypeName = "Football" };
             var mockStream = new System.IO.MemoryStream();
 

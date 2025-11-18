@@ -14,18 +14,20 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct
     {
         private readonly Mock<IBetListApiClient> _mockBetListApiClient;
         private readonly Mock<IContextService> _mockContextService;
-
+        private readonly Mock<IResourceService> _mockResourceService;
         public CardClubBetListDetailControllerTests()
         {
             _mockBetListApiClient = new Mock<IBetListApiClient>();
             _mockContextService = new Mock<IContextService>();
-        }
+            _mockResourceService = new Mock<IResourceService>();
+
+                }
 
         [Fact]
         public void CardClubBetListDetailController_ShouldInheritFromBase()
         {
             // Arrange & Act
-            var controller = new CardClubBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new CardClubBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
 
             // Assert
             Assert.IsAssignableFrom<BetListDetailControllerBase>(controller);
@@ -35,7 +37,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct
         public void CardClubBetListDetailController_ShouldHaveCorrectStoreProcedure()
         {
             // Arrange & Act
-            var controller = new CardClubBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new CardClubBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
 
             // Assert
             Assert.Equal("Lrf_BetList_RNG_Detail", controller.StoreProcedure);
@@ -45,7 +47,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct
         public void Constructor_WithValidDependencies_ShouldInitialize()
         {
             // Arrange & Act
-            var controller = new CardClubBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new CardClubBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
 
             // Assert
             Assert.NotNull(controller);
@@ -55,7 +57,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct
         public void Constructor_WithNullDependencies_ShouldNotThrowException()
         {
             // Act & Assert
-            var controller = new CardClubBetListDetailController(null, null);
+            var controller = new CardClubBetListDetailController(null, null, null);
 
             // Assert
             Assert.NotNull(controller);
@@ -65,7 +67,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct
         public void HiddenColumns_ShouldReturnLicenseeWLColumn()
         {
             // Arrange
-            var controller = new CardClubBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new CardClubBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
 
             // Act
             var hiddenColumns = controller.GetType().GetProperty("HiddenColumns", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)?.GetValue(controller) as int[];
@@ -80,7 +82,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct
         public void ProductName_ShouldReturnCardClub()
         {
             // Arrange
-            var controller = new CardClubBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new CardClubBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
 
             // Act
             var productName = controller.GetType().GetProperty("ProductName", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)?.GetValue(controller) as string;
@@ -93,7 +95,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct
         public void ExcelFileName_ShouldReturnArcadiaGamingDetail()
         {
             // Arrange
-            var controller = new CardClubBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new CardClubBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
 
             // Act
             var excelFileName = controller.GetType().GetProperty("ExcelFileName", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)?.GetValue(controller) as string;
@@ -107,7 +109,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct
         {
             // Arrange
             _mockContextService.Setup(x => x.IsAllowedCustomerComm).Returns(true);
-            var controller = new CardClubBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new CardClubBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
 
             // Act
             var showingOption = controller.GetType().GetProperty("ShowingOption", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)?.GetValue(controller) as ShowingOption;
@@ -123,7 +125,7 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers.ThirdPartyProduct
         {
             // Arrange
             _mockContextService.Setup(x => x.IsAllowedCustomerComm).Returns(false);
-            var controller = new CardClubBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object);
+            var controller = new CardClubBetListDetailController(_mockBetListApiClient.Object, _mockContextService.Object, _mockResourceService.Object);
 
             // Act
             var showingOption = controller.GetType().GetProperty("ShowingOption", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)?.GetValue(controller) as ShowingOption;

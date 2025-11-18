@@ -2,6 +2,7 @@
 using Fanex.Athena.BetTicket.Core.Repositories;
 using Fanex.Athena.BetTicket.Core.Services;
 using Fanex.Core.Utils;
+using Fanex.RemotingRef;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Fanex.Athena.BetTicket.Core
@@ -20,6 +21,8 @@ namespace Fanex.Athena.BetTicket.Core
             services.AddTransient<IBetListApiClient, BetListApiClient>();
             services.AddScoped<IContextService, ContextService>();
             services.AddSingleton<ILicenseeService, LicenseeService>();
+            services.AddSingleton<IResourceService, ResourceService>();
+            services.AddSingleton<IRemotingRefService, RemotingRefService>();
 
             services.AddSingleton<IMetaModelBindingService, BaseMetaModelBindingService>();
 

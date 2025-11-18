@@ -8,8 +8,8 @@
 
     public class GPILiveCasinoBetListDetailController : BetListDetailControllerBase
     {
-        public GPILiveCasinoBetListDetailController(IBetListApiClient betListClient, IContextService contextService)
-            : base(betListClient, contextService)
+        public GPILiveCasinoBetListDetailController(IBetListApiClient betlistClient, IContextService contextService, IResourceService resourceService)
+            : base(betlistClient, contextService, resourceService)
         {
         }
 

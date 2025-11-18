@@ -8,8 +8,8 @@
 
     public class RNGJackpotWonBetListDetailController : BetListDetailControllerBase
     {
-        public RNGJackpotWonBetListDetailController(IBetListApiClient betlistClient, IContextService contextService)
-            : base(betlistClient, contextService)
+        public RNGJackpotWonBetListDetailController(IBetListApiClient betlistClient, IContextService contextService, IResourceService resourceService)
+            : base(betlistClient, contextService, resourceService)
         {
         }
 

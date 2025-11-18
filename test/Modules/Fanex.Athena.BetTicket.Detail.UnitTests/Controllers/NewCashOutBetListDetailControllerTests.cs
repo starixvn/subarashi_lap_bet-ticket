@@ -17,11 +17,13 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers
     {
         private readonly Mock<IBetListApiClient> _mockBetListApiClient;
         private readonly Mock<IContextService> _mockContextService;
+        private readonly Mock<IResourceService> _mockResourceService;
 
         public NewCashOutBetListDetailControllerTests()
         {
             _mockBetListApiClient = new Mock<IBetListApiClient>();
             _mockContextService = new Mock<IContextService>();
+            _mockResourceService = new Mock<IResourceService>();
         }
 
         [Fact]
