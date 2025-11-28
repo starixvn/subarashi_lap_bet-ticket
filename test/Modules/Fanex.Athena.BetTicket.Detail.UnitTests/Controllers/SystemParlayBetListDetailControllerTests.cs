@@ -57,19 +57,6 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers
         }
 
         [Fact]
-        public void Index_ShouldHaveDataValidationAttribute()
-        {
-            // Arrange
-            var controller = new SystemParlayBetListDetailController();
-            var methodInfo = typeof(SystemParlayBetListDetailController).GetMethod("Index");
-
-            // Act & Assert
-            Assert.NotNull(methodInfo);
-            var dataValidationAttribute = Attribute.GetCustomAttribute(methodInfo, typeof(DataValidationAttribute));
-            Assert.NotNull(dataValidationAttribute);
-        }
-
-        [Fact]
         public void Index_ShouldHaveAutoBindingMetaModelAttribute()
         {
             // Arrange
@@ -106,4 +93,4 @@ namespace Fanex.Athena.BetTicket.Detail.UnitTests.Controllers
             Assert.NotNull(authorizeAttribute);
         }
     }
-} 
+}

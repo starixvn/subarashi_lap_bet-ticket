@@ -44,6 +44,12 @@ body {
     .system-parlay-total td {
         background-color: #B1E0AC;
     }
+
+    span.strikethrough {
+        text-decoration: line-through;
+        color: #bbb;
+        font-weight: bold !important;
+    }
 }
 
 .note-block {

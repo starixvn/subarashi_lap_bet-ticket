@@ -32,6 +32,10 @@ export default function ViewDetailEventBuilder() {
         this._openPopup(url, betTeam);
     };
 
+    window.showBetBuilderPlus = (...args) => {
+        _showBetBuilderPlusDetail.apply(this, [this.rootUrl, this.isHideSaba, ...args]);
+    };
+
     window.ViewCashOutHistory = (transId, refNo, betType, betdaqId) => {
         const { url, isCashOut } = UrlDetailBuilder.getCashOutHistoryPopupSetting(this.rootUrl, _getCommonParams.call(this), transId, refNo, betType, betdaqId);
         const title = this._getResource(isCashOut ? 'CashOutDetails' : 'BoughtDetails');
@@ -526,6 +530,35 @@ function _showSingleMatchParlayDetail(rootUrl, transId, custId, status, transInd
     } else {
         divEvent.style.display = 'none';
         divEvent.innerHTML = '';
+    }
+}
+
+function _showBetBuilderPlusDetail(rootUrl, isHideSaba, transId, transIndex, refNo, custId, transDesc, handicap1, handicap2, betcheck, betteam, currency, stake) {
+    let divEvent = document.querySelector('#divEvent_' + transId + '' + transIndex);
+    let nameDiv = document.querySelector('#combinationOfferName_' + transId + transIndex);
+
+    divEvent.classList.add('mx-parlay'); //to make line-through for void-parlay-ticket
+
+    if (divEvent.style.display == 'none') {
+        const url = UrlDetailBuilder.getChoiceBuilderPlusDetailUrl(rootUrl, this._getLanguage());
+        this._beforeShow();
+        DataService.postData(url, { transId, refNo, transDesc: JSON.stringify(transDesc), custId, handicap1, handicap2, betcheck, betteam, currency, stake, isHideSaba }, this._getAccessToken())
+            .then((result) => {
+                const choice = UrlDetailBuilder.buildChoiceBetBuilderPlusDetail(result.data);
+                divEvent.innerHTML = choice;
+                divEvent.style.display = 'block';
+                nameDiv.style.display = 'none';
+
+                this._afterShow();
+            }).catch((error) => {
+                this._afterShow();
+                console.log(error);
+            });
+    }
+    else {
+        divEvent.style.display = 'none';
+        divEvent.innerHTML = '';
+        nameDiv.style.display = 'block';
     }
 }
 
